@@ -1,0 +1,8 @@
+[
+  { "title": "サロン・美容室向け",         "tag": "SALON",          "accent": "#B8722F", "page": "3col.html",     "zip": "one-launch-salon.zip",        "desc": "クリーム×アンバーの暖色トーン" },
+  { "title": "クリニック・美容物販向け",   "tag": "CLINIC / COSME", "accent": "#A98A63", "page": "clinic.html",   "zip": "one-launch-clinic-cosme.zip", "desc": "LINE購入導線・薬機法に配慮" },
+  { "title": "アパレル・雑貨ショップ向け", "tag": "SHOP",           "accent": "#A87C55", "page": "shop.html",     "zip": "one-launch-shop.zip",         "desc": "オフホワイト×キャメルの上質トーン" },
+  { "title": "スポーツ・エンタメ向け",     "tag": "SPORTS / VIDEO", "accent": "#5FA800", "page": "pulse.html",    "zip": "one-launch-sports.zip",       "desc": "ダーク×動画背景の没入型LP" },
+  { "title": "EV・自動車向け",             "tag": "EV / VIDEO",     "accent": "#3F79B0", "page": "axis.html",     "zip": "one-launch-ev.zip",           "desc": "静謐なブルー×動画背景" },
+  { "title": "スタンダード版",             "tag": "STANDARD",       "accent": "#B8722F", "page": "standard.html", "zip": "one-launch-standard.zip",     "desc": "1カラムのパララックスLP" }
+]
