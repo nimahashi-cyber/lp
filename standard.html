@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ONE LAUNCH｜ひと品を、まるごと売り出す。AIマーケティングパック</title>
+<meta name="description" content="AIを活用してLP＋EC、SNS・LINE用画像、QRコードの3点を1商品5万円から。ONE LAUNCHは小さなブランドの「売り出し」をまるごと引き受けるAIマーケティングパックです。">
+<meta name="theme-color" content="#F9F2E7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F9F2E7;
+  --cream-deep:#F1E5D0;
+  --ink:#0C2034;
+  --amber:#B8722F;
+  --amber-soft:#D9A05B;
+  --terra:#A65B3B;
+  --en:'Outfit',sans-serif;
+  --jp:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--jp);
+  font-weight:400;
+  line-height:1.9;
+  letter-spacing:.06em;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.en{font-family:var(--en);font-weight:300;letter-spacing:.22em}
+
+/* ===== header ===== */
+header{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 22px;
+  transition:background .5s,backdrop-filter .5s,padding .5s;
+}
+header.scrolled{
+  background:rgba(249,242,231,.82);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  padding:12px 22px;
+  box-shadow:0 1px 0 rgba(12,32,52,.08);
+}
+.brand{font-family:var(--en);font-weight:500;letter-spacing:.3em;font-size:15px;color:var(--cream);transition:color .5s}
+header.scrolled .brand{color:var(--ink)}
+footer .brand{color:var(--ink)}
+.brand small{display:block;font-family:var(--jp);font-weight:400;font-size:9px;letter-spacing:.28em;color:var(--amber);margin-top:2px}
+.head-cta{
+  font-size:12px;font-weight:500;letter-spacing:.14em;
+  background:var(--ink);color:var(--cream);
+  padding:9px 18px;border-radius:999px;
+  transition:background .3s;
+}
+.head-cta:hover{background:var(--amber)}
+
+/* ===== KV ===== */
+.kv{position:relative;height:100svh;min-height:620px;overflow:hidden}
+.kv-slides{position:absolute;inset:0}
+.kv-slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;transform:scale(1.06);
+  transition:opacity 2s ease;
+}
+.kv-slide.active{opacity:1;animation:kenburns 9s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.09)}to{transform:scale(1)}}
+.kv-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(12,32,52,.22) 0%,rgba(12,32,52,0) 30%,rgba(249,242,231,0) 48%,rgba(249,242,231,.9) 78%,var(--cream) 96%);
+}
+.kv-copy{
+  position:absolute;left:0;right:0;bottom:11svh;z-index:2;
+  text-align:center;padding:0 24px;
+}
+.kv-copy .en-title{
+  font-family:var(--en);font-weight:200;
+  font-size:clamp(40px,11vw,96px);
+  letter-spacing:.12em;line-height:1.05;
+  color:var(--ink);
+}
+.kv-copy .en-title b{font-weight:500}
+.kv-copy .jp-title{
+  margin-top:18px;
+  font-size:clamp(16px,4.4vw,26px);
+  font-weight:700;letter-spacing:.3em;
+  color:var(--ink);
+}
+.kv-copy .kv-sub{
+  margin-top:14px;
+  font-size:clamp(11px,3vw,14px);
+  letter-spacing:.2em;color:var(--terra);font-weight:500;
+}
+.kv-dots{position:absolute;bottom:4.5svh;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:3}
+.kv-dots button{
+  width:34px;height:3px;border:none;cursor:pointer;
+  background:rgba(12,32,52,.22);transition:background .4s;
+}
+.kv-dots button.active{background:var(--ink)}
+.scroll-hint{
+  position:absolute;bottom:0;left:50%;z-index:3;
+  width:1px;height:64px;background:rgba(12,32,52,.35);overflow:hidden;
+}
+.scroll-hint::after{
+  content:"";position:absolute;left:0;top:-30%;width:100%;height:30%;
+  background:var(--ink);animation:drop 1.8s ease-in-out infinite;
+}
+@keyframes drop{to{top:110%}}
+
+/* ===== marquee ===== */
+.marquee{
+  overflow:hidden;white-space:nowrap;
+  padding:26px 0;border-block:1px solid rgba(12,32,52,.14);
+  background:var(--cream);
+}
+.marquee-inner{display:inline-block;animation:mq 26s linear infinite}
+.marquee span{
+  font-family:var(--en);font-weight:200;font-size:clamp(22px,5vw,36px);
+  letter-spacing:.24em;color:var(--ink);margin-right:64px;
+}
+.marquee span i{font-style:normal;color:var(--amber)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ===== common ===== */
+section{position:relative}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.sec-label{
+  font-family:var(--en);font-weight:400;font-size:12px;letter-spacing:.4em;
+  color:var(--amber);margin-bottom:14px;
+}
+.sec-title{
+  font-size:clamp(24px,6vw,40px);font-weight:500;letter-spacing:.14em;line-height:1.5;
+}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 1s ease,transform 1s ease}
+.reveal.on{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* ===== concept ===== */
+.concept{padding:110px 0 120px;text-align:center}
+.concept .statement{
+  font-size:clamp(20px,5.4vw,34px);font-weight:500;
+  letter-spacing:.18em;line-height:2.1;margin-top:34px;
+}
+.concept .statement em{font-style:normal;color:var(--amber)}
+.concept p.body{
+  max-width:600px;margin:36px auto 0;
+  font-size:clamp(13px,3.6vw,15px);line-height:2.3;letter-spacing:.1em;
+}
+
+/* ===== parallax interlude ===== */
+.para{height:72svh;min-height:420px;overflow:hidden;position:relative;display:grid;place-items:center}
+.para-bg{
+  position:absolute;left:0;top:-16%;width:100%;height:132%;
+  background-size:cover;background-position:center;
+  will-change:transform;
+}
+.para-scrim{position:absolute;inset:0;background:rgba(12,32,52,.42)}
+.para-copy h3 span{display:inline-block}
+.para-copy{position:relative;z-index:2;text-align:center;color:var(--cream);padding:0 24px}
+.para-copy .en{display:block;font-size:12px;letter-spacing:.5em;margin-bottom:16px;color:var(--amber-soft)}
+.para-copy h3{font-size:clamp(20px,5.6vw,34px);font-weight:500;letter-spacing:.22em;line-height:2}
+
+/* ===== package ===== */
+.package{padding:110px 0 60px}
+.pkg-head{text-align:center;margin-bottom:64px}
+.pkg-list{display:flex;flex-direction:column;gap:88px}
+.pkg-item{display:grid;gap:26px;align-items:center}
+.pkg-num{
+  font-family:var(--en);font-weight:200;font-size:60px;line-height:1;
+  color:var(--amber);letter-spacing:.05em;
+}
+.pkg-img{
+  overflow:hidden;border-radius:2px;
+  box-shadow:0 24px 60px -24px rgba(12,32,52,.35);
+}
+.pkg-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s ease}
+.pkg-item.on .pkg-img img{transform:scale(1)}
+.pkg-body h3{font-size:clamp(19px,4.8vw,26px);font-weight:700;letter-spacing:.14em;margin:10px 0 14px}
+.pkg-body p{font-size:14px;line-height:2.2;letter-spacing:.08em}
+.pkg-body .note{font-size:11px;color:rgba(12,32,52,.6);margin-top:10px}
+@media(min-width:841px){
+  .pkg-item{grid-template-columns:1fr 1fr;gap:60px}
+  .pkg-item:nth-child(even) .pkg-img{order:2}
+}
+
+/* ===== price ===== */
+.price{padding:110px 0;background:var(--ink);color:var(--cream)}
+.price .sec-label{color:var(--amber-soft)}
+.price-head{text-align:center;margin-bottom:60px}
+.price-cards{display:grid;gap:20px;max-width:860px;margin:0 auto}
+@media(min-width:841px){.price-cards{grid-template-columns:1fr 1fr}}
+.price-card{
+  border:1px solid rgba(249,242,231,.22);border-radius:4px;
+  padding:44px 32px;text-align:center;
+  background:rgba(249,242,231,.03);
+}
+.price-card.hot{border-color:var(--amber-soft);background:rgba(184,114,47,.12)}
+.price-card .tag{
+  display:inline-block;font-size:11px;letter-spacing:.24em;font-weight:500;
+  border:1px solid currentColor;border-radius:999px;padding:4px 16px;margin-bottom:22px;
+  color:var(--amber-soft);
+}
+.price-card .amount{font-family:var(--en);font-weight:300;font-size:clamp(38px,9vw,58px);line-height:1.1;letter-spacing:.04em;white-space:nowrap}
+.price-card .amount small{font-size:.38em;letter-spacing:.14em;font-family:var(--jp);font-weight:400}
+.price-card .desc{font-size:13px;line-height:2.1;letter-spacing:.08em;margin-top:20px;opacity:.9}
+.price-note{
+  max-width:860px;margin:34px auto 0;text-align:center;
+  font-size:12px;letter-spacing:.12em;line-height:2.2;opacity:.75;
+}
+.price-note b{color:var(--amber-soft);font-weight:500}
+
+/* ===== faq ===== */
+.faq{padding:110px 0}
+.faq-list{max-width:760px;margin:56px auto 0;display:flex;flex-direction:column;gap:14px}
+.faq-item{border:1px solid rgba(12,32,52,.16);border-radius:4px;background:#fff9;overflow:hidden}
+.faq-item summary{
+  list-style:none;cursor:pointer;display:flex;gap:16px;align-items:baseline;
+  padding:22px 24px;font-weight:700;font-size:14px;letter-spacing:.1em;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .q{font-family:var(--en);font-weight:400;color:var(--amber);font-size:18px}
+.faq-item summary::after{content:"+";margin-left:auto;font-family:var(--en);font-size:20px;color:var(--amber);transition:transform .3s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item .a{display:flex;gap:16px;padding:0 24px 24px;font-size:13.5px;line-height:2.2;letter-spacing:.08em}
+.faq-item .a .q{font-family:var(--en);color:var(--terra);font-size:18px}
+
+/* ===== flow ===== */
+.flow{padding:0 0 120px}
+.flow-head{text-align:center;margin-bottom:60px}
+.flow-steps{max-width:760px;margin:0 auto;display:flex;flex-direction:column}
+.flow-step{
+  display:grid;grid-template-columns:56px 1fr;gap:20px;
+  padding:30px 0;border-bottom:1px solid rgba(12,32,52,.14);
+}
+.flow-step:first-child{border-top:1px solid rgba(12,32,52,.14)}
+.flow-step .no{font-family:var(--en);font-weight:200;font-size:34px;color:var(--amber);line-height:1.2}
+.flow-step h4{font-size:16px;font-weight:700;letter-spacing:.12em;margin-bottom:8px}
+.flow-step p{font-size:13px;line-height:2.1;letter-spacing:.08em}
+.flow-img{max-width:760px;margin:64px auto 0;overflow:hidden;border-radius:2px;box-shadow:0 24px 60px -24px rgba(12,32,52,.35)}
+
+/* ===== cta ===== */
+.cta .para-scrim{background:linear-gradient(180deg,rgba(12,32,52,.55),rgba(12,32,52,.35))}
+.cta .para-copy p{font-size:13px;letter-spacing:.14em;line-height:2.2;margin-top:20px;opacity:.95}
+.cta-btns{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px}
+.btn{
+  display:inline-block;padding:16px 42px;border-radius:999px;
+  font-size:14px;font-weight:500;letter-spacing:.16em;
+  transition:transform .3s,background .3s,color .3s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--amber);color:var(--cream)}
+.btn-primary:hover{background:var(--amber-soft);color:var(--ink)}
+.btn-ghost{border:1px solid var(--cream);color:var(--cream)}
+.btn-ghost:hover{background:var(--cream);color:var(--ink)}
+
+/* ===== footer ===== */
+footer{padding:56px 24px 40px;text-align:center;background:var(--cream)}
+footer .brand{justify-content:center;font-size:14px}
+footer .copy{font-family:var(--en);font-weight:300;font-size:10px;letter-spacing:.3em;margin-top:22px;color:rgba(12,32,52,.55)}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <a class="brand" href="#">ONE LAUNCH<small>AIマーケティングパック</small></a>
+  <a class="head-cta" href="#contact">ご相談はこちら</a>
+</header>
+
+<!-- KV -->
+<section class="kv">
+  <div class="kv-slides" id="kvSlides">
+    <div class="kv-slide" style="background-image:url(images/kv-1.png)"></div>
+    <div class="kv-slide" style="background-image:url(images/kv-2.png)"></div>
+    <div class="kv-slide" style="background-image:url(images/kv-3.png)"></div>
+  </div>
+  <div class="kv-scrim"></div>
+  <div class="kv-copy">
+    <h1 class="en-title">ONE<br><b>LAUNCH</b></h1>
+    <p class="jp-title">ひと品を、まるごと売り出す。</p>
+    <p class="kv-sub">AI × ヒトの手で、LPからECまで。1商品 ¥50,000〜</p>
+  </div>
+  <div class="kv-dots" id="kvDots"></div>
+  <div class="scroll-hint"></div>
+</section>
+
+<!-- marquee -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-inner" id="marquee">
+    <span>AI MARKETING PACK <i>—</i> LP <i>+</i> EC <i>+</i> LINE <i>—</i> </span><span>AI MARKETING PACK <i>—</i> LP <i>+</i> EC <i>+</i> LINE <i>—</i> </span>
+  </div>
+</div>
+
+<!-- concept -->
+<section class="concept">
+  <div class="wrap">
+    <p class="sec-label reveal">CONCEPT</p>
+    <h2 class="statement reveal d1">
+      売りたい商品が、ひとつある。<br>
+      それだけで、はじめられる。
+    </h2>
+    <p class="body reveal d2">
+      ONE LAUNCH は、AIを活用して制作の約7割を自動化することで、<br>
+      これまで数十万円かかっていた「商品の売り出し」を<br>
+      1商品 5万円からのパッケージにした、小さなブランドのためのサービスです。<br>
+      LP、EC、SNS・LINE用の画像、そしてお客様に配るQRコードまで。<br>
+      売り出しに必要な3点を、まるごとお届けします。
+    </p>
+  </div>
+</section>
+
+<!-- parallax interlude 1 -->
+<section class="para">
+  <div class="para-bg" data-speed="0.18" style="background-image:url(images/parallax-bg.png)"></div>
+  <div class="para-scrim"></div>
+  <div class="para-copy reveal">
+    <span class="en">3 IN 1 PACKAGE</span>
+    <h3><span>つくって、</span><span>ひろげて、</span><span>つながる。</span><br><span>3点セットで</span><span>お届け。</span></h3>
+  </div>
+</section>
+
+<!-- package -->
+<section class="package">
+  <div class="wrap">
+    <div class="pkg-head reveal">
+      <p class="sec-label">PACKAGE</p>
+      <h2 class="sec-title">セット内容</h2>
+    </div>
+    <div class="pkg-list">
+      <div class="pkg-item reveal">
+        <div class="pkg-img"><img src="images/pkg-lp.png" alt="LP＋ECサイトのイメージ" loading="lazy"></div>
+        <div class="pkg-body">
+          <p class="pkg-num en">01</p>
+          <h3>LP ＋ EC</h3>
+          <p>商品の魅力を1ページに凝縮したランディングページと、そのまま購入までつながるECを制作。スマートフォンでの見え方を最優先に、写真が主役の没入感あるデザインに仕上げます。</p>
+        </div>
+      </div>
+      <div class="pkg-item reveal">
+        <div class="pkg-img"><img src="images/pkg-sns.png" alt="SNS・LINE用画像のイメージ" loading="lazy"></div>
+        <div class="pkg-body">
+          <p class="pkg-num en">02</p>
+          <h3>SNS・LINE用画像</h3>
+          <p>LPで使用したビジュアルを、SNS投稿・LINE配信用にリサイズ＆再構成してお渡し。世界観を揃えたまま、日々の発信にすぐ使えます。</p>
+        </div>
+      </div>
+      <div class="pkg-item reveal">
+        <div class="pkg-img"><img src="images/pkg-qr.png" alt="QRコードを読み取るイメージ" loading="lazy"></div>
+        <div class="pkg-body">
+          <p class="pkg-num en">03</p>
+          <h3>LP・LINEのQRコード</h3>
+          <p>店頭POPやショップカード、名刺にそのまま使えるQRコードを納品。お店に来たお客様を、その場でLPと公式LINEへつなぎます。</p>
+          <p class="note">※公式LINEアカウントの構築は別途費用となります。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- price -->
+<section class="price">
+  <div class="wrap">
+    <div class="price-head reveal">
+      <p class="sec-label">PRICE</p>
+      <h2 class="sec-title">料金プラン</h2>
+    </div>
+    <div class="price-cards">
+      <div class="price-card hot reveal d1">
+        <span class="tag">初期制作</span>
+        <p class="amount">¥50,000<small>〜 / 1商品</small></p>
+        <p class="desc">LP＋EC、SNS・LINE用画像、<br>QRコードの3点セット。<br>1商品の売り出しをまるごと。</p>
+      </div>
+      <div class="price-card reveal d2">
+        <span class="tag">運用サポート</span>
+        <p class="amount">¥50,000<small> / 月</small></p>
+        <p class="desc">サブスクリプションで<br>文字・画像の修正に継続対応。<br>季節やキャンペーンに合わせて更新。</p>
+      </div>
+    </div>
+    <p class="price-note reveal d3">
+      <b>先行テスト提供中</b> ─ まずは数社限定でのご提供のため、上限に達し次第このプランは終了します。
+    </p>
+  </div>
+</section>
+
+<!-- faq -->
+<section class="faq">
+  <div class="wrap">
+    <div class="pkg-head reveal">
+      <p class="sec-label">FAQ</p>
+      <h2 class="sec-title">よくあるご質問</h2>
+    </div>
+    <div class="faq-list reveal d1">
+      <details class="faq-item" open>
+        <summary><span class="q">Q</span>なぜこの価格でできるのですか？</summary>
+        <div class="a"><span class="q">A</span><p>制作工程の約7割をAIで自動化しているためです。構成・デザイン・画像生成をAIが下書きし、仕上げと品質チェックを人間が行うことで、品質を保ちながら大幅にコストを下げています。</p></div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Q</span>SEO（検索順位）はどうですか？</summary>
+        <div class="a"><span class="q">A</span><p>正直にお伝えすると、現状から検索上位を狙うのは難しく、画像が主役のサイト構成のためSEOには不向きです。その代わり、店頭やイベント・名刺などでQRコードを配布して直接お客様をLPへ誘導するスタイルに最適化しています。</p></div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Q</span>公開までどれくらいかかりますか？</summary>
+        <div class="a"><span class="q">A</span><p>ヒアリングシートのご回答後、初稿まで最短数日でお届けします。AIによる制作のため、従来よりも大幅に短い納期でご確認いただけます。</p></div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Q</span>公開後の修正はできますか？</summary>
+        <div class="a"><span class="q">A</span><p>月額5万円の運用サポートにご加入いただくと、文字・画像の修正に継続的に対応します。単発での修正のご相談も可能です。</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- flow -->
+<section class="flow">
+  <div class="wrap">
+    <div class="flow-head reveal">
+      <p class="sec-label">FLOW</p>
+      <h2 class="sec-title">ご利用の流れ</h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step reveal">
+        <span class="no">1</span>
+        <div><h4>ヒアリングシートに入力</h4><p>商品の特徴・ターゲット・お好みの雰囲気などを、フォームから入力して送信するだけ。打ち合わせの日程調整は不要です。</p></div>
+      </div>
+      <div class="flow-step reveal d1">
+        <span class="no">2</span>
+        <div><h4>AI × デザイナーが制作</h4><p>ご回答をもとにAIが構成・デザイン・画像を生成し、デザイナーが仕上げます。初稿を最短数日でお届けします。</p></div>
+      </div>
+      <div class="flow-step reveal d2">
+        <span class="no">3</span>
+        <div><h4>確認・公開・QR納品</h4><p>内容をご確認いただき、修正のうえ公開。SNS・LINE用画像とQRコードを納品し、売り出しスタートです。</p></div>
+      </div>
+    </div>
+    <div class="flow-img reveal d1"><img src="images/flow.png" alt="制作イメージ" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- cta -->
+<section class="para cta" id="contact">
+  <div class="para-bg" data-speed="0.18" style="background-image:url(images/cta-bg.png)"></div>
+  <div class="para-scrim"></div>
+  <div class="para-copy reveal">
+    <span class="en">CONTACT</span>
+    <h3><span>その一品、</span><span>いっしょに</span><span>売り出しましょう。</span></h3>
+    <p>先行テスト枠には限りがあります。まずはお気軽にご相談ください。</p>
+    <div class="cta-btns">
+      <a class="btn btn-primary" href="#">LINEで相談する</a>
+      <a class="btn btn-ghost" href="#">フォームから問い合わせ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="brand">ONE LAUNCH<small>AIマーケティングパック</small></p>
+  <p class="copy">© 2026 ONE LAUNCH. ALL RIGHTS RESERVED.</p>
+</footer>
+
+<script>
+// header
+const header = document.getElementById('header');
+addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 40), {passive:true});
+
+// KV carousel (crossfade, 3.6s like reference)
+const slides = [...document.querySelectorAll('.kv-slide')];
+const dotsWrap = document.getElementById('kvDots');
+let cur = 0, kvTimer;
+slides.forEach((_, i) => {
+  const b = document.createElement('button');
+  b.addEventListener('click', () => { show(i); reset(); });
+  dotsWrap.appendChild(b);
+});
+const dots = [...dotsWrap.children];
+function show(i){
+  slides.forEach((s, k) => s.classList.toggle('active', k === i));
+  dots.forEach((d, k) => d.classList.toggle('active', k === i));
+  cur = i;
+}
+function reset(){ clearInterval(kvTimer); kvTimer = setInterval(() => show((cur+1)%slides.length), 3600); }
+show(0); reset();
+
+// reveal on scroll
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+}), {threshold:.18});
+document.querySelectorAll('.reveal, .pkg-item').forEach(el => io.observe(el));
+
+// parallax (transform-based; works on iOS unlike background-attachment:fixed)
+const paras = [...document.querySelectorAll('.para-bg')];
+let ticking = false;
+function parallax(){
+  const vh = innerHeight;
+  paras.forEach(bg => {
+    const r = bg.parentElement.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) return;
+    const speed = parseFloat(bg.dataset.speed || 0.18);
+    bg.style.transform = `translateY(${(r.top + r.height/2 - vh/2) * speed}px)`;
+  });
+  ticking = false;
+}
+addEventListener('scroll', () => {
+  if (!ticking) { requestAnimationFrame(parallax); ticking = true; }
+}, {passive:true});
+parallax();
+</script>
+</body>
+</html>

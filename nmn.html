@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- EDIT: title / description -->
+<title>β-NMN 15000｜純度99.9%以上のNMNサプリメント｜RENU</title>
+<meta name="description" content="β-NMN 15000は、エイジングケアで注目の成分NMNを1粒に500mg配合した純度99.9%以上のチュアブルサプリメント。国内GMP認証工場で製造。1袋30粒 ¥19,990（税込・送料込）。LINE友だち追加でそのまま購入。">
+<meta name="theme-color" content="#F6F2EA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- EDIT: fonts — 業種で差し替え可。構造はそのままフォント名だけ変える -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THEME TOKENS — ここだけ差し替えれば全体のトーンが変わる
+   BASE       = 背景(ごく薄い色) / BASE_DEEP = 背景の濃い版
+   INK        = テキスト・ダーク面(濃紺系が汎用)
+   ACCENT     = 業種カラー(ラベル・番号・バッジ)
+   ACCENT_SOFT= ACCENTの明るい版(ダーク面上の文字に使う)
+   CTA        = CTAボタン(ACCENTと別系統の暖色にすると押されやすい)
+   ============================================================ */
+:root{
+  --base:#F6F2EA;
+  --base-deep:#EBE3D3;
+  --ink:#20262E;
+  --accent:#B79A5E;
+  --accent-soft:#D8C08A;
+  --cta:#C6603C;
+  --en:'Outfit',sans-serif;
+  --jp:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+  --center-w:500px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{
+  color:var(--ink);
+  font-family:var(--jp);
+  font-weight:400;
+  line-height:1.9;
+  letter-spacing:.06em;
+  background:var(--base);
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.en{font-family:var(--en);font-weight:300;letter-spacing:.22em}
+
+/* ===== 全画面固定テクスチャ背景(丸亀・フェリシモ式) ===== */
+.fixed-bg{
+  position:fixed;inset:0;z-index:-2;
+  background:var(--base) url(images/nmn-bg-texture.png) top center/440px auto repeat;
+}
+.fixed-bg::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,transparent 40%,color-mix(in srgb,var(--accent) 12%,transparent) 100%);
+}
+
+/* ===== 3カラム: 左右は完全固定、中央だけスクロール ===== */
+.layout{
+  position:relative;
+  display:flex;justify-content:space-between;align-items:stretch;
+  max-width:1440px;margin:0 auto;
+  height:100svh;
+}
+.side{flex:1 1 0;min-width:0}
+.side-inner{
+  position:relative;
+  height:100svh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  gap:34px;padding:24px;
+}
+
+/* left column */
+.side-brand{text-align:center}
+.side-brand .logo{
+  font-family:var(--en);font-weight:500;font-size:clamp(20px,2.2vw,30px);
+  letter-spacing:.32em;line-height:1.4;
+}
+.side-brand .logo b{display:block;font-weight:200;letter-spacing:.5em}
+.side-brand .for{
+  display:inline-block;margin-top:8px;
+  font-family:var(--en);font-weight:400;font-size:10px;letter-spacing:.34em;
+  color:var(--base);background:var(--accent);border-radius:999px;padding:3px 14px;
+}
+.side-brand .sub{font-size:10px;letter-spacing:.3em;color:var(--accent);margin-top:8px}
+/* 縦書きコピー: 改行は必ず文節の切れ目に <br> を手で入れる */
+.tate{
+  writing-mode:vertical-rl;
+  font-size:clamp(15px,1.5vw,20px);font-weight:700;letter-spacing:.42em;
+  height:14em;margin:0 auto;line-height:2.2;
+}
+.side-nav{display:flex;flex-direction:column;gap:12px;text-align:center}
+.side-nav a{
+  display:block;font-size:12px;font-weight:500;letter-spacing:.2em;
+  padding:4px 10px;position:relative;transition:color .3s;
+}
+.side-nav a small{
+  display:block;font-family:var(--en);font-weight:400;font-size:9px;
+  letter-spacing:.4em;color:var(--accent);
+}
+.side-nav a:hover{color:var(--cta)}
+
+/* right column */
+.card-stack{position:relative;width:min(15vw,215px);aspect-ratio:3/4}
+.photo-card{
+  position:absolute;inset:0;
+  background:#fff;padding:8px 8px 26px;border-radius:6px;
+  box-shadow:0 14px 34px -12px color-mix(in srgb,var(--ink) 30%,transparent);
+  transform:rotate(var(--rot)) translate(var(--tx),var(--ty));
+  animation:cardfloat 7s ease-in-out infinite;
+  animation-delay:var(--dly);
+}
+.photo-card img{width:100%;height:100%;object-fit:cover;border-radius:3px}
+@keyframes cardfloat{0%,100%{margin-top:0}50%{margin-top:-12px}}
+.price-badge{
+  width:118px;height:118px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;line-height:1.5;
+  box-shadow:0 14px 30px -12px color-mix(in srgb,var(--accent) 55%,transparent);
+  animation:sway 5s ease-in-out infinite;
+}
+@keyframes sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.price-badge .s{font-size:9px;letter-spacing:.2em;color:color-mix(in srgb,#fff 85%,var(--accent))}
+.price-badge .v{font-family:var(--en);font-weight:400;font-size:21px;letter-spacing:.02em}
+.side-cta{
+  display:inline-block;padding:14px 34px;border-radius:999px;
+  background:var(--cta);color:#fff;
+  font-size:13px;font-weight:500;letter-spacing:.16em;
+  box-shadow:0 12px 26px -10px color-mix(in srgb,var(--cta) 60%,transparent);
+  transition:transform .3s,background .3s;
+}
+.side-cta:hover{transform:translateY(-2px);background:var(--accent)}
+
+/* floating deco objects */
+.deco{
+  position:absolute;border-radius:50%;overflow:hidden;
+  box-shadow:0 10px 26px -10px color-mix(in srgb,var(--ink) 25%,transparent);
+  animation:bob 6s ease-in-out infinite;
+}
+.deco img{width:100%;height:100%;object-fit:cover;transform:scale(1.25)}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-14px) rotate(3deg)}}
+
+/* ===== 中央カラム = スクロールコンテナ ===== */
+.center{
+  width:100%;max-width:var(--center-w);flex:0 0 auto;
+  background:var(--base);
+  box-shadow:0 0 70px color-mix(in srgb,var(--ink) 16%,transparent);
+  position:relative;
+  height:100svh;overflow-y:auto;overflow-x:hidden;
+  scroll-behavior:smooth;overscroll-behavior:contain;
+  scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--accent) 50%,transparent) transparent;
+}
+.center::-webkit-scrollbar{width:6px}
+.center::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--accent) 50%,transparent);border-radius:3px}
+.center::-webkit-scrollbar-track{background:transparent}
+
+/* mobile mini header */
+.sp-head{
+  position:fixed;top:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:var(--center-w);z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  transition:background .5s,box-shadow .5s;
+}
+.sp-head.scrolled{
+  background:color-mix(in srgb,var(--base) 85%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 1px 0 color-mix(in srgb,var(--ink) 8%,transparent);
+}
+.sp-head .b{font-family:var(--en);font-weight:500;font-size:13px;letter-spacing:.3em;color:#fff;transition:color .5s}
+.sp-head.scrolled .b{color:var(--ink)}
+.sp-head .c{
+  font-size:11px;font-weight:500;letter-spacing:.12em;
+  background:var(--cta);color:#fff;padding:8px 16px;border-radius:999px;
+}
+@media(min-width:1081px){.sp-head{display:none}}
+
+/* KV: クロスフェードカルーセル。下部を base 色にグラデーションさせ、
+   その上に ink 色のコピーを置く(白文字より可読性が安定する) */
+.kv{position:relative;height:min(100svh,860px);min-height:560px;overflow:hidden}
+.kv-slides{position:absolute;inset:0}
+.kv-slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;transform:scale(1.06);
+  transition:opacity 2s ease;
+}
+.kv-slide.active{opacity:1;animation:kenburns 9s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.09)}to{transform:scale(1)}}
+.kv-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--ink) 22%,transparent) 0%,
+    transparent 30%,
+    transparent 48%,
+    color-mix(in srgb,var(--base) 90%,transparent) 78%,
+    var(--base) 96%);
+}
+.kv-copy{position:absolute;left:0;right:0;bottom:9%;z-index:2;text-align:center;padding:0 20px}
+.kv-copy .en-title{
+  font-family:var(--en);font-weight:200;
+  font-size:clamp(40px,13cqw,64px);
+  letter-spacing:.12em;line-height:1.05;color:var(--ink);
+}
+.kv-copy .en-title b{font-weight:500}
+.kv-copy .for-badge{
+  display:inline-block;margin-top:12px;
+  font-family:var(--en);font-weight:400;font-size:11px;letter-spacing:.4em;
+  color:#fff;background:var(--accent);border-radius:999px;padding:4px 18px;
+}
+.kv-copy .jp-title{margin-top:14px;font-size:clamp(15px,4.4cqw,20px);font-weight:700;letter-spacing:.26em}
+.kv-copy .jp-title span{display:inline-block}
+.kv-copy .kv-sub{margin-top:12px;font-size:clamp(11px,3cqw,13px);letter-spacing:.18em;color:var(--accent);font-weight:500}
+.kv-dots{position:absolute;bottom:3.5%;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:3}
+.kv-dots button{width:30px;height:3px;border:none;cursor:pointer;background:color-mix(in srgb,var(--ink) 22%,transparent);transition:background .4s}
+.kv-dots button.active{background:var(--ink)}
+
+/* marquee */
+.marquee{overflow:hidden;white-space:nowrap;padding:20px 0;border-block:1px solid color-mix(in srgb,var(--ink) 14%,transparent)}
+.marquee-inner{display:inline-block;animation:mq 26s linear infinite}
+.marquee span{font-family:var(--en);font-weight:200;font-size:22px;letter-spacing:.24em;margin-right:56px}
+.marquee span i{font-style:normal;color:var(--accent)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* common */
+section{position:relative}
+.wrap{padding:0 26px}
+.sec-label{font-family:var(--en);font-weight:400;font-size:11px;letter-spacing:.4em;color:var(--accent);margin-bottom:12px}
+.sec-title{font-size:clamp(22px,6cqw,30px);font-weight:500;letter-spacing:.14em;line-height:1.5}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 1s ease,transform 1s ease}
+.reveal.on{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* concept */
+.concept{padding:90px 0;text-align:center}
+.concept .statement{font-size:clamp(18px,5.2cqw,24px);font-weight:500;letter-spacing:.16em;line-height:2.1;margin-top:28px}
+.concept p.body{margin:30px auto 0;font-size:13px;line-height:2.3;letter-spacing:.08em;text-align:left}
+
+/* parallax interlude (transform方式・iOS対応) */
+.para{height:420px;overflow:hidden;position:relative;display:grid;place-items:center}
+.para-bg{
+  position:absolute;left:0;top:-16%;width:100%;height:132%;
+  background-size:cover;background-position:center;will-change:transform;
+}
+.para-scrim{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 42%,transparent)}
+.para-copy{position:relative;z-index:2;text-align:center;color:#fff;padding:0 22px}
+.para-copy .en{display:block;font-size:11px;letter-spacing:.5em;margin-bottom:14px;color:var(--accent-soft)}
+.para-copy h3{font-size:clamp(18px,5.4cqw,24px);font-weight:500;letter-spacing:.2em;line-height:2}
+.para-copy h3 span{display:inline-block}
+
+/* package */
+.package{padding:90px 0 40px}
+.pkg-head{text-align:center;margin-bottom:50px}
+.pkg-list{display:flex;flex-direction:column;gap:70px}
+.pkg-item{display:grid;gap:22px}
+.pkg-num{font-family:var(--en);font-weight:200;font-size:48px;line-height:1;color:var(--accent)}
+.pkg-img{overflow:hidden;border-radius:10px;box-shadow:0 20px 50px -22px color-mix(in srgb,var(--ink) 32%,transparent)}
+.pkg-img img{width:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s ease}
+.pkg-item.on .pkg-img img{transform:scale(1)}
+.pkg-body h3{font-size:20px;font-weight:700;letter-spacing:.14em;margin:8px 0 10px}
+.pkg-body p{font-size:13px;line-height:2.2;letter-spacing:.08em}
+.pkg-body .note{font-size:11px;color:color-mix(in srgb,var(--ink) 60%,transparent);margin-top:8px}
+
+/* price */
+.price{padding:90px 0;background:var(--ink);color:var(--base)}
+.price .sec-label{color:var(--accent-soft)}
+.price-head{text-align:center;margin-bottom:44px}
+.price-cards{display:grid;gap:18px}
+.price-card{
+  border:1px solid color-mix(in srgb,var(--base) 22%,transparent);border-radius:10px;
+  padding:38px 26px;text-align:center;background:color-mix(in srgb,var(--base) 3%,transparent);
+}
+.price-card.hot{border-color:var(--accent-soft);background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.price-card .tag{
+  display:inline-block;font-size:11px;letter-spacing:.24em;font-weight:500;
+  border:1px solid currentColor;border-radius:999px;padding:4px 16px;margin-bottom:18px;color:var(--accent-soft);
+}
+/* 金額行は必ず nowrap(「/ 1商品」の途中折れ防止) */
+.price-card .amount{font-family:var(--en);font-weight:300;font-size:clamp(36px,10cqw,46px);line-height:1.1;letter-spacing:.04em;white-space:nowrap}
+.price-card .amount small{font-size:.38em;letter-spacing:.14em;font-family:var(--jp);font-weight:400}
+.price-card .desc{font-size:13px;line-height:2.1;letter-spacing:.08em;margin-top:16px;opacity:.9}
+.price-note{margin-top:28px;text-align:center;font-size:11.5px;letter-spacing:.1em;line-height:2.2;opacity:.75}
+.price-note b{color:var(--accent-soft);font-weight:500}
+
+/* faq */
+.faq{padding:90px 0}
+.faq-list{margin-top:44px;display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid color-mix(in srgb,var(--ink) 16%,transparent);border-radius:10px;background:#fffc;overflow:hidden}
+.faq-item summary{
+  list-style:none;cursor:pointer;display:flex;gap:14px;align-items:baseline;
+  padding:18px 20px;font-weight:700;font-size:13.5px;letter-spacing:.08em;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .q{font-family:var(--en);font-weight:400;color:var(--accent);font-size:17px}
+.faq-item summary::after{content:"+";margin-left:auto;font-family:var(--en);font-size:19px;color:var(--accent);transition:transform .3s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item .a{display:flex;gap:14px;padding:0 20px 20px;font-size:13px;line-height:2.2;letter-spacing:.06em}
+.faq-item .a .q{font-family:var(--en);color:var(--cta);font-size:17px}
+
+/* flow */
+.flow{padding:0 0 90px}
+.flow-head{text-align:center;margin-bottom:44px}
+.flow-steps{display:flex;flex-direction:column}
+.flow-step{display:grid;grid-template-columns:48px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 14%,transparent)}
+.flow-step:first-child{border-top:1px solid color-mix(in srgb,var(--ink) 14%,transparent)}
+.flow-step .no{font-family:var(--en);font-weight:200;font-size:30px;color:var(--accent);line-height:1.2}
+.flow-step h4{font-size:15px;font-weight:700;letter-spacing:.1em;margin-bottom:6px}
+.flow-step p{font-size:12.5px;line-height:2.1;letter-spacing:.06em}
+.flow-img{margin-top:50px;overflow:hidden;border-radius:10px;box-shadow:0 20px 50px -22px color-mix(in srgb,var(--ink) 32%,transparent)}
+
+/* cta */
+.cta .para-scrim{background:linear-gradient(180deg,color-mix(in srgb,var(--ink) 55%,transparent),color-mix(in srgb,var(--ink) 35%,transparent))}
+.cta.para{height:520px}
+.cta .para-copy p{font-size:12.5px;letter-spacing:.12em;line-height:2.2;margin-top:16px;opacity:.95}
+.cta-btns{display:flex;flex-direction:column;gap:12px;align-items:center;margin-top:28px}
+.btn{
+  display:inline-block;padding:15px 40px;border-radius:999px;
+  font-size:13.5px;font-weight:500;letter-spacing:.16em;
+  transition:transform .3s,background .3s,color .3s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--cta);color:#fff}
+.btn-primary:hover{background:#fff;color:var(--ink)}
+.btn-ghost{border:1px solid #fff;color:#fff}
+.btn-ghost:hover{background:#fff;color:var(--ink)}
+
+/* footer */
+footer{padding:44px 24px 34px;text-align:center}
+footer .b{font-family:var(--en);font-weight:500;font-size:13px;letter-spacing:.3em}
+footer .b small{display:block;font-family:var(--jp);font-size:9px;letter-spacing:.28em;color:var(--accent);margin-top:2px}
+footer .copy{font-family:var(--en);font-weight:300;font-size:9px;letter-spacing:.3em;margin-top:18px;color:color-mix(in srgb,var(--ink) 55%,transparent)}
+
+/* ===== responsive: 左右が消えて中央だけになる ===== */
+@media(max-width:1080px){
+  .side{display:none}
+  .layout{justify-content:center}
+  .center{margin:0 auto}
+}
+@media(max-width:540px){
+  .center{max-width:none;box-shadow:none}
+  .sp-head{max-width:none}
+}
+</style>
+</head>
+<body>
+
+<div class="fixed-bg" aria-hidden="true"></div>
+
+<!-- mobile mini header -->
+<div class="sp-head" id="spHead">
+  <span class="b">β-NMN 15000</span>
+  <a class="c" href="#contact">LINEで購入</a>
+</div>
+
+<div class="layout">
+
+  <!-- ===== 左カラム(固定) ===== -->
+  <aside class="side side-l">
+    <div class="side-inner">
+      <!-- EDIT: 装飾小物(円形トリミング)。位置・サイズ・delayは自由に -->
+      <span class="deco" style="width:92px;top:8%;left:12%;animation-delay:.4s"><img src="images/nmn-obj-1.png" alt=""></span>
+      <span class="deco" style="width:66px;bottom:12%;right:14%;animation-delay:1.6s"><img src="images/nmn-obj-2.png" alt=""></span>
+      <div class="side-brand">
+        <p class="logo">NMN<b>15000</b></p>
+        <!-- EDIT: バッジ不要なら行ごと削除 -->
+        <p class="for">β-NMN SUPPLEMENT</p>
+        <p class="sub">エイジングケアサプリメント</p>
+      </div>
+      <!-- EDIT: 縦書きタグライン。<br>は文節の切れ目に -->
+      <p class="tate">いくつになっても、<br>いきいきと。</p>
+      <nav class="side-nav">
+        <a href="#concept">コンセプト<small>CONCEPT</small></a>
+        <a href="#package">セット内容<small>PACKAGE</small></a>
+        <a href="#price">料金プラン<small>PRICE</small></a>
+        <a href="#faq">よくあるご質問<small>FAQ</small></a>
+        <a href="#flow">ご利用の流れ<small>FLOW</small></a>
+        <a href="#contact">お問い合わせ<small>CONTACT</small></a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ===== 中央カラム(=スマホページ、ここだけスクロール) ===== -->
+  <main class="center" style="container-type:inline-size">
+
+    <section class="kv">
+      <div class="kv-slides" id="kvSlides">
+        <div class="kv-slide" style="background-image:url(images/nmn-kv-1.png)"></div>
+        <div class="kv-slide" style="background-image:url(images/nmn-kv-2.png)"></div>
+        <div class="kv-slide" style="background-image:url(images/nmn-kv-3.png)"></div>
+      </div>
+      <div class="kv-scrim"></div>
+      <div class="kv-copy">
+        <h1 class="en-title">NMN<br><b>15000</b></h1>
+        <p class="for-badge">β-NMN SUPPLEMENT</p>
+        <!-- 文節ごとに span で囲む(中間改行の防止) -->
+        <p class="jp-title"><span>いくつになっても、</span><span>いきいきと。</span></p>
+        <p class="kv-sub">純度99.9%以上・1粒500mg配合。1袋30粒 ¥19,990（税込・送料込）</p>
+      </div>
+      <div class="kv-dots" id="kvDots"></div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-inner">
+        <span>β-NMN 15000 <i>—</i> PURITY 99.9% <i>—</i> MADE IN JAPAN <i>—</i> </span><span>β-NMN 15000 <i>—</i> PURITY 99.9% <i>—</i> MADE IN JAPAN <i>—</i> </span>
+      </div>
+    </div>
+
+    <!-- EDIT: 以下、各セクションの文言は業種・商材に合わせて書き換える。
+         セクションの増減も可(ナビのアンカーと揃えること) -->
+    <section class="concept" id="concept">
+      <div class="wrap">
+        <p class="sec-label reveal">CONCEPT</p>
+        <h2 class="statement reveal d1">いくつになっても、<br>いきいきと過ごしたい。</h2>
+        <p class="body reveal d2">β-NMN 15000 は、エイジングケア領域で注目を集める成分「NMN（ニコチンアミドモノヌクレオチド）」を、1粒に500mg配合したチュアブルサプリメントです。純度99.9%以上、国内のGMP認証工場にて酵母発酵法で製造。すっきりミント風味で、水なしでも噛んでお召し上がりいただけます。1袋30粒で、NMN総量15,000mg。年齢を重ねても軽やかでいたい方の、毎日の習慣に。</p>
+      </div>
+    </section>
+
+    <section class="para">
+      <div class="para-bg" data-speed="0.16" style="background-image:url(images/nmn-parallax-bg.png)"></div>
+      <div class="para-scrim"></div>
+      <div class="para-copy reveal">
+        <span class="en">QUALITY</span>
+        <h3><span>純度99.9%以上を、</span><span>国内GMP工場で。</span><br><span>妥協しない、</span><span>毎日の一粒。</span></h3>
+      </div>
+    </section>
+
+    <section class="package" id="package">
+      <div class="wrap">
+        <div class="pkg-head reveal">
+          <p class="sec-label">FEATURE</p>
+          <h2 class="sec-title">3つの特徴</h2>
+        </div>
+        <div class="pkg-list">
+          <div class="pkg-item reveal">
+            <div class="pkg-img"><img src="images/nmn-pkg-1.png" alt="" loading="lazy"></div>
+            <div class="pkg-body">
+              <p class="pkg-num en">01</p>
+              <h3>純度99.9%以上のβ-NMN</h3>
+              <p>エイジングケアで注目の成分NMNを、純度99.9%以上の高品質で。1粒あたり500mg、1袋でNMN総量15,000mgを配合しています。</p>
+            </div>
+          </div>
+          <div class="pkg-item reveal">
+            <div class="pkg-img"><img src="images/nmn-pkg-2.png" alt="" loading="lazy"></div>
+            <div class="pkg-body">
+              <p class="pkg-num en">02</p>
+              <h3>水なしで噛める、ミント風味</h3>
+              <p>チュアブルタイプだから、外出先でも水なしでサッと。すっきりとしたミント風味で、毎日無理なく続けられます。</p>
+            </div>
+          </div>
+          <div class="pkg-item reveal">
+            <div class="pkg-img"><img src="images/nmn-pkg-3.png" alt="" loading="lazy"></div>
+            <div class="pkg-body">
+              <p class="pkg-num en">03</p>
+              <h3>国内GMP認証工場で製造</h3>
+              <p>酵母発酵法により、国内のGMP認証工場で製造。品質と安全性に配慮して、一粒ずつ丁寧にお届けします。</p>
+              <p class="note">※本品は健康食品です。疾病の治療・予防を目的としたものではありません。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="price" id="price">
+      <div class="wrap">
+        <div class="price-head reveal">
+          <p class="sec-label">PRICE</p>
+          <h2 class="sec-title">料金プラン</h2>
+        </div>
+        <div class="price-cards">
+          <div class="price-card hot reveal d1">
+            <span class="tag">単品</span>
+            <p class="amount">¥19,990<small> 税込・送料込 / 30粒</small></p>
+            <p class="desc">β-NMN 15000（30粒入り）1袋。<br>まずは試してみたい方に。<br>約1ヶ月分（1日1粒目安）。</p>
+          </div>
+          <div class="price-card reveal d2">
+            <span class="tag">VitalSpan セット</span>
+            <p class="amount">¥24,790<small>〜 税込・送料込</small></p>
+            <p class="desc">続けたい方におすすめの<br>プレミアムセット。<br>単品より1粒あたりがお得に。</p>
+          </div>
+        </div>
+        <p class="price-note reveal d3">※定期購入・まとめ買いでさらにお得になります。<br>詳しくはLINEにてご案内いたします。</p>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <div class="pkg-head reveal">
+          <p class="sec-label">FAQ</p>
+          <h2 class="sec-title">よくあるご質問</h2>
+        </div>
+        <div class="faq-list reveal d1">
+          <!-- EDIT: FAQは3〜5問。1問目だけ open -->
+          <details class="faq-item" open>
+            <summary><span class="q">Q</span>1日にどれくらい飲めばいいですか？</summary>
+            <div class="a"><span class="q">A</span><p>1日1〜2粒を目安に、水なしでそのまま噛んでお召し上がりください。すっきりミント風味です。飲む時間帯に決まりはありませんので、続けやすいタイミングで習慣にしてください。</p></div>
+          </details>
+          <details class="faq-item">
+            <summary><span class="q">Q</span>品質や安全性は大丈夫ですか？</summary>
+            <div class="a"><span class="q">A</span><p>純度99.9%以上のβ-NMNを、国内のGMP認証工場にて酵母発酵法で製造しています。GMPは製造・品質管理の基準で、原料の受け入れから出荷まで一定の品質が保たれるよう管理されています。</p></div>
+          </details>
+          <details class="faq-item">
+            <summary><span class="q">Q</span>薬を飲んでいても大丈夫ですか？</summary>
+            <div class="a"><span class="q">A</span><p>本品は健康食品ですが、通院中・服薬中の方、妊娠・授乳中の方は、念のため事前にかかりつけの医師にご相談のうえお召し上がりください。体質に合わないと感じた場合は使用を中止してください。</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow" id="flow">
+      <div class="wrap">
+        <div class="flow-head reveal">
+          <p class="sec-label">STEP</p>
+          <h2 class="sec-title">ご購入の流れ</h2>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step reveal">
+            <span class="no">1</span>
+            <div><h4>LINEで友だち追加</h4><p>下のボタンから公式LINEを友だち追加。アプリの切り替えなく、そのままトーク画面でご案内を受け取れます。</p></div>
+          </div>
+          <div class="flow-step reveal d1">
+            <span class="no">2</span>
+            <div><h4>トークからそのまま購入</h4><p>商品のご説明を確認し、そのままLINE上のご案内から購入手続きへ。お支払いにはLINE Payもご利用いただけます。</p></div>
+          </div>
+          <div class="flow-step reveal d2">
+            <span class="no">3</span>
+            <div><h4>最短翌日、ご自宅へ</h4><p>ご注文後、最短翌日で発送。ポストに届くサイズで、受け取りもかんたんです。定期でのご継続もLINEから手続きできます。</p></div>
+          </div>
+        </div>
+        <div class="flow-img reveal d1"><img src="images/nmn-flow.png" alt="" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section class="para cta" id="contact">
+      <div class="para-bg" data-speed="0.16" style="background-image:url(images/nmn-cta-bg.png)"></div>
+      <div class="para-scrim"></div>
+      <div class="para-copy reveal">
+        <span class="en">CONTACT</span>
+        <h3><span>今日から、</span><span>毎日の習慣に。</span></h3>
+        <p>LINE友だち追加から、そのまま購入まで。<br>まずはお気軽にご覧ください。</p>
+        <div class="cta-btns">
+          <a class="btn btn-primary" href="https://lin.ee/XXXXXXX">LINEで購入する</a>
+          <a class="btn btn-ghost" href="#">商品について質問する</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p class="b">β-NMN 15000<small>エイジングケアサプリメント</small></p>
+      <p class="copy">© 2026 β-NMN 15000. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+  </main>
+
+  <!-- ===== 右カラム(固定) ===== -->
+  <aside class="side side-r">
+    <div class="side-inner">
+      <span class="deco" style="width:80px;top:10%;right:16%;animation-delay:1s"><img src="images/nmn-obj-3.png" alt=""></span>
+      <div class="card-stack">
+        <div class="photo-card" style="--rot:-7deg;--tx:-16%;--ty:4%;--dly:0s"><img src="images/nmn-kv-1.png" alt=""></div>
+        <div class="photo-card" style="--rot:5deg;--tx:14%;--ty:-3%;--dly:1.2s"><img src="images/nmn-pkg-2.png" alt=""></div>
+        <div class="photo-card" style="--rot:-1deg;--tx:0%;--ty:0%;--dly:2.4s"><img src="images/nmn-kv-2.png" alt=""></div>
+      </div>
+      <div class="price-badge">
+        <span class="s">1袋30粒</span>
+        <span class="v en">¥19,990</span>
+        <span class="s">税込・送料込</span>
+      </div>
+      <a class="side-cta" href="#contact">LINEで購入</a>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+// 中央カラムがスクロールコンテナ(左右は固定)
+const center = document.querySelector('.center');
+
+// 固定サイドカラム上のホイールも中央に転送する(参考サイトの操作感)
+addEventListener('wheel', e => {
+  if (e.target.closest('.center')) return;
+  const dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
+  center.scrollBy({top: dy, behavior:'instant'});
+}, {passive:true});
+
+// mobile header
+const spHead = document.getElementById('spHead');
+center.addEventListener('scroll', () => spHead.classList.toggle('scrolled', center.scrollTop > 40), {passive:true});
+
+// KV carousel
+const slides = [...document.querySelectorAll('.kv-slide')];
+const dotsWrap = document.getElementById('kvDots');
+let cur = 0, kvTimer;
+slides.forEach((_, i) => {
+  const b = document.createElement('button');
+  b.addEventListener('click', () => { show(i); reset(); });
+  dotsWrap.appendChild(b);
+});
+const dots = [...dotsWrap.children];
+function show(i){
+  slides.forEach((s, k) => s.classList.toggle('active', k === i));
+  dots.forEach((d, k) => d.classList.toggle('active', k === i));
+  cur = i;
+}
+function reset(){ clearInterval(kvTimer); kvTimer = setInterval(() => show((cur+1)%slides.length), 3600); }
+show(0); reset();
+
+// reveal
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+}), {threshold:.18});
+document.querySelectorAll('.reveal, .pkg-item').forEach(el => io.observe(el));
+
+// parallax (transform方式)
+const paras = [...document.querySelectorAll('.para-bg')];
+let ticking = false;
+function parallax(){
+  const vh = innerHeight;
+  paras.forEach(bg => {
+    const r = bg.parentElement.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) return;
+    const speed = parseFloat(bg.dataset.speed || 0.16);
+    bg.style.transform = `translateY(${(r.top + r.height/2 - vh/2) * speed}px)`;
+  });
+  ticking = false;
+}
+center.addEventListener('scroll', () => {
+  if (!ticking) { requestAnimationFrame(parallax); ticking = true; }
+}, {passive:true});
+parallax();
+</script>
+</body>
+</html>

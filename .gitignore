@@ -1,0 +1,11 @@
+# local dev / generation tooling (not needed on the public site)
+.claude/
+.dlbuild/
+build-downloads.ps1
+generate-*.ps1
+image-jobs-*.json
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
