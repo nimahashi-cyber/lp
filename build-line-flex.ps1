@@ -1,7 +1,7 @@
 # ASCII-only. Reads line-templates.json (UTF-8) and writes line-flex-carousel.json.
-# URLs use the GitHub Pages placeholder host YOURNAME - replace after publish.
+# URLs use the public Cloudflare Pages host.
 $ErrorActionPreference = 'Stop'
-$site = 'https://nimahashi-cyber.github.io/lp'
+$site = 'https://one-launch.pages.dev'
 $dir  = $PSScriptRoot
 
 $templates = (Get-Content (Join-Path $dir 'line-templates.json') -Raw -Encoding UTF8) | ConvertFrom-Json
