@@ -119,6 +119,28 @@ header p.lead b{color:var(--accent);font-weight:700}
   font-size:12px;letter-spacing:.1em;color:rgba(28,37,48,.65);
 }
 
+/* ===== VANTA creative studio ===== */
+.studio-journal{max-width:1280px;margin:112px auto 0;padding:0 24px}
+.studio-journal .journal-kicker{font-family:var(--en);font-size:10px;letter-spacing:.36em;color:var(--accent);margin:0 0 18px 4px}
+.studio-feature{display:grid;grid-template-columns:1.08fr .92fr;min-height:460px;background:#0b0b0c;overflow:hidden}
+.studio-visual{position:relative;min-height:460px;overflow:hidden}
+.studio-visual img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(.84)}
+.studio-copy{display:flex;flex-direction:column;justify-content:center;padding:56px 54px;color:#f7f3ec;background:#0b0b0c}
+.studio-copy .eyebrow{font-family:var(--en);font-size:10px;letter-spacing:.38em;color:#c78d51}
+.studio-copy h2{font-size:clamp(27px,3.4vw,43px);font-weight:300;letter-spacing:.16em;line-height:1.65;margin-top:22px}
+.studio-copy .studio-text{font-size:13px;line-height:2.1;letter-spacing:.1em;color:rgba(247,243,236,.72);margin-top:20px}
+.studio-copy .studio-link{align-self:flex-start;margin-top:34px;padding-bottom:7px;border-bottom:1px solid #c78d51;font-family:var(--en);font-size:12px;letter-spacing:.22em;color:#e3ad72;transition:color .25s,border-color .25s}
+.studio-copy .studio-link:hover{color:#fff;border-color:#fff}
+@media (max-width:720px){
+  .studio-journal{margin-top:76px;padding:0 18px}
+  .studio-journal .journal-kicker{margin-left:2px}
+  .studio-feature{grid-template-columns:1fr;min-height:0}
+  .studio-visual{min-height:270px}
+  .studio-copy{padding:38px 28px 42px}
+  .studio-copy h2{font-size:27px}
+  .studio-copy .studio-text{font-size:12px}
+}
+
 /* ===== contact ===== */
 .contact{
   max-width:560px;margin:80px auto 0;padding:0 24px;
@@ -269,6 +291,21 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
   ※ 端末内の表示はライブプレビューです。タップ(クリック)すると実際のサンプルページが開きます。<br>
   掲載の写真はすべてAIで生成したサンプル素材です。ダウンロード版もこの状態のまま、あとから自由に差し替えられます。
 </p>
+
+<section class="studio-journal" aria-labelledby="vanta-title">
+  <p class="journal-kicker">STUDIO JOURNAL&nbsp;&nbsp; / &nbsp;&nbsp;BY ONE LAUNCH</p>
+  <div class="studio-feature">
+    <div class="studio-visual">
+      <img src="vanta-agency/images/hero.png" alt="黒い布と煙を使ったVANTAのビジュアル" loading="lazy">
+    </div>
+    <div class="studio-copy">
+      <p class="eyebrow">VANTA&nbsp;&nbsp;CREATIVE STUDIO</p>
+      <h2 id="vanta-title">オリジナル制作という、<br>もう一つの選択肢。</h2>
+      <p class="studio-text">テンプレートを起点に、<br>ブランドらしい一枚へ。</p>
+      <a class="studio-link" href="vanta-agency/">VANTAを見る&nbsp;&nbsp;→</a>
+    </div>
+  </div>
+</section>
 
 <section class="contact" id="contact">
   <p class="label">FREE DOWNLOAD</p>
