@@ -111,16 +111,14 @@ header p.lead b{color:var(--accent);font-weight:700}
   position:relative;width:100%;height:100%;
   border-radius:26px;overflow:hidden;background:#fff;
 }
-.phone iframe{
-  /* 500px幅でレンダリングしてから縮小し、長いブランド名も中央に収める */
-  width:500px;height:950px;border:0;
-  /* タイトルを中央よりやや下に置き、下部のスクロール領域は見せない */
-  margin-top:-250px;
-  /* スマホ内側の実寸（280px）に、500px幅のLPを収める */
-  transform:scale(.56);
-  transform-origin:top left;
-  pointer-events:none;
-}
+.phone .screen::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,24,.16),rgba(247,243,236,.08) 38%,rgba(247,243,236,.78));pointer-events:none}
+.preview-image{width:100%;height:100%;object-fit:cover;display:block}
+.preview-copy{position:absolute;z-index:1;left:12px;right:12px;top:54%;transform:translateY(-50%);text-align:center;color:var(--ink);text-shadow:0 1px 14px rgba(255,255,255,.28)}
+.preview-copy .brand{font-family:var(--en);font-size:clamp(21px,2.05vw,30px);font-weight:300;letter-spacing:.12em;line-height:1.12}
+.preview-copy .brand b{display:block;font-weight:600;letter-spacing:.14em;margin-top:4px}
+.preview-copy .sub{margin-top:13px;font-size:10px;font-weight:700;letter-spacing:.18em;line-height:1.8}
+.screen.is-dark::after{background:linear-gradient(180deg,rgba(3,8,14,.28),rgba(3,8,14,.08) 38%,rgba(3,8,14,.62))}
+.screen.is-dark .preview-copy{color:#f7f3ec;text-shadow:0 2px 16px rgba(0,0,0,.35)}
 .phone .notch{
   position:absolute;top:10px;left:50%;transform:translateX(-50%);
   width:86px;height:18px;border-radius:0 0 12px 12px;background:#111;z-index:2;
@@ -244,7 +242,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
     <div class="phone">
       <span class="notch"></span>
       <span class="badge">無料DL</span>
-      <div class="screen"><iframe src="3col.html" loading="lazy" title="サロン向けパターン" tabindex="-1"></iframe></div>
+      <div class="screen"><img class="preview-image" src="images/kv-1.png" alt=""><div class="preview-copy"><p class="brand">LUMIÈRE<b>HAIR</b></p><p class="sub">髪から、毎日を整える。</p></div></div>
       <a class="tap" href="3col.html" aria-label="サロン向けパターンを開く"></a>
     </div>
     <div class="tone"><i style="background:#F9F2E7"></i><i style="background:#0C2034"></i><i style="background:#B8722F"></i><i style="background:#D9A05B"></i></div>
@@ -258,7 +256,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
     <div class="phone">
       <span class="notch"></span>
       <span class="badge">無料DL</span>
-      <div class="screen"><iframe src="clinic.html" loading="lazy" title="クリニック向けパターン" tabindex="-1"></iframe></div>
+      <div class="screen"><img class="preview-image" src="images/cosme-kv-1.png" alt=""><div class="preview-copy"><p class="brand">SORA SKIN<b>CLINIC</b></p><p class="sub">素肌に、確かな選択を。</p></div></div>
       <a class="tap" href="clinic.html" aria-label="クリニック向けパターンを開く"></a>
     </div>
     <div class="tone"><i style="background:#F8F4EF"></i><i style="background:#2C2724"></i><i style="background:#A98A63"></i><i style="background:#BE7C74"></i></div>
@@ -272,7 +270,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
     <div class="phone">
       <span class="notch"></span>
       <span class="badge">無料DL</span>
-      <div class="screen"><iframe src="shop.html" loading="lazy" title="アパレル・雑貨ショップ向けパターン" tabindex="-1"></iframe></div>
+      <div class="screen"><img class="preview-image" src="images/shop-kv-1.png" alt=""><div class="preview-copy"><p class="brand">ATELIER<b>NOMA</b></p><p class="sub">暮らしの景色を、少しだけ変える。</p></div></div>
       <a class="tap" href="shop.html" aria-label="アパレル・雑貨ショップ向けパターンを開く"></a>
     </div>
     <div class="tone"><i style="background:#F4F2ED"></i><i style="background:#24252A"></i><i style="background:#A87C55"></i><i style="background:#B5544A"></i></div>
@@ -286,7 +284,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
     <div class="phone">
       <span class="notch"></span>
       <span class="badge">無料DL</span>
-      <div class="screen"><iframe src="pulse.html" loading="lazy" title="スポーツ・エンタメ向けパターン" tabindex="-1"></iframe></div>
+      <div class="screen is-dark"><img class="preview-image" src="images/pulse-kv.png" alt=""><div class="preview-copy"><p class="brand">PULSE<b>ENERGY</b></p><p class="sub">限界の、その先へ。</p></div></div>
       <a class="tap" href="pulse.html" aria-label="スポーツ・エンタメ向けパターンを開く"></a>
     </div>
     <div class="tone"><i style="background:#07090C"></i><i style="background:#EEF3F6"></i><i style="background:#B6F24A"></i><i style="background:#3AE3E8"></i></div>
@@ -300,7 +298,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
     <div class="phone">
       <span class="notch"></span>
       <span class="badge">無料DL</span>
-      <div class="screen"><iframe src="axis.html" loading="lazy" title="EV・自動車向けパターン" tabindex="-1"></iframe></div>
+      <div class="screen is-dark"><img class="preview-image" src="images/axis-kv.png" alt=""><div class="preview-copy"><p class="brand">AXIS<b>ELECTRIC</b></p><p class="sub">静けさが、力になる。</p></div></div>
       <a class="tap" href="axis.html" aria-label="EV・自動車向けパターンを開く"></a>
     </div>
     <div class="tone"><i style="background:#07090C"></i><i style="background:#EEF3F6"></i><i style="background:#5AA9FF"></i><i style="background:#8FD0FF"></i></div>
@@ -314,7 +312,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
     <div class="phone">
       <span class="notch"></span>
       <span class="badge">無料DL</span>
-      <div class="screen"><iframe src="standard.html" loading="lazy" title="スタンダード版パターン" tabindex="-1"></iframe></div>
+      <div class="screen"><img class="preview-image" src="images/kv-1.png" alt=""><div class="preview-copy"><p class="brand">NOMU<b>BOTANICAL</b></p><p class="sub">一日の余白に、植物のひとしずく。</p></div></div>
       <a class="tap" href="standard.html" aria-label="スタンダード版パターンを開く"></a>
     </div>
     <div class="tone"><i style="background:#F9F2E7"></i><i style="background:#0C2034"></i><i style="background:#B8722F"></i><i style="background:#A65B3B"></i></div>
