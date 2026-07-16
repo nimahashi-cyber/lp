@@ -112,10 +112,11 @@ header p.lead b{color:var(--accent);font-weight:700}
   border-radius:26px;overflow:hidden;background:#fff;
 }
 .phone iframe{
-  width:375px;height:950px;border:0;
-  /* プレビューではキービジュアルのタイトルが画面中央に入る位置を見せる */
-  margin-top:-350px;
-  transform:scale(calc((var(--phone-w) - 20px) / 375));
+  /* 500px幅でレンダリングしてから縮小し、長いブランド名も中央に収める */
+  width:500px;height:950px;border:0;
+  /* タイトルを中央よりやや下に置き、下部のスクロール領域は見せない */
+  margin-top:-250px;
+  transform:scale(calc((var(--phone-w) - 20px) / 500));
   transform-origin:top left;
   pointer-events:none;
 }
