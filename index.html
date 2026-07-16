@@ -116,7 +116,8 @@ header p.lead b{color:var(--accent);font-weight:700}
   width:500px;height:950px;border:0;
   /* タイトルを中央よりやや下に置き、下部のスクロール領域は見せない */
   margin-top:-250px;
-  transform:scale(calc((var(--phone-w) - 20px) / 500));
+  /* スマホ内側の実寸（280px）に、500px幅のLPを収める */
+  transform:scale(.56);
   transform-origin:top left;
   pointer-events:none;
 }
