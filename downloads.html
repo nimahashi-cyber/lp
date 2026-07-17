@@ -36,15 +36,15 @@
 <div class="terms-modal" id="terms-modal" hidden aria-hidden="true">
   <section class="terms-dialog" role="dialog" aria-modal="true" aria-labelledby="terms-title">
     <h2 id="terms-title">無料テンプレート利用規約</h2>
-    <p class="intro">ダウンロード前に、以下をご確認ください。</p>
+    <p class="intro">同意後にLINEを開きます。トーク画面で「ダウンロード」を送信すると、テンプレート一覧が届きます。</p>
     <h3>商用利用</h3>
     <p>ご自身または受託案件のWebサイト制作・運用に、無料でご利用いただけます。内容の編集・カスタマイズも可能です。</p>
     <h3>禁止事項</h3>
     <ul><li>テンプレート、素材、または改変したものを、テンプレート・素材集として再配布、再販売、譲渡、貸与すること</li><li>テンプレート自体を主な価値として第三者へ提供すること</li></ul>
     <h3>免責事項</h3>
     <p>本テンプレートは現状有姿で提供します。動作、表示、特定目的への適合、法令・権利関係等を保証しません。ご利用によって生じた損害や不利益について、提供者は責任を負いません。公開前に、内容・素材・法令上の表現を必ずご自身でご確認ください。</p>
-    <label class="terms-agree"><input type="checkbox" id="terms-agree"><span>利用規約に同意し、LINEでテンプレートを受け取る</span></label>
-    <div class="terms-actions"><button class="terms-cancel" type="button" id="terms-cancel">キャンセル</button><button class="terms-proceed" type="button" id="terms-proceed" disabled>LINEで受け取る</button></div>
+    <label class="terms-agree"><input type="checkbox" id="terms-agree"><span>利用規約に同意し、LINEで「ダウンロード」を送信する</span></label>
+    <div class="terms-actions"><button class="terms-cancel" type="button" id="terms-cancel">キャンセル</button><button class="terms-proceed" type="button" id="terms-proceed" disabled>LINEを開く</button></div>
   </section>
 </div>
 <script>
@@ -52,14 +52,14 @@
   const modal = document.getElementById('terms-modal');
   const agree = document.getElementById('terms-agree');
   const proceed = document.getElementById('terms-proceed');
-  let destination = '';
+  const lineMessageUrl = 'https://line.me/R/oaMessage/@542fjeef/?' + encodeURIComponent('ダウンロード');
   document.querySelectorAll('[data-line-receive]').forEach(link => link.addEventListener('click', event => {
-    event.preventDefault(); destination = link.href; agree.checked = false; proceed.disabled = true;
+    event.preventDefault(); agree.checked = false; proceed.disabled = true;
     modal.hidden = false; modal.setAttribute('aria-hidden', 'false');
   }));
   agree.addEventListener('change', () => { proceed.disabled = !agree.checked; });
   document.getElementById('terms-cancel').addEventListener('click', () => { modal.hidden = true; modal.setAttribute('aria-hidden', 'true'); });
-  proceed.addEventListener('click', () => { if (agree.checked && destination) window.location.href = destination; });
+  proceed.addEventListener('click', () => { if (agree.checked) window.location.href = lineMessageUrl; });
 })();
 </script>
 </body>
