@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>月霞 TSUKIGASUMI — 信州・霧見沢温泉の宿 | 一泊の物語</title>
+<meta name="description" content="月も、霞む湯けむり。信州・霧見沢温泉(架空)の温泉旅館「月霞」。スクロールとともに、夕暮れの到着から朝霧の目覚めまで、一泊二日を追体験するコンセプトサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#2b3245;
+  --ink:#ede8dc;
+  --ink-dim:rgba(237,232,220,.6);
+  --accent:#d9a662;
+  --serif:'Shippori Mincho',serif;
+  --sans:'Zen Kaku Gothic New',sans-serif;
+  --en:'Cormorant Garamond',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);font-weight:300;
+  color:var(--ink);background:var(--bg);
+  overflow-x:hidden;line-height:2.1;letter-spacing:.1em;
+}
+::selection{background:var(--accent);color:#1c1408}
+
+/* ============ fixed layers ============ */
+#bg{position:fixed;inset:0;z-index:-3;background:#2b3245}
+#steam{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.55;
+  background:radial-gradient(ellipse at 50% 42%,transparent 58%,rgba(0,0,0,.3) 100%)}
+
+/* ============ しおり (stay indicator) ============ */
+#shiori{
+  position:fixed;right:clamp(14px,3vw,44px);top:50%;transform:translateY(-50%);z-index:50;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  pointer-events:none;opacity:0;transition:opacity .8s ease;
+}
+#shiori.on{opacity:1}
+#shiori .sh-time{font-family:var(--en);font-style:italic;font-size:.78rem;letter-spacing:.22em;color:var(--accent)}
+#shiori .sh-stage{
+  writing-mode:vertical-rl;font-family:var(--serif);font-weight:600;
+  font-size:1.05rem;letter-spacing:.55em;color:var(--ink);
+}
+#shiori .sh-line{position:relative;width:1px;height:17vh;background:color-mix(in srgb,var(--ink) 25%,transparent)}
+#shiori .sh-line i{
+  position:absolute;left:50%;transform:translate(-50%,-50%);
+  width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 10px var(--accent);top:calc(var(--p,0)*100%);
+}
+#shiori .sh-en{writing-mode:vertical-rl;font-family:var(--en);font-size:.62rem;letter-spacing:.3em;color:var(--ink-dim)}
+
+/* ============ header ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:clamp(18px,3vw,28px) clamp(20px,4vw,56px);
+}
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink)}
+.logo .l-jp{font-family:var(--serif);font-weight:700;font-size:1.3rem;letter-spacing:.5em}
+.logo .l-en{font-family:var(--en);font-size:.68rem;letter-spacing:.4em;color:var(--ink-dim);padding-top:.2em}
+nav{display:flex;gap:clamp(16px,2.8vw,36px)}
+nav a{
+  color:var(--ink);text-decoration:none;font-family:var(--serif);
+  font-size:.85rem;letter-spacing:.3em;opacity:.82;transition:.3s;
+  position:relative;padding-bottom:4px;
+}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:.35s}
+nav a:hover{opacity:1}
+nav a:hover::after{width:100%}
+@media(max-width:760px){nav{display:none}}
+
+/* ============ hero ============ */
+#hero{position:relative;height:100svh;overflow:hidden}
+#hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(20,26,40,.4),rgba(20,26,40,.06) 45%,rgba(43,50,69,.88))}
+.hero-title{
+  position:absolute;z-index:2;top:50%;right:clamp(8vw,14vw,18vw);transform:translateY(-52%);
+  display:flex;flex-direction:row-reverse;gap:clamp(18px,3vw,34px);align-items:flex-start;
+}
+.hero-title h1{
+  writing-mode:vertical-rl;font-family:var(--serif);font-weight:700;
+  font-size:clamp(4rem,13vh,7.5rem);letter-spacing:.34em;line-height:1;color:#f4efe3;
+  text-shadow:0 4px 50px rgba(0,0,0,.55);
+  opacity:0;animation:rise 1.8s .5s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero-title p{
+  writing-mode:vertical-rl;font-family:var(--serif);
+  font-size:clamp(.95rem,2.2vh,1.25rem);letter-spacing:.5em;color:rgba(244,239,227,.92);
+  padding-top:.5em;
+  opacity:0;animation:rise 1.8s .95s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.hero-kicker{
+  position:absolute;z-index:2;left:clamp(20px,4vw,56px);bottom:clamp(28px,6vh,60px);
+  font-family:var(--en);font-size:.72rem;letter-spacing:.5em;color:rgba(237,232,220,.75);
+  opacity:0;animation:rise 1.8s 1.3s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.scroll-cue{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;
+  font-family:var(--en);font-size:.68rem;letter-spacing:.5em;color:rgba(237,232,220,.6);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.scroll-cue::after{content:"";width:1px;height:50px;
+  background:linear-gradient(to bottom,var(--accent),transparent);
+  animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============ layout ============ */
+section{position:relative}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+
+.stage-head{min-height:70svh;display:flex;flex-direction:column;justify-content:center;padding-top:16vh;padding-bottom:5vh}
+.st-time{font-family:var(--en);font-style:italic;font-size:clamp(.95rem,1.9vw,1.2rem);letter-spacing:.24em;color:var(--accent);margin-bottom:1.4rem;display:flex;align-items:center;gap:18px}
+.st-time::before{content:"";width:56px;height:1px;background:var(--accent)}
+.st-title{font-family:var(--serif);font-weight:700;font-size:clamp(2.3rem,6.5vw,4.6rem);line-height:1.3;letter-spacing:.24em}
+.st-sub{font-family:var(--serif);font-size:clamp(1rem,2vw,1.25rem);letter-spacing:.34em;color:var(--ink-dim);margin-top:1rem}
+.st-lead{max-width:580px;margin-top:2.4rem;font-size:clamp(.9rem,1.6vw,.98rem);color:var(--ink-dim)}
+
+/* full-bleed panels */
+.panel{position:relative;height:112svh;overflow:hidden;display:flex;align-items:flex-end}
+.panel video,.panel .pimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.panel .pimg{background-size:cover;background-position:center;top:-12%;height:124%;will-change:transform}
+.panel::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,var(--scrim-top,rgba(10,10,16,.28)) 0%,transparent 40%,transparent 58%,var(--scrim-bot,rgba(10,10,16,.8)) 100%)}
+.panel .cap{position:relative;z-index:2;width:100%;max-width:1140px;margin:0 auto;
+  padding:0 clamp(20px,5vw,60px) clamp(44px,7vh,80px)}
+.cap-word{font-family:var(--serif);font-weight:600;font-size:clamp(1.5rem,3.5vw,2.5rem);letter-spacing:.24em;color:var(--cap-ink,#f4efe3)}
+.cap-sub{font-family:var(--en);font-style:italic;font-size:clamp(.88rem,1.7vw,1.1rem);letter-spacing:.18em;color:var(--cap-ink,#f4efe3);opacity:.72;margin-top:.4rem}
+
+/* vertical interlude */
+.tate-block{min-height:80svh;display:flex;align-items:center;justify-content:center;
+  gap:clamp(30px,6vw,84px);padding:12vh 20px}
+.tate{writing-mode:vertical-rl;font-family:var(--serif);font-weight:600;
+  font-size:clamp(1.15rem,2.8vw,1.8rem);letter-spacing:.44em;line-height:2.7;
+  height:min(60svh,500px)}
+.tate em{font-style:normal;color:var(--accent)}
+.tate.sub{font-size:clamp(.78rem,1.5vw,.95rem);color:var(--ink-dim);letter-spacing:.32em;font-weight:400}
+
+/* kanji stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:2px;margin:8vh 0 14vh}
+.stat{border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+  padding:clamp(30px,4.5vw,52px) clamp(18px,3vw,32px);text-align:center;
+  background:color-mix(in srgb,var(--ink) 4%,transparent)}
+.stat b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:.2em;line-height:1.5}
+.stat span{display:block;margin-top:.8rem;font-size:.72rem;letter-spacing:.3em;color:var(--ink-dim)}
+
+/* duo cards */
+.duo{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(18px,4vw,52px);align-items:start;padding:2vh 0 14vh}
+@media(max-width:840px){.duo{grid-template-columns:1fr}}
+.duo .card:nth-child(2){transform:translateY(8vh)}
+@media(max-width:840px){.duo .card:nth-child(2){transform:none}}
+.card{position:relative;overflow:hidden}
+.card .cimg{aspect-ratio:16/10;background-size:cover;background-position:center;
+  transform:scale(1.05);transition:transform 1.5s cubic-bezier(.2,.7,.2,1)}
+.card:hover .cimg{transform:scale(1)}
+.card figcaption{padding:1.2rem 0 0}
+.card .c-jp{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.26em}
+.card .c-en{font-family:var(--en);font-style:italic;color:var(--ink-dim);font-size:.85rem;letter-spacing:.14em;margin-top:.2rem}
+.card p{margin-top:.6rem;font-size:.85rem;color:var(--ink-dim)}
+
+/* ============ 献立 vertical menu ============ */
+.kondate{
+  display:flex;flex-direction:row-reverse;justify-content:center;
+  gap:clamp(22px,4.5vw,56px);padding:6vh 0 14vh;flex-wrap:wrap;
+}
+.kondate .k-col{display:flex;flex-direction:column;align-items:center;gap:18px}
+.kondate dt{
+  writing-mode:vertical-rl;font-family:var(--serif);font-weight:600;
+  font-size:.8rem;letter-spacing:.5em;color:var(--accent);
+  border-inline-start:1px solid color-mix(in srgb,var(--accent) 45%,transparent);
+  padding-inline-start:10px;
+}
+.kondate dd{
+  writing-mode:vertical-rl;font-family:var(--serif);
+  font-size:clamp(.95rem,1.8vw,1.1rem);letter-spacing:.34em;line-height:2.2;
+  min-height:11em;
+}
+
+/* ============ rooms / info ============ */
+.rooms{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,4vw,48px);margin:6vh 0}
+@media(max-width:840px){.rooms{grid-template-columns:1fr}}
+.room-card{border:1px solid color-mix(in srgb,var(--ink) 16%,transparent);padding:clamp(26px,4vw,44px)}
+.room-card .r-type{font-family:var(--en);font-size:.68rem;letter-spacing:.4em;color:var(--accent)}
+.room-card h3{font-family:var(--serif);font-weight:700;font-size:1.6rem;letter-spacing:.3em;margin-top:.8rem}
+.room-card p{font-size:.85rem;color:var(--ink-dim);margin-top:1rem}
+.room-card .r-price{margin-top:1.6rem;font-family:var(--serif);font-size:1.35rem;letter-spacing:.1em}
+.room-card .r-price small{font-size:.65rem;color:var(--ink-dim);letter-spacing:.2em;display:block;margin-top:.3rem}
+
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(24px,4vw,52px);margin:8vh 0 4vh}
+.info-cell h3{font-family:var(--en);font-weight:400;letter-spacing:.36em;font-size:.8rem;color:var(--accent);
+  margin-bottom:1.3rem;display:flex;align-items:center;gap:14px}
+.info-cell h3::after{content:"";flex:1;height:1px;background:color-mix(in srgb,var(--accent) 30%,transparent)}
+.info-cell dt{color:var(--ink-dim);font-size:.72rem;letter-spacing:.24em;margin-top:1rem}
+.info-cell dd{margin-top:.15rem;font-size:.92rem;font-family:var(--serif);letter-spacing:.14em}
+
+.btn{display:inline-block;margin-top:4rem;padding:1.2em 5em;
+  border:1px solid var(--accent);color:var(--ink);text-decoration:none;
+  font-family:var(--serif);letter-spacing:.5em;font-size:.9rem;
+  position:relative;overflow:hidden;transition:color .4s;z-index:1}
+.btn::before{content:"";position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.btn:hover{color:#241a0c}
+.btn:hover::before{transform:scaleX(1);transform-origin:left}
+
+footer{padding:9vh 0 6vh;text-align:center;font-size:.72rem;letter-spacing:.24em;color:var(--ink-dim)}
+footer .f-logo{font-family:var(--serif);font-weight:700;font-size:1.3rem;letter-spacing:.6em;color:var(--ink);margin-bottom:1.4rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1.15s cubic-bezier(.2,.7,.2,1),transform 1.15s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.archive-back{position:fixed;top:18px;left:18px;z-index:100;padding:9px 12px;border:1px solid rgba(237,232,220,.42);border-radius:999px;background:rgba(43,50,69,.56);backdrop-filter:blur(10px);color:#ede8dc;font:400 11px var(--sans);letter-spacing:.14em;text-decoration:none;transition:background .2s,color .2s}.archive-back:hover{background:#d9a662;color:#1c1408}@media(max-width:640px){.archive-back{top:12px;left:12px;font-size:9px;padding:8px 10px}}
+</style>
+</head>
+<body>
+<a class="archive-back" href="../" aria-label="ONE LAUNCHの他のパターンを見る">←&nbsp; OTHER PATTERNS</a>
+
+<div id="bg"></div>
+<div class="grain"></div>
+<canvas id="steam"></canvas>
+
+<div id="shiori">
+  <span class="sh-time" id="shTime">4:00 p.m.</span>
+  <span class="sh-stage" id="shStage">到着</span>
+  <span class="sh-line"><i id="shDot"></i></span>
+  <span class="sh-en">A ONE NIGHT STORY</span>
+</div>
+
+<header>
+  <a class="logo" href="#hero"><span class="l-jp">月霞</span><span class="l-en">TSUKIGASUMI</span></a>
+  <nav>
+    <a href="#yu">湯</a>
+    <a href="#zen">膳</a>
+    <a href="#yowa">夜</a>
+    <a href="#asa">朝</a>
+    <a href="#yado">宿</a>
+  </nav>
+</header>
+
+<!-- ================= HERO / 到着 ================= -->
+<section id="hero" data-world="arrival">
+  <video src="images/hero.mp4" poster="images/hero.png" autoplay muted loop playsinline></video>
+  <div class="hero-title">
+    <h1>月霞</h1>
+    <p>月も、霞む湯けむり。</p>
+  </div>
+  <p class="hero-kicker">ONSEN RYOKAN — KIRIMISAWA, SHINSHU</p>
+  <div class="scroll-cue">CHECK IN</div>
+</section>
+
+<!-- ================= 序・到着 ================= -->
+<section data-world="arrival">
+  <div class="tate-block">
+    <p class="tate sub rv d2">このページは、一泊二日の物語。<br>スクロールのぶんだけ、夜が更けて、朝が来る。</p>
+    <h2 class="tate rv">山道の果て、雪の向こうに<br>灯りがひとつ。<em>着いた</em>のだ。</h2>
+  </div>
+  <div class="panel">
+    <div class="pimg" data-img="images/exterior.png"></div>
+    <div class="cap">
+      <p class="cap-word rv">十六時、到着。</p>
+      <p class="cap-sub rv d1">arrival at dusk — welcome to Tsukigasumi</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><b>開湯三百年</b><span>享保元年より</span></div>
+      <div class="stat rv d1"><b>全十二室</b><span>離れ四棟・本館八室</span></div>
+      <div class="stat rv d2"><b>源泉掛け流し</b><span>加水・加温なし</span></div>
+      <div class="stat rv d3"><b>標高千二百米</b><span>信州・霧見沢</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 湯 ================= -->
+<section id="yu" data-world="yu">
+  <div class="wrap stage-head">
+    <p class="st-time rv">4:30 p.m. — 湯浴み</p>
+    <h2 class="st-title rv d1">湯</h2>
+    <p class="st-sub rv d2">ゆ — the waters</p>
+    <p class="st-lead rv d3">硫黄のにおい、肌にまとわりつく白い湯の花。三百年、絶えたことのない源泉が、旅の疲れを底からほどいていく。</p>
+  </div>
+  <div class="panel">
+    <div class="pimg" data-img="images/uchiyu.png"></div>
+    <div class="cap">
+      <p class="cap-word rv">檜の内湯、障子越しの光。</p>
+      <p class="cap-sub rv d1">hinoki bath, light through shoji</p>
+    </div>
+  </div>
+  <div class="wrap duo">
+    <figure class="card rv">
+      <div class="cimg" data-img="images/hero.png"></div>
+      <figcaption>
+        <div class="c-jp">月見の露天</div>
+        <div class="c-en">Open-air bath under the moon</div>
+        <p>雪の岩肌に囲まれた露天風呂。夜は行灯だけを残し、湯けむり越しの月をひとりじめ。</p>
+      </figcaption>
+    </figure>
+    <figure class="card rv d2">
+      <div class="cimg" data-img="images/garden.png"></div>
+      <figcaption>
+        <div class="c-jp">雪の坪庭</div>
+        <div class="c-en">Snow garden</div>
+        <p>湯上がりに眺める、灯籠と雪の庭。火照った頬に、山の冷気が心地よい。</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= 膳 ================= -->
+<section id="zen" data-world="zen">
+  <div class="wrap stage-head">
+    <p class="st-time rv">6:00 p.m. — 夕餉</p>
+    <h2 class="st-title rv d1">膳</h2>
+    <p class="st-sub rv d2">ぜん — the dinner</p>
+    <p class="st-lead rv d3">部屋出しの懐石は、その日の山と川で決まる。岩魚、山菜、猪、蕎麦。器は先代が集めた古伊万里。</p>
+  </div>
+  <div class="panel" style="--scrim-top:rgba(21,17,24,.2);--scrim-bot:rgba(21,17,24,.85)">
+    <div class="pimg" data-img="images/kaiseki.png"></div>
+    <div class="cap">
+      <p class="cap-word rv">山の懐石、部屋出しにて。</p>
+      <p class="cap-sub rv d1">kaiseki of the mountains, served in your room</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <h3 class="rv" style="text-align:center;font-family:var(--en);font-size:.8rem;letter-spacing:.5em;color:var(--accent);margin-top:6vh">— 冬の献立 —</h3>
+    <dl class="kondate rv d1">
+      <div class="k-col"><dt>先付</dt><dd>蕪蒸し 銀餡</dd></div>
+      <div class="k-col"><dt>椀物</dt><dd>岩魚の潮仕立て</dd></div>
+      <div class="k-col"><dt>向付</dt><dd>信州サーモン 山葵</dd></div>
+      <div class="k-col"><dt>八寸</dt><dd>冬の山の盛り合わせ</dd></div>
+      <div class="k-col"><dt>強肴</dt><dd>猪鍋 味噌仕立て</dd></div>
+      <div class="k-col"><dt>食事</dt><dd>手打ち蕎麦</dd></div>
+      <div class="k-col"><dt>水菓子</dt><dd>市田柿のアイス</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ================= 夜 ================= -->
+<section id="yowa" data-world="yowa">
+  <div class="wrap stage-head">
+    <p class="st-time rv">9:00 p.m. — 夜半</p>
+    <h2 class="st-title rv d1">夜</h2>
+    <p class="st-sub rv d2">よわ — the night deepens</p>
+    <p class="st-lead rv d3">テレビはない。聞こえるのは、雪の落ちる音と、湯の流れる音だけ。窓辺で燗をひとつ、今夜は長い。</p>
+  </div>
+  <div class="panel" style="--scrim-top:rgba(10,10,16,.15);--scrim-bot:rgba(10,10,16,.9)">
+    <video src="images/sake.mp4" poster="images/sake.png" muted loop playsinline preload="metadata"></video>
+    <div class="cap">
+      <p class="cap-word rv">雪見酒、窓辺にて。</p>
+      <p class="cap-sub rv d1">warm sake, watching the snow</p>
+    </div>
+  </div>
+  <div class="wrap duo">
+    <figure class="card rv">
+      <div class="cimg" data-img="images/room.png"></div>
+      <figcaption>
+        <div class="c-jp">行灯の客室</div>
+        <div class="c-en">Lantern-lit room</div>
+        <p>布団はすでに敷かれている。行灯の灯りをひとつ落とせば、あとは眠るだけ。</p>
+      </figcaption>
+    </figure>
+    <div class="card rv d2" style="display:flex;align-items:center;justify-content:center;min-height:280px">
+      <p class="tate" style="height:auto;min-height:240px;font-size:clamp(1rem,2vw,1.3rem)">湯けむりに<br>月も霞むや<br><em>雪の宿</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 朝 ================= -->
+<section id="asa" data-world="asa">
+  <div class="wrap stage-head">
+    <p class="st-time rv">7:00 a.m. — 朝霧</p>
+    <h2 class="st-title rv d1">朝</h2>
+    <p class="st-sub rv d2">あさ — the morning mist</p>
+    <p class="st-lead rv d3">障子を開けると、谷いちめんの霧の海。夜のあいだに世界は白く塗り替えられている。朝湯は六時から。</p>
+  </div>
+  <div class="panel" style="--scrim-top:rgba(231,231,226,.05);--scrim-bot:rgba(231,231,226,.6);--cap-ink:#3b3f45">
+    <video src="images/morning.mp4" poster="images/morning.png" muted loop playsinline preload="metadata"></video>
+    <div class="cap">
+      <p class="cap-word rv">霧の海が、ひらけていく。</p>
+      <p class="cap-sub rv d1">the sea of mist, from your window</p>
+    </div>
+  </div>
+  <div class="wrap duo">
+    <figure class="card rv">
+      <div class="cimg" data-img="images/breakfast.png"></div>
+      <figcaption>
+        <div class="c-jp">湯宿の朝餉</div>
+        <div class="c-en">Breakfast at the inn</div>
+        <p>釜炊きの米、川魚の一夜干し、自家製の味噌汁。朝の光の中で、ゆっくりと。</p>
+      </figcaption>
+    </figure>
+    <div class="card rv d2" style="display:flex;align-items:center;justify-content:center;min-height:280px">
+      <p class="tate sub" style="height:auto;min-height:240px">チェックアウトは十一時。<br>けれど霧が晴れるまでは、<br>誰も帰りたがらない。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 宿 ================= -->
+<section id="yado" data-world="yado">
+  <div class="wrap stage-head" style="min-height:40svh;padding-top:14vh">
+    <p class="st-time rv">INFORMATION — ご案内</p>
+    <h2 class="st-title rv d1" style="font-size:clamp(1.9rem,5vw,3.4rem)">宿のこと。</h2>
+  </div>
+  <div class="wrap">
+    <div class="rooms">
+      <div class="room-card rv">
+        <span class="r-type">HANARE — PRIVATE VILLA</span>
+        <h3>霞の間</h3>
+        <p>源泉露天風呂付きの離れ。雪の坪庭を独り占めする、全四棟の特別室。</p>
+        <div class="r-price">一泊二食 五二、八〇〇円〜<small>二名一室・一名あたり・税サ込</small></div>
+      </div>
+      <div class="room-card rv d1">
+        <span class="r-type">HONKAN — MAIN BUILDING</span>
+        <h3>月の間</h3>
+        <p>本館二階の和室十畳。窓の下は霧見川、湯屋へは渡り廊下で。</p>
+        <div class="r-price">一泊二食 三八、五〇〇円〜<small>二名一室・一名あたり・税サ込</small></div>
+      </div>
+    </div>
+    <div class="info-grid">
+      <div class="info-cell rv">
+        <h3>ONSEN</h3>
+        <dl>
+          <dt>泉質</dt><dd>単純硫黄泉(源泉六三℃)</dd>
+          <dt>効能</dt><dd>神経痛・冷え性・疲労回復</dd>
+          <dt>湯屋</dt><dd>露天二・内湯二・貸切一</dd>
+        </dl>
+      </div>
+      <div class="info-cell rv d1">
+        <h3>STAY</h3>
+        <dl>
+          <dt>チェックイン</dt><dd>十五時より</dd>
+          <dt>チェックアウト</dt><dd>十一時まで</dd>
+          <dt>夕餉・朝餉</dt><dd>お部屋出し</dd>
+        </dl>
+      </div>
+      <div class="info-cell rv d2">
+        <h3>ACCESS</h3>
+        <dl>
+          <dt>所在地</dt><dd>信州・霧見沢温泉(架空)</dd>
+          <dt>送迎</dt><dd>上田駅より四十分(要予約)</dd>
+          <dt>お車</dt><dd>冬期はチェーン必携</dd>
+        </dl>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <a class="btn rv" href="#" onclick="return false">ご予約へ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">月霞</div>
+  <p>これは架空の温泉旅館のコンセプトサイトです。画像・映像はすべてローカルComfyUIで生成。</p>
+  <p style="margin-top:.6rem">© 2026 TSUKIGASUMI RYOKAN, KIRIMISAWA (fictional)</p>
+</footer>
+
+<script>
+/* ================= world palette model =================
+   スクロール=一泊の滞在。各 [data-world] セクションが近づくと
+   bg / ink / accent / 湯気の濃さが、その時間帯のものへ補間される。 */
+const WORLDS = {
+  arrival: { bg:[43,50,69],    ink:[237,232,220], accent:[217,166,98],  time:'4:00 p.m.', stage:'到着',   steam:.55 },
+  yu:      { bg:[23,32,46],    ink:[232,230,221], accent:[168,200,204], time:'4:30 p.m.', stage:'湯浴み', steam:1 },
+  zen:     { bg:[21,17,24],    ink:[235,228,214], accent:[192,80,63],   time:'6:00 p.m.', stage:'夕餉',   steam:.3 },
+  yowa:    { bg:[10,10,16],    ink:[233,228,216], accent:[217,166,98],  time:'9:00 p.m.', stage:'夜半',   steam:.4 },
+  asa:     { bg:[231,231,226], ink:[59,63,69],    accent:[125,151,168], time:'7:00 a.m.', stage:'朝霧',   steam:.75 },
+  yado:    { bg:[242,239,231], ink:[58,56,51],    accent:[176,116,60],  time:'11:00 a.m.',stage:'御宿',   steam:.2 }
+};
+const secs = [...document.querySelectorAll('[data-world]')];
+let stops = [];
+function buildStops(){
+  stops = [];
+  let prev = null;
+  for(const s of secs){
+    const w = s.dataset.world;
+    if(w === prev) continue;
+    prev = w;
+    stops.push({ y: Math.max(0, s.offsetTop - innerHeight*0.5), w });
+  }
+  stops.sort((a,b)=>a.y-b.y);
+  if(stops.length) stops[0].y = 0;
+}
+function mix(a,b,t){ return a.map((v,i)=>Math.round(v+(b[i]-v)*t)); }
+function paletteAt(y){
+  if(!stops.length) return WORLDS.arrival;
+  let i = stops.length-1;
+  for(let k=0;k<stops.length;k++){ if(y < stops[k].y){ i = k-1; break; } }
+  if(i < 0) i = 0;
+  const cur = WORLDS[stops[i].w];
+  const nxt = stops[i+1] ? WORLDS[stops[i+1].w] : null;
+  if(!nxt) return cur;
+  const span = innerHeight*0.6;
+  const t = Math.min(1, Math.max(0, (y-(stops[i+1].y-span))/span));
+  return {
+    bg:mix(cur.bg,nxt.bg,t), ink:mix(cur.ink,nxt.ink,t), accent:mix(cur.accent,nxt.accent,t),
+    steam:cur.steam+(nxt.steam-cur.steam)*t,
+    time:t>.5?nxt.time:cur.time, stage:t>.5?nxt.stage:cur.stage
+  };
+}
+
+const root=document.documentElement,
+      bg=document.getElementById('bg'),
+      shTime=document.getElementById('shTime'),
+      shStage=document.getElementById('shStage'),
+      shDot=document.getElementById('shDot'),
+      shiori=document.getElementById('shiori');
+let curPal = WORLDS.arrival;
+
+function onScroll(){
+  const y=scrollY;
+  const p=paletteAt(y);
+  curPal=p;
+  bg.style.backgroundColor=`rgb(${p.bg})`;
+  root.style.setProperty('--bg',`rgb(${p.bg})`);
+  root.style.setProperty('--ink',`rgb(${p.ink})`);
+  root.style.setProperty('--ink-dim',`rgba(${p.ink},.6)`);
+  root.style.setProperty('--accent',`rgb(${p.accent})`);
+  if(shTime.textContent!==p.time){ shTime.textContent=p.time; shStage.textContent=p.stage; }
+  shiori.classList.toggle('on', y>innerHeight*.4);
+  const prog=Math.min(1, y/Math.max(1,(document.body.scrollHeight-innerHeight)));
+  shDot.style.setProperty('--p',prog.toFixed(4));
+  parallax();
+}
+
+/* ================= parallax image panels ================= */
+const pimgs=[...document.querySelectorAll('.pimg')];
+function parallax(){
+  const vh=innerHeight;
+  for(const el of pimgs){
+    const r=el.parentElement.getBoundingClientRect();
+    if(r.bottom<0||r.top>vh) continue;
+    const t=(r.top+r.height/2-vh/2)/(vh+r.height);
+    el.style.transform=`translateY(${(t*-12).toFixed(2)}%)`;
+  }
+}
+
+/* ================= lazy bg images ================= */
+const lazyIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    if(e.isIntersecting){
+      e.target.style.backgroundImage=`url('${e.target.dataset.img}')`;
+      lazyIO.unobserve(e.target);
+    }
+  }
+},{rootMargin:'50% 0px'});
+document.querySelectorAll('[data-img]').forEach(el=>lazyIO.observe(el));
+
+/* ================= play videos only in view ================= */
+const vidIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    const v=e.target;
+    if(e.isIntersecting){ v.play().catch(()=>{}); } else { v.pause(); }
+  }
+},{rootMargin:'20% 0px'});
+document.querySelectorAll('.panel video').forEach(v=>vidIO.observe(v));
+
+/* ================= reveal ================= */
+const rvIO=new IntersectionObserver(es=>{
+  for(const e of es){ if(e.isIntersecting){ e.target.classList.add('in'); rvIO.unobserve(e.target);} }
+},{threshold:.18});
+document.querySelectorAll('.rv').forEach(el=>rvIO.observe(el));
+
+/* ================= steam wisps ================= */
+const cv=document.getElementById('steam'),ctx=cv.getContext('2d');
+let W,H,parts=[];
+function resize(){
+  W=cv.width=innerWidth*devicePixelRatio; H=cv.height=innerHeight*devicePixelRatio;
+  cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px';
+}
+function mkPart(){
+  return { x:Math.random()*W, y:H+Math.random()*H*.5,
+    r:(Math.random()*70+30)*devicePixelRatio,
+    vy:-(Math.random()*.5+.22)*devicePixelRatio,
+    vx:(Math.random()-.5)*.2*devicePixelRatio,
+    o:Math.random()*.05+.02, ph:Math.random()*Math.PI*2 };
+}
+function initParts(){ parts=Array.from({length:26},mkPart); }
+let lastY2=scrollY;
+
+addEventListener('resize',()=>{resize();buildStops();onScroll();});
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('load',()=>{buildStops();onScroll();});
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>{buildStops();onScroll();}); }
+resize();initParts();buildStops();onScroll();
+
+/* ================= main rAF loop =================
+   最末尾に置く(上の const 初期化後に最初のフレームが走るように)。
+   scrollY をポーリングするので scroll イベントに依存しない。 */
+let lastSeenY=-1, lastSeenH=-1;
+(function tick(){
+  if(document.body.scrollHeight!==lastSeenH){ lastSeenH=document.body.scrollHeight; buildStops(); }
+  if(scrollY!==lastSeenY){ lastSeenY=scrollY; onScroll(); }
+
+  ctx.clearRect(0,0,W,H);
+  const dy=(scrollY-lastY2); lastY2=scrollY;
+  const [ir,ig,ib]=curPal.ink;
+  const strength=curPal.steam;
+  for(const p of parts){
+    p.ph+=.006;
+    p.x+=p.vx+Math.sin(p.ph)*.3*devicePixelRatio;
+    p.y+=p.vy - dy*devicePixelRatio*.25;
+    if(p.y<-p.r){ p.y=H+p.r; p.x=Math.random()*W; }
+    if(p.y>H+p.r*2){ p.y=-p.r*.5; p.x=Math.random()*W; }
+    const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+    g.addColorStop(0,`rgba(${ir},${ig},${ib},${(p.o*strength).toFixed(3)})`);
+    g.addColorStop(1,`rgba(${ir},${ig},${ib},0)`);
+    ctx.fillStyle=g;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

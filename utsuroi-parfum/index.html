@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTSUROI — 香りは、一日の移ろい。| 京都の香水メゾン</title>
+<meta name="description" content="朝の柚子、昼の森、宵の焚香。京都の架空フレグランスメゾン「UTSUROI」。スクロールとともに、一日の時間と香りが移ろうコンセプトサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Zen+Old+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#16110e;
+  --ink:#f2e9dc;
+  --ink-dim:rgba(242,233,220,.6);
+  --accent:#d8a94e;
+  --serif:'Zen Old Mincho',serif;
+  --sans:'Zen Kaku Gothic New',sans-serif;
+  --en:'Cormorant Garamond',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);font-weight:300;
+  color:var(--ink);
+  background:var(--bg);
+  overflow-x:hidden;line-height:2;letter-spacing:.08em;
+}
+::selection{background:var(--accent);color:#1a1206}
+
+/* ============ fixed layers ============ */
+#bg{position:fixed;inset:0;z-index:-3;background:#16110e}
+#motes{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.5;
+  background:radial-gradient(ellipse at 50% 40%,transparent 60%,rgba(0,0,0,.28) 100%)}
+
+/* ============ time dial ============ */
+#dial{
+  position:fixed;left:clamp(14px,3vw,44px);bottom:clamp(16px,4vh,44px);z-index:50;
+  display:flex;align-items:center;gap:14px;pointer-events:none;
+  opacity:0;transition:opacity .8s ease;
+}
+#dial.on{opacity:1}
+#dial svg{display:block;overflow:visible}
+#dial .arc{stroke:var(--ink-dim);stroke-width:1;fill:none;opacity:.7}
+#dial .sun{fill:var(--accent);filter:drop-shadow(0 0 6px var(--accent))}
+#dial .t-label{
+  font-family:var(--serif);font-size:1rem;letter-spacing:.4em;color:var(--ink);
+}
+#dial .t-en{font-family:var(--en);font-style:italic;font-size:.72rem;letter-spacing:.2em;color:var(--ink-dim);display:block;margin-top:.1rem}
+
+/* ============ scent indicator (right, vertical) ============ */
+#scent-ind{
+  position:fixed;right:clamp(14px,3vw,44px);top:50%;transform:translateY(-50%);z-index:50;
+  writing-mode:vertical-rl;pointer-events:none;text-align:center;
+  opacity:0;transition:opacity .8s ease;
+}
+#scent-ind.on{opacity:1}
+#scent-ind .s-no{font-family:var(--en);font-size:.72rem;letter-spacing:.4em;color:var(--ink-dim)}
+#scent-ind .s-name{
+  margin-top:1rem;font-family:var(--serif);font-size:1.05rem;letter-spacing:.5em;color:var(--ink);
+  transition:opacity .5s;
+}
+
+/* ============ header ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:clamp(18px,3vw,30px) clamp(20px,4vw,56px);
+}
+.logo{font-family:var(--en);font-size:1.25rem;letter-spacing:.55em;font-weight:400;color:var(--ink);text-decoration:none}
+nav{display:flex;gap:clamp(14px,2.6vw,32px)}
+nav a{
+  color:var(--ink);text-decoration:none;font-size:.76rem;letter-spacing:.24em;
+  opacity:.8;transition:.3s;position:relative;padding-bottom:4px;
+}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:.35s}
+nav a:hover{opacity:1}
+nav a:hover::after{width:100%}
+@media(max-width:760px){nav{display:none}}
+
+/* ============ hero ============ */
+#hero{position:relative;height:100svh;overflow:hidden;display:grid;place-items:center}
+#hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(16,10,6,.3),rgba(16,10,6,.05) 45%,rgba(22,17,14,.85))}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:0 20px}
+.hero-kicker{font-size:clamp(.68rem,1.3vw,.8rem);letter-spacing:.55em;color:rgba(242,233,220,.85);
+  opacity:0;animation:rise 1.6s .4s cubic-bezier(.2,.7,.2,1) forwards}
+.hero-title{
+  font-family:var(--en);font-weight:300;letter-spacing:.34em;
+  font-size:clamp(3rem,11vw,8.5rem);line-height:1.05;color:#fdf8ee;
+  text-shadow:0 4px 60px rgba(0,0,0,.5);
+  opacity:0;animation:rise 1.6s .7s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero-sub{margin-top:1.6rem;font-family:var(--serif);font-size:clamp(1rem,2.3vw,1.4rem);letter-spacing:.42em;color:#f6efe2;
+  opacity:0;animation:rise 1.6s 1.05s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+.scroll-cue{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;
+  font-family:var(--en);font-size:.7rem;letter-spacing:.5em;color:rgba(242,233,220,.6);
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.scroll-cue::after{content:"";width:1px;height:52px;
+  background:linear-gradient(to bottom,var(--accent),transparent);
+  animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============ layout ============ */
+section{position:relative}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+
+.tate-block{min-height:86svh;display:flex;align-items:center;justify-content:center;
+  gap:clamp(28px,6vw,80px);padding:12vh 20px}
+.tate{writing-mode:vertical-rl;font-family:var(--serif);
+  font-size:clamp(1.1rem,2.7vw,1.75rem);letter-spacing:.42em;line-height:2.7;
+  height:min(62svh,520px);font-weight:500}
+.tate em{font-style:normal;color:var(--accent)}
+.tate.sub{font-size:clamp(.78rem,1.5vw,.95rem);color:var(--ink-dim);letter-spacing:.3em}
+
+/* scent section head */
+.scent-head{min-height:76svh;display:flex;flex-direction:column;justify-content:center;padding-top:16vh;padding-bottom:6vh}
+.s-meta{display:flex;align-items:baseline;gap:26px;margin-bottom:1.8rem}
+.s-num{font-family:var(--en);font-weight:300;font-size:clamp(2.6rem,6vw,4.6rem);line-height:1;color:var(--accent)}
+.s-tags{font-size:.72rem;letter-spacing:.3em;color:var(--ink-dim)}
+.s-time{font-family:var(--en);font-style:italic;letter-spacing:.18em;font-size:clamp(.9rem,1.8vw,1.15rem);color:var(--accent);margin-bottom:1rem}
+.s-name{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,7vw,5rem);line-height:1.25;letter-spacing:.2em}
+.s-en{font-family:var(--en);font-style:italic;font-weight:300;font-size:clamp(1.05rem,2.4vw,1.6rem);letter-spacing:.22em;color:var(--ink-dim);margin-top:.6rem}
+.s-lead{max-width:600px;margin-top:2.2rem;font-size:clamp(.9rem,1.6vw,1rem);color:var(--ink-dim)}
+
+/* full-bleed video/image panel */
+.panel{position:relative;height:110svh;overflow:hidden;display:flex;align-items:flex-end}
+.panel video,.panel .pimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.panel .pimg{background-size:cover;background-position:center;top:-12%;height:124%;will-change:transform}
+.panel::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,var(--scrim-top,rgba(10,6,4,.25)) 0%,transparent 40%,transparent 58%,var(--scrim-bot,rgba(10,6,4,.78)) 100%)}
+.panel .cap{position:relative;z-index:2;width:100%;max-width:1160px;margin:0 auto;
+  padding:0 clamp(20px,5vw,60px) clamp(44px,7vh,80px)}
+.cap-word{font-family:var(--serif);font-size:clamp(1.4rem,3.4vw,2.4rem);letter-spacing:.22em;font-weight:600;color:var(--cap-ink,#f6efe2)}
+.cap-sub{font-family:var(--en);font-style:italic;font-size:clamp(.88rem,1.7vw,1.1rem);letter-spacing:.18em;color:var(--cap-ink,#f6efe2);opacity:.75;margin-top:.4rem}
+
+/* product block */
+.product{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:center;padding:12vh 0 16vh}
+@media(max-width:860px){.product{grid-template-columns:1fr}}
+.p-visual{position:relative;overflow:hidden}
+.p-visual .cimg{aspect-ratio:4/3;background-size:cover;background-position:center;
+  transform:scale(1.05);transition:transform 1.5s cubic-bezier(.2,.7,.2,1)}
+.p-visual:hover .cimg{transform:scale(1)}
+.notes h4{font-family:var(--en);font-weight:400;letter-spacing:.34em;font-size:.8rem;color:var(--accent);
+  display:flex;align-items:center;gap:14px;margin-bottom:1.6rem}
+.notes h4::after{content:"";flex:1;height:1px;background:var(--accent);opacity:.3}
+.note-row{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:.9rem 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 14%,transparent)}
+.note-row dt{font-family:var(--en);font-size:.72rem;letter-spacing:.26em;color:var(--ink-dim);padding-top:.3em}
+.note-row dd{font-family:var(--serif);font-size:.98rem;letter-spacing:.12em}
+.p-price{margin-top:2rem;display:flex;align-items:baseline;gap:14px}
+.p-price b{font-family:var(--en);font-weight:400;font-size:2rem}
+.p-price span{font-size:.75rem;color:var(--ink-dim);letter-spacing:.2em}
+.p-cta{display:inline-block;margin-top:1.8rem;padding:1em 3.6em;
+  border:1px solid var(--accent);color:var(--ink);text-decoration:none;
+  letter-spacing:.36em;font-size:.78rem;position:relative;overflow:hidden;transition:color .4s;z-index:1}
+.p-cta::before{content:"";position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.p-cta:hover{color:#1a1206}
+.p-cta:hover::before{transform:scaleX(1);transform-origin:left}
+
+/* atelier */
+#atelier .duo{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(20px,4vw,48px);align-items:start;padding:4vh 0 14vh}
+@media(max-width:860px){#atelier .duo{grid-template-columns:1fr}}
+#atelier .duo .p-visual:nth-child(2){transform:translateY(7vh)}
+@media(max-width:860px){#atelier .duo .p-visual:nth-child(2){transform:none}}
+
+/* lineup */
+#lineup{padding:14vh 0 12vh}
+.lineup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(18px,3vw,36px);margin-top:7vh}
+.l-card{text-decoration:none;color:var(--ink)}
+.l-card .cimg{aspect-ratio:3/4;background-size:cover;background-position:center;
+  transform:scale(1.03);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.l-card:hover .cimg{transform:scale(.99)}
+.l-card figcaption{padding:1.2rem 0 0;text-align:center}
+.l-no{font-family:var(--en);font-size:.7rem;letter-spacing:.4em;color:var(--accent)}
+.l-name{font-family:var(--serif);font-size:1.25rem;letter-spacing:.3em;margin-top:.4rem}
+.l-price{font-family:var(--en);font-size:.9rem;color:var(--ink-dim);margin-top:.4rem;letter-spacing:.14em}
+
+footer{padding:10vh 0 6vh;text-align:center;font-size:.72rem;letter-spacing:.24em;color:var(--ink-dim)}
+footer .f-logo{font-family:var(--en);font-size:1.15rem;letter-spacing:.55em;color:var(--ink);margin-bottom:1.6rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1.1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.archive-back{position:fixed;top:18px;left:18px;z-index:100;padding:9px 12px;border:1px solid rgba(242,233,220,.42);border-radius:999px;background:rgba(22,17,14,.56);backdrop-filter:blur(10px);color:#f2e9dc;font:400 11px var(--sans);letter-spacing:.14em;text-decoration:none;transition:background .2s,color .2s}.archive-back:hover{background:#d8a94e;color:#1a1206}@media(max-width:640px){.archive-back{top:12px;left:12px;font-size:9px;padding:8px 10px}}
+</style>
+</head>
+<body>
+<a class="archive-back" href="../" aria-label="ONE LAUNCHの他のパターンを見る">←&nbsp; OTHER PATTERNS</a>
+
+<div id="bg"></div>
+<div class="grain"></div>
+<canvas id="motes"></canvas>
+
+<div id="dial">
+  <svg width="72" height="44" viewBox="0 0 72 44">
+    <path class="arc" d="M 4 40 A 32 32 0 0 1 68 40"/>
+    <line x1="0" y1="40" x2="72" y2="40" class="arc"/>
+    <circle class="sun" id="sunDot" cx="4" cy="40" r="4"/>
+  </svg>
+  <div>
+    <span class="t-label" id="timeLabel">夜明け</span>
+    <span class="t-en" id="timeEn">before dawn</span>
+  </div>
+</div>
+
+<div id="scent-ind">
+  <div class="s-no" id="indNo">MAISON UTSUROI</div>
+  <div class="s-name" id="indName">序章</div>
+</div>
+
+<header>
+  <a class="logo" href="#hero">UTSUROI</a>
+  <nav>
+    <a href="#hikari">ひかり</a>
+    <a href="#mori">もり</a>
+    <a href="#yoiyami">宵闇</a>
+    <a href="#atelier">Atelier</a>
+    <a href="#lineup">Lineup</a>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="hero" data-world="hero">
+  <video src="images/hero.mp4" poster="images/hero.png" autoplay muted loop playsinline></video>
+  <div class="hero-inner">
+    <p class="hero-kicker">JAPANESE FRAGRANCE MAISON — KYOTO</p>
+    <h1 class="hero-title">UTSUROI</h1>
+    <p class="hero-sub">香りは、一日の移ろい。</p>
+  </div>
+  <div class="scroll-cue">SCROLL</div>
+</section>
+
+<!-- ================= PHILOSOPHY ================= -->
+<section data-world="hero">
+  <div class="tate-block">
+    <p class="tate sub rv d2">スクロールとともに、ページの上を一日が過ぎていく。<br>朝から、宵闇へ。三つの香りを順に纏う。</p>
+    <h2 class="tate rv">朝の柚子、昼の森、宵の焚香。<br>移ろう時間を、<em>香り</em>に閉じ込めた。</h2>
+  </div>
+</section>
+
+<!-- ================= No.01 HIKARI ================= -->
+<section id="hikari" data-world="hikari">
+  <div class="wrap scent-head">
+    <div class="s-meta rv"><span class="s-num">01</span><span class="s-tags">EAU DE PARFUM / 50mL</span></div>
+    <p class="s-time rv d1">6:00 a.m. — 朝</p>
+    <h2 class="s-name rv d1">ひかり</h2>
+    <p class="s-en rv d2">HIKARI — the first light</p>
+    <p class="s-lead rv d3">夜が明ける。障子越しの光、剥いたばかりの柚子、湯気の向こうの白い花。一日でいちばん澄んだ時間を、そのまま瓶に。</p>
+  </div>
+  <div class="panel" style="--scrim-top:rgba(243,236,219,.05);--scrim-bot:rgba(243,236,219,.55);--cap-ink:#3d3115">
+    <video src="images/morning.mp4" poster="images/morning.png" muted loop playsinline preload="metadata"></video>
+    <div class="cap">
+      <p class="cap-word rv">雫が弾ける朝</p>
+      <p class="cap-sub rv d1">yuzu, dew, and white blossoms</p>
+    </div>
+  </div>
+  <div class="wrap product">
+    <figure class="p-visual rv"><div class="cimg" data-img="images/bottle-hikari.png"></div></figure>
+    <div class="notes rv d1">
+      <h4>NOTES</h4>
+      <dl>
+        <div class="note-row"><dt>TOP</dt><dd>柚子、ベルガモット、青紫蘇</dd></div>
+        <div class="note-row"><dt>MIDDLE</dt><dd>橙花(ネロリ)、白茶</dd></div>
+        <div class="note-row"><dt>BASE</dt><dd>ホワイトムスク、檜</dd></div>
+      </dl>
+      <div class="p-price"><b>¥13,200</b><span>tax included / 50mL</span></div>
+      <a class="p-cta" href="#" onclick="return false">この香りを纏う</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= No.02 MORI ================= -->
+<section id="mori" data-world="mori">
+  <div class="wrap scent-head">
+    <div class="s-meta rv"><span class="s-num">02</span><span class="s-tags">EAU DE PARFUM / 50mL</span></div>
+    <p class="s-time rv d1">1:00 p.m. — 昼</p>
+    <h2 class="s-name rv d1">もり</h2>
+    <p class="s-en rv d2">MORI — into the forest</p>
+    <p class="s-lead rv d3">昼下がり、杉木立の参道。差し込む光の柱、踏みしめる苔、深く吸い込む緑の匂い。都会の真ん中で、森を胸いっぱいに。</p>
+  </div>
+  <div class="panel" style="--scrim-top:rgba(6,16,11,.2);--scrim-bot:rgba(15,32,24,.82)">
+    <video src="images/forest.mp4" poster="images/forest.png" muted loop playsinline preload="metadata"></video>
+    <div class="cap">
+      <p class="cap-word rv">光の射す森</p>
+      <p class="cap-sub rv d1">cedar, moss, and rays of light</p>
+    </div>
+  </div>
+  <div class="wrap product">
+    <figure class="p-visual rv"><div class="cimg" data-img="images/bottle-mori.png"></div></figure>
+    <div class="notes rv d1">
+      <h4>NOTES</h4>
+      <dl>
+        <div class="note-row"><dt>TOP</dt><dd>檜葉、杉の若葉</dd></div>
+        <div class="note-row"><dt>MIDDLE</dt><dd>シダーウッド、ベチバー、苔</dd></div>
+        <div class="note-row"><dt>BASE</dt><dd>サンダルウッド、オークモス</dd></div>
+      </dl>
+      <div class="p-price"><b>¥13,200</b><span>tax included / 50mL</span></div>
+      <a class="p-cta" href="#" onclick="return false">この香りを纏う</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= No.03 YOIYAMI ================= -->
+<section id="yoiyami" data-world="yoiyami">
+  <div class="wrap scent-head">
+    <div class="s-meta rv"><span class="s-num">03</span><span class="s-tags">EAU DE PARFUM / 50mL</span></div>
+    <p class="s-time rv d1">8:00 p.m. — 宵</p>
+    <h2 class="s-name rv d1">宵闇</h2>
+    <p class="s-en rv d2">YOIYAMI — the amber dusk</p>
+    <p class="s-lead rv d3">日が落ちて、部屋に焚いた香がゆっくりとほどける。梅の甘さ、沈香の煙、肌に残る温度。一日の終わりにだけ許される、深い香り。</p>
+  </div>
+  <div class="panel" style="--scrim-top:rgba(5,2,3,.15);--scrim-bot:rgba(13,7,9,.9)">
+    <video src="images/night.mp4" poster="images/night.png" muted loop playsinline preload="metadata"></video>
+    <div class="cap">
+      <p class="cap-word rv">煙がほどける宵</p>
+      <p class="cap-sub rv d1">incense, plum, and candlelight</p>
+    </div>
+  </div>
+  <div class="wrap product">
+    <figure class="p-visual rv"><div class="cimg" data-img="images/bottle-yoiyami.png"></div></figure>
+    <div class="notes rv d1">
+      <h4>NOTES</h4>
+      <dl>
+        <div class="note-row"><dt>TOP</dt><dd>黒胡椒、熟れた梅</dd></div>
+        <div class="note-row"><dt>MIDDLE</dt><dd>沈香、夜来香</dd></div>
+        <div class="note-row"><dt>BASE</dt><dd>アンバー、ムスク、燻べた蜜</dd></div>
+      </dl>
+      <div class="p-price"><b>¥13,200</b><span>tax included / 50mL</span></div>
+      <a class="p-cta" href="#" onclick="return false">この香りを纏う</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ATELIER ================= -->
+<section id="atelier" data-world="atelier">
+  <div class="wrap scent-head" style="min-height:56svh">
+    <div class="s-meta rv"><span class="s-num" style="font-size:clamp(1.6rem,3.6vw,2.6rem)">ATELIER</span></div>
+    <h2 class="s-name rv d1" style="font-size:clamp(1.9rem,5vw,3.4rem)">夜の工房から。</h2>
+    <p class="s-lead rv d2">UTSUROIの香りはすべて、京都・西陣の小さな工房で調香されます。国産の柚子、吉野の檜、淡路島の香木。日本の素材だけで一日を描く——それがメゾンの約束です。</p>
+  </div>
+  <div class="wrap duo">
+    <figure class="p-visual rv"><div class="cimg" style="aspect-ratio:16/10" data-img="images/atelier.png"></div></figure>
+    <figure class="p-visual rv d2"><div class="cimg" style="aspect-ratio:4/3" data-img="images/ingredients.png"></div></figure>
+  </div>
+</section>
+
+<!-- ================= LINEUP ================= -->
+<section id="lineup" data-world="atelier">
+  <div class="wrap">
+    <div class="s-meta rv"><span class="s-num" style="font-size:clamp(1.6rem,3.6vw,2.6rem)">LINEUP</span></div>
+    <h2 class="s-name rv d1" style="font-size:clamp(1.9rem,5vw,3.4rem)">あなたの時間は、どこから。</h2>
+    <div class="lineup-grid">
+      <figure class="l-card rv">
+        <div class="cimg" data-img="images/bottle-hikari.png"></div>
+        <figcaption><div class="l-no">No.01 — MORNING</div><div class="l-name">ひかり</div><div class="l-price">¥13,200</div></figcaption>
+      </figure>
+      <figure class="l-card rv d1">
+        <div class="cimg" data-img="images/bottle-mori.png"></div>
+        <figcaption><div class="l-no">No.02 — AFTERNOON</div><div class="l-name">もり</div><div class="l-price">¥13,200</div></figcaption>
+      </figure>
+      <figure class="l-card rv d2">
+        <div class="cimg" data-img="images/bottle-yoiyami.png"></div>
+        <figcaption><div class="l-no">No.03 — DUSK</div><div class="l-name">宵闇</div><div class="l-price">¥13,200</div></figcaption>
+      </figure>
+    </div>
+    <div style="text-align:center;margin-top:6vh">
+      <a class="p-cta rv" href="#" onclick="return false">ディスカバリーセット ¥3,300</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">UTSUROI</div>
+  <p>これは架空のフレグランスメゾンのコンセプトサイトです。画像・映像はすべてローカルComfyUIで生成。</p>
+  <p style="margin-top:.6rem">© 2026 MAISON UTSUROI, KYOTO (fictional)</p>
+</footer>
+
+<script>
+/* ================= world color model =================
+   Each [data-world] section pulls the global palette (bg / ink / accent)
+   toward its world as its top approaches mid-viewport. */
+const WORLDS = {
+  hero:    { bg:[22,17,14],    ink:[242,233,220], accent:[216,169,78],  label:'夜明け', en:'before dawn', scent:'序章' },
+  hikari:  { bg:[243,236,219], ink:[58,49,26],    accent:[164,122,26],  label:'朝',     en:'morning',     scent:'No.01 ひかり' },
+  mori:    { bg:[15,32,24],    ink:[230,239,228], accent:[127,191,142], label:'昼',     en:'afternoon',   scent:'No.02 もり' },
+  yoiyami: { bg:[13,7,9],      ink:[240,228,212], accent:[224,164,76],  label:'宵',     en:'dusk',        scent:'No.03 宵闇' },
+  atelier: { bg:[24,17,12],    ink:[239,230,216], accent:[216,169,78],  label:'夜',     en:'night',       scent:'工房' }
+};
+const secs = [...document.querySelectorAll('[data-world]')];
+let stops = [];
+function buildStops(){
+  stops = [];
+  let prev = null;
+  for(const s of secs){
+    const w = s.dataset.world;
+    if(w === prev){ continue; }           // merge consecutive same-world sections
+    prev = w;
+    stops.push({ y: Math.max(0, s.offsetTop - innerHeight*0.5), w });
+  }
+  stops.sort((a,b)=>a.y-b.y);
+  if(stops.length) stops[0].y = 0;
+}
+function mix(a,b,t){ return a.map((v,i)=>Math.round(v+(b[i]-v)*t)); }
+function paletteAt(y){
+  if(!stops.length) return WORLDS.hero;
+  let i = stops.length-1;
+  for(let k=0;k<stops.length;k++){ if(y < stops[k].y){ i = k-1; break; } }
+  if(i < 0) i = 0;
+  const cur = WORLDS[stops[i].w];
+  const nxt = stops[i+1] ? WORLDS[stops[i+1].w] : null;
+  if(!nxt) return cur;
+  // blend over the 60% of viewport preceding the next stop
+  const span = innerHeight*0.6;
+  const t = Math.min(1, Math.max(0, (y-(stops[i+1].y-span))/span));
+  return {
+    bg: mix(cur.bg,nxt.bg,t), ink: mix(cur.ink,nxt.ink,t), accent: mix(cur.accent,nxt.accent,t),
+    label: t>.5?nxt.label:cur.label, en: t>.5?nxt.en:cur.en, scent: t>.5?nxt.scent:cur.scent
+  };
+}
+
+const root=document.documentElement,
+      bg=document.getElementById('bg'),
+      timeLabel=document.getElementById('timeLabel'),
+      timeEn=document.getElementById('timeEn'),
+      indName=document.getElementById('indName'),
+      sunDot=document.getElementById('sunDot'),
+      dial=document.getElementById('dial'),
+      scentInd=document.getElementById('scent-ind');
+let curPal = WORLDS.hero;
+
+function onScroll(){
+  const y=scrollY;
+  const p=paletteAt(y);
+  curPal=p;
+  bg.style.backgroundColor=`rgb(${p.bg})`;
+  root.style.setProperty('--bg',`rgb(${p.bg})`);
+  root.style.setProperty('--ink',`rgb(${p.ink})`);
+  root.style.setProperty('--ink-dim',`rgba(${p.ink},.6)`);
+  root.style.setProperty('--accent',`rgb(${p.accent})`);
+  if(timeLabel.textContent!==p.label){ timeLabel.textContent=p.label; timeEn.textContent=p.en; }
+  if(indName.textContent!==p.scent){ indName.textContent=p.scent; }
+  const on=y>innerHeight*.4;
+  dial.classList.toggle('on',on);
+  scentInd.classList.toggle('on',on);
+  // sun travels the arc with overall progress
+  const prog=Math.min(1, y/Math.max(1,(document.body.scrollHeight-innerHeight)));
+  const ang=Math.PI*(1-prog); // PI (left) -> 0 (right)
+  sunDot.setAttribute('cx',(36+32*Math.cos(ang)).toFixed(1));
+  sunDot.setAttribute('cy',(40-32*Math.sin(ang)).toFixed(1));
+  parallax();
+}
+
+/* ================= parallax (image panels) ================= */
+const pimgs=[...document.querySelectorAll('.pimg')];
+function parallax(){
+  const vh=innerHeight;
+  for(const el of pimgs){
+    const r=el.parentElement.getBoundingClientRect();
+    if(r.bottom<0||r.top>vh) continue;
+    const t=(r.top+r.height/2-vh/2)/(vh+r.height);
+    el.style.transform=`translateY(${(t*-12).toFixed(2)}%)`;
+  }
+}
+
+/* ================= lazy bg images ================= */
+const lazyIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    if(e.isIntersecting){
+      e.target.style.backgroundImage=`url('${e.target.dataset.img}')`;
+      lazyIO.unobserve(e.target);
+    }
+  }
+},{rootMargin:'50% 0px'});
+document.querySelectorAll('[data-img]').forEach(el=>lazyIO.observe(el));
+
+/* ================= play videos only in view ================= */
+const vidIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    const v=e.target;
+    if(e.isIntersecting){ v.play().catch(()=>{}); } else { v.pause(); }
+  }
+},{rootMargin:'20% 0px'});
+document.querySelectorAll('.panel video').forEach(v=>vidIO.observe(v));
+
+/* ================= reveal ================= */
+const rvIO=new IntersectionObserver(es=>{
+  for(const e of es){ if(e.isIntersecting){ e.target.classList.add('in'); rvIO.unobserve(e.target);} }
+},{threshold:.18});
+document.querySelectorAll('.rv').forEach(el=>rvIO.observe(el));
+
+/* ================= floating motes ================= */
+const cv=document.getElementById('motes'),ctx=cv.getContext('2d');
+let W,H,parts=[];
+function resize(){
+  W=cv.width=innerWidth*devicePixelRatio; H=cv.height=innerHeight*devicePixelRatio;
+  cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px';
+}
+function mkPart(){
+  return { x:Math.random()*W, y:Math.random()*H,
+    r:(Math.random()*1.7+.5)*devicePixelRatio,
+    vy:-(Math.random()*.25+.06)*devicePixelRatio,
+    vx:(Math.random()-.5)*.12*devicePixelRatio,
+    o:Math.random()*.4+.1, ph:Math.random()*Math.PI*2 };
+}
+function initParts(){ parts=Array.from({length:90},mkPart); }
+let lastY2=scrollY;
+
+addEventListener('resize',()=>{resize();buildStops();onScroll();});
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('load',()=>{buildStops();onScroll();});
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>{buildStops();onScroll();}); }
+resize();initParts();buildStops();onScroll();
+
+/* ================= main rAF loop =================
+   Declared last so every const above is initialized before the first
+   frame. Polls scrollY (robust where scroll events don't dispatch)
+   and drives the motes. */
+let lastSeenY=-1, lastSeenH=-1;
+(function tick(){
+  if(document.body.scrollHeight!==lastSeenH){ lastSeenH=document.body.scrollHeight; buildStops(); }
+  if(scrollY!==lastSeenY){ lastSeenY=scrollY; onScroll(); }
+
+  ctx.clearRect(0,0,W,H);
+  const dy=(scrollY-lastY2); lastY2=scrollY;
+  const [ar,ag,ab]=curPal.accent;
+  for(const p of parts){
+    p.ph+=.008;
+    p.x+=p.vx+Math.sin(p.ph)*.12*devicePixelRatio;
+    p.y+=p.vy - dy*devicePixelRatio*.3;
+    if(p.y<-12){p.y=H+10;p.x=Math.random()*W}
+    if(p.y>H+30){p.y=-10;p.x=Math.random()*W}
+    if(p.x>W+10)p.x=-10; if(p.x<-10)p.x=W+10;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${ar},${ag},${ab},${(p.o*.8).toFixed(3)})`;
+    if(p.r>1.6*devicePixelRatio){ctx.shadowColor=`rgba(${ar},${ag},${ab},.8)`;ctx.shadowBlur=7*devicePixelRatio}else{ctx.shadowBlur=0}
+    ctx.fill();
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星に還る — 宇宙葬送サービス STELLAWORKS | さよならは、夜空の約束になる。</title>
+<meta name="description" content="架空の宇宙葬送サービス「星に還る」。スクロールとともに、夜の湖畔から高度100km、周回軌道、月、そして4.2光年の彼方へ。大切な人を、星にして見送るコンセプトサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1026;
+  --ink:#eef1f8;
+  --ink-dim:rgba(238,241,248,.62);
+  --gold:#ffd98a;
+  --blue:#9fd8ff;
+  --serif:'Shippori Mincho',serif;
+  --sans:'Zen Kaku Gothic New',sans-serif;
+  --en:'Cormorant Garamond',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);font-weight:300;
+  color:var(--ink);background:var(--bg);
+  overflow-x:hidden;line-height:2.1;letter-spacing:.1em;
+}
+::selection{background:var(--gold);color:#141005}
+
+/* ============ fixed layers ============ */
+#bg{position:fixed;inset:0;z-index:-3;background:#0b1026}
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.vig{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 42%,transparent 58%,rgba(0,0,4,.45) 100%)}
+
+/* ============ altitude meter ============ */
+#alt{
+  position:fixed;right:clamp(14px,3vw,44px);top:50%;transform:translateY(-50%);z-index:50;
+  text-align:right;pointer-events:none;opacity:0;transition:opacity .8s ease;
+}
+#alt.on{opacity:1}
+#alt .a-en{font-family:var(--en);font-style:italic;font-size:.68rem;letter-spacing:.32em;color:var(--ink-dim)}
+#alt .a-num{
+  margin-top:.3rem;font-family:var(--en);font-weight:300;
+  font-size:clamp(1.5rem,3.4vw,2.5rem);line-height:1.1;color:var(--ink);
+  text-shadow:0 0 22px rgba(255,217,138,.35);font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+#alt .a-stage{
+  margin-top:.9rem;font-family:var(--serif);font-weight:600;font-size:.95rem;letter-spacing:.44em;
+  color:var(--gold);writing-mode:vertical-rl;margin-left:auto;min-height:7em;
+  text-shadow:0 0 14px rgba(255,217,138,.45);
+}
+#alt .a-line{position:absolute;right:-13px;top:-26vh;height:52vh;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(238,241,248,.3),transparent)}
+#alt .a-line i{position:absolute;left:50%;transform:translate(-50%,-50%);
+  width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);
+  top:calc(var(--p,1)*100%)}
+
+/* ============ header ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:clamp(18px,3vw,28px) clamp(20px,4vw,56px);
+}
+.logo{display:flex;align-items:baseline;gap:14px;text-decoration:none;color:var(--ink)}
+.logo .l-jp{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.4em}
+.logo .l-en{font-family:var(--en);font-size:.66rem;letter-spacing:.36em;color:var(--ink-dim)}
+nav{display:flex;gap:clamp(16px,2.8vw,34px)}
+nav a{color:var(--ink);text-decoration:none;font-family:var(--serif);
+  font-size:.82rem;letter-spacing:.28em;opacity:.82;transition:.3s;position:relative;padding-bottom:4px}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:.35s}
+nav a:hover{opacity:1}
+nav a:hover::after{width:100%}
+@media(max-width:760px){nav{display:none}}
+
+/* ============ hero ============ */
+#hero{position:relative;height:100svh;overflow:hidden;display:grid;place-items:center}
+#hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(5,8,20,.42),rgba(5,8,20,.05) 42%,rgba(11,16,38,.9))}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:0 20px}
+.hero-kicker{font-family:var(--en);font-size:clamp(.66rem,1.3vw,.8rem);letter-spacing:.55em;color:var(--ink-dim);
+  opacity:0;animation:rise 1.8s .4s cubic-bezier(.2,.7,.2,1) forwards}
+.hero-title{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.6rem,9vw,6rem);letter-spacing:.3em;line-height:1.2;color:#fdfcf7;
+  text-shadow:0 0 60px rgba(255,217,138,.25),0 4px 50px rgba(0,0,10,.6);
+  margin-top:1.6rem;opacity:0;animation:rise 1.8s .75s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.hero-sub{margin-top:1.8rem;font-family:var(--serif);font-size:clamp(.95rem,2.2vw,1.3rem);letter-spacing:.42em;color:var(--ink);
+  opacity:0;animation:rise 1.8s 1.15s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+.scroll-cue{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;
+  font-family:var(--en);font-size:.68rem;letter-spacing:.5em;color:var(--ink-dim);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.scroll-cue::after{content:"";width:1px;height:52px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:cue 2.6s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============ layout ============ */
+section{position:relative}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+
+.tate-block{min-height:84svh;display:flex;align-items:center;justify-content:center;
+  gap:clamp(30px,6vw,84px);padding:12vh 20px}
+.tate{writing-mode:vertical-rl;font-family:var(--serif);font-weight:500;
+  font-size:clamp(1.05rem,2.6vw,1.65rem);letter-spacing:.42em;line-height:2.8;
+  height:min(60svh,500px)}
+.tate em{font-style:normal;color:var(--gold);text-shadow:0 0 16px rgba(255,217,138,.5)}
+.tate.sub{font-size:clamp(.76rem,1.5vw,.92rem);color:var(--ink-dim);letter-spacing:.3em;font-weight:300}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:2px;margin:2vh 0 14vh}
+.stat{border:1px solid rgba(238,241,248,.12);padding:clamp(28px,4vw,48px) clamp(16px,3vw,30px);text-align:center;
+  background:rgba(238,241,248,.03)}
+.stat b{display:block;font-family:var(--en);font-weight:300;font-size:clamp(2rem,4.6vw,3rem);line-height:1.15;color:#fff}
+.stat b i{font-style:normal;font-size:.42em;color:var(--gold);letter-spacing:.1em;font-family:var(--serif)}
+.stat span{display:block;margin-top:.7rem;font-size:.74rem;letter-spacing:.28em;color:var(--ink-dim)}
+
+.sec-head{min-height:56svh;display:flex;flex-direction:column;justify-content:center;padding-top:14vh;padding-bottom:4vh}
+.sh-en{font-family:var(--en);font-style:italic;font-size:clamp(.9rem,1.9vw,1.15rem);letter-spacing:.26em;color:var(--gold);
+  display:flex;align-items:center;gap:18px}
+.sh-en::before{content:"";width:56px;height:1px;background:var(--gold)}
+.sh-jp{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5.6vw,3.8rem);letter-spacing:.26em;line-height:1.4;margin-top:1.2rem}
+.sh-lead{max-width:600px;margin-top:2rem;font-size:clamp(.88rem,1.6vw,.96rem);color:var(--ink-dim)}
+
+/* panels */
+.panel{position:relative;height:110svh;overflow:hidden;display:flex;align-items:flex-end}
+.panel video,.panel .pimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.panel .pimg{background-size:cover;background-position:center;top:-12%;height:124%;will-change:transform}
+.panel::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,var(--scrim-top,rgba(2,3,10,.3)) 0%,transparent 42%,transparent 58%,var(--scrim-bot,rgba(2,3,10,.82)) 100%)}
+.panel .cap{position:relative;z-index:2;width:100%;max-width:1140px;margin:0 auto;
+  padding:0 clamp(20px,5vw,60px) clamp(44px,7vh,80px)}
+.cap-word{font-family:var(--serif);font-weight:600;font-size:clamp(1.4rem,3.4vw,2.4rem);letter-spacing:.22em;color:#f5f4ec}
+.cap-sub{font-family:var(--en);font-style:italic;font-size:clamp(.86rem,1.7vw,1.05rem);letter-spacing:.18em;color:rgba(245,244,236,.72);margin-top:.5rem}
+.cap-desc{max-width:560px;margin-top:1.1rem;font-size:.88rem;color:rgba(245,244,236,.68)}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(16px,2.8vw,28px);padding:5vh 0 8vh}
+.plan{border:1px solid rgba(238,241,248,.14);background:rgba(8,10,24,.5);padding:clamp(28px,4vw,44px) clamp(22px,3vw,36px);
+  position:relative;transition:.4s}
+.plan:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 16px 50px rgba(0,0,5,.5)}
+.plan .p-en{font-family:var(--en);font-style:italic;font-size:.72rem;letter-spacing:.32em;color:var(--gold)}
+.plan h3{font-family:var(--serif);font-weight:600;font-size:1.55rem;letter-spacing:.3em;margin-top:.9rem}
+.plan .p-dest{font-size:.72rem;letter-spacing:.24em;color:var(--blue);margin-top:.4rem}
+.plan p{font-size:.85rem;color:var(--ink-dim);margin-top:1.2rem;min-height:6.2em}
+.plan .p-price{margin-top:1.4rem;font-family:var(--en);font-weight:400;font-size:1.7rem;letter-spacing:.06em}
+.plan .p-price small{font-family:var(--sans);font-size:.5em;color:var(--ink-dim);letter-spacing:.2em;margin-left:.6em}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;margin:4vh 0 14vh}
+.flow .f-step{border:1px solid rgba(238,241,248,.1);padding:1.8rem 1.4rem;background:rgba(238,241,248,.02)}
+.flow .f-no{font-family:var(--en);font-style:italic;font-size:.8rem;color:var(--gold);letter-spacing:.2em}
+.flow .f-t{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:.22em;margin-top:.5rem}
+.flow .f-d{font-size:.78rem;color:var(--ink-dim);margin-top:.5rem}
+
+/* voices */
+.voices{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,36px);padding:4vh 0 14vh}
+@media(max-width:800px){.voices{grid-template-columns:1fr}}
+.voice{border-left:1px solid rgba(255,217,138,.5);padding:1rem 0 1rem clamp(20px,3vw,34px)}
+.voice p{font-family:var(--serif);font-size:clamp(.95rem,1.9vw,1.15rem);letter-spacing:.16em;line-height:2.4}
+.voice .v-by{margin-top:1.2rem;font-size:.72rem;letter-spacing:.26em;color:var(--ink-dim)}
+
+/* final */
+.btn{display:inline-block;padding:1.15em 4.6em;margin:0 8px;
+  border:1px solid var(--gold);color:var(--ink);text-decoration:none;
+  font-family:var(--serif);letter-spacing:.4em;font-size:.88rem;
+  position:relative;overflow:hidden;transition:color .4s;z-index:1}
+.btn::before{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.btn:hover{color:#141005}
+.btn:hover::before{transform:scaleX(1);transform-origin:left}
+
+footer{padding:9vh 0 6vh;text-align:center;font-size:.7rem;letter-spacing:.22em;color:var(--ink-dim)}
+footer .f-logo{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.5em;color:var(--ink);margin-bottom:1.4rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1.2s cubic-bezier(.2,.7,.2,1),transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.archive-back{position:fixed;top:18px;left:18px;z-index:100;padding:9px 12px;border:1px solid rgba(238,241,248,.42);border-radius:999px;background:rgba(11,16,38,.55);backdrop-filter:blur(10px);color:#eef1f8;font:400 11px var(--sans);letter-spacing:.14em;text-decoration:none;transition:background .2s,color .2s}.archive-back:hover{background:#ffd98a;color:#141005}@media(max-width:640px){.archive-back{top:12px;left:12px;font-size:9px;padding:8px 10px}}
+</style>
+</head>
+<body>
+<a class="archive-back" href="../" aria-label="ONE LAUNCHの他のパターンを見る">←&nbsp; OTHER PATTERNS</a>
+
+<div id="bg"></div>
+<div class="vig"></div>
+<canvas id="stars"></canvas>
+
+<div id="alt">
+  <div class="a-en">ALTITUDE</div>
+  <div class="a-num" id="altNum">0 km</div>
+  <div class="a-stage" id="altStage">地上</div>
+  <div class="a-line"><i id="altDot"></i></div>
+</div>
+
+<header>
+  <a class="logo" href="#hero"><span class="l-jp">星に還る</span><span class="l-en">STELLAWORKS</span></a>
+  <nav>
+    <a href="#journey">旅路</a>
+    <a href="#plans">還り方</a>
+    <a href="#hoshimi">星見の夜</a>
+    <a href="#voices">声</a>
+    <a href="#contact">ご相談</a>
+  </nav>
+</header>
+
+<!-- ================= HERO / 地上 ================= -->
+<section id="hero" data-alt="0">
+  <video src="images/hero.mp4" poster="images/hero.png" autoplay muted loop playsinline></video>
+  <div class="hero-inner">
+    <p class="hero-kicker">SPACE MEMORIAL SERVICE — STELLAWORKS</p>
+    <h1 class="hero-title">星に還る</h1>
+    <p class="hero-sub">さよならは、夜空の約束になる。</p>
+  </div>
+  <div class="scroll-cue">ASCEND</div>
+</section>
+
+<!-- ================= 序 ================= -->
+<section data-alt="0">
+  <div class="tate-block">
+    <p class="tate sub rv d2">このページを昇るごとに、高度が上がっていきます。<br>どうか、ゆっくりと。</p>
+    <h2 class="tate rv">人のからだは、<br>星が燃えて生まれた<em>元素</em>でできている。<br>帰る場所は、いつも頭上にある。</h2>
+  </div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><b>48<i> 便</i></b><span>打ち上げ実績</span></div>
+      <div class="stat rv d1"><b>1,247<i> 柱</i></b><span>星になった方</span></div>
+      <div class="stat rv d2"><b>892<i> 柱</i></b><span>いま周回軌道に</span></div>
+      <div class="stat rv d3"><b>∞</b><span>見上げられる夜</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 旅路 ================= -->
+<section id="journey" data-alt="10">
+  <div class="wrap sec-head">
+    <p class="sh-en rv">The Journey</p>
+    <h2 class="sh-jp rv d1">旅路</h2>
+    <p class="sh-lead rv d3">お預かりするのは、指先ほどのカプセルにおさめた遺灰と、よろしければ、声をひとこと。全長四センチ、重さ二十グラムの、いちばん小さな旅立ちです。</p>
+  </div>
+  <div class="panel">
+    <div class="pimg" data-img="images/launch.png"></div>
+    <div class="cap">
+      <p class="cap-word rv">二十時三十分、南の射場から。</p>
+      <p class="cap-sub rv d1">the departure — 8:30 p.m.</p>
+      <p class="cap-desc rv d2">打ち上げの夜は、ご家族を射場の丘へご案内します。空へ伸びていく光を、いちばん近くで。</p>
+    </div>
+  </div>
+</section>
+
+<section data-alt="100">
+  <div class="panel">
+    <div class="pimg" data-img="images/kaman.png"></div>
+    <div class="cap">
+      <p class="cap-word rv">高度一〇〇キロメートル。</p>
+      <p class="cap-sub rv d1">the Kármán line — where sky becomes space</p>
+      <p class="cap-desc rv d2">空が宇宙に変わる境界線。ここを越えた瞬間から、あの人は「星」と呼ばれます。</p>
+    </div>
+  </div>
+</section>
+
+<section data-alt="400">
+  <div class="panel">
+    <div class="pimg" data-img="images/orbit.png"></div>
+    <div class="cap">
+      <p class="cap-word rv">それから三年、地球のそばを周ります。</p>
+      <p class="cap-sub rv d1">three years in orbit, watching over us</p>
+      <p class="cap-desc rv d2">高度四〇〇キロの周回軌道。九十分でひとまわり——あなたの街の上を、一日に十六回、通ります。</p>
+    </div>
+  </div>
+</section>
+
+<section data-alt="384400">
+  <div class="panel">
+    <div class="pimg" data-img="images/moon.png"></div>
+    <div class="cap">
+      <p class="cap-word rv">月を選んだ方は、もう少し遠くへ。</p>
+      <p class="cap-sub rv d1">to the moon — 384,400 km</p>
+      <p class="cap-desc rv d2">月周回軌道は、時間の流れが止まったように静かな場所。満月の夜、そこにいます。</p>
+    </div>
+  </div>
+</section>
+
+<section data-alt="40000000000000">
+  <div class="panel" style="--scrim-top:rgba(1,1,3,.15);--scrim-bot:rgba(1,1,3,.9)">
+    <video src="images/nebula.mp4" poster="images/nebula.png" muted loop playsinline preload="metadata"></video>
+    <div class="cap">
+      <p class="cap-word rv">いちばん遠い旅は、四・二光年。</p>
+      <p class="cap-sub rv d1">to the sea of stars — 4.2 light-years</p>
+      <p class="cap-desc rv d2">深宇宙探査機に相乗りして、太陽系の外へ。人類が届いたことのない場所で、あたらしい星のそばを漂います。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 還り方 ================= -->
+<section id="plans" data-alt="40000000000000">
+  <div class="wrap sec-head" style="min-height:44svh">
+    <p class="sh-en rv">How to Return</p>
+    <h2 class="sh-jp rv d1">還り方は、みっつ。</h2>
+  </div>
+  <div class="wrap plans">
+    <div class="plan rv">
+      <span class="p-en">PLAN 01 — METEOR</span>
+      <h3>流星還り</h3>
+      <p class="p-dest">周回軌道 3年 → 大気圏</p>
+      <p>三年のあいだ地球を周り、最後は流れ星になって還ってきます。降る夜と方角は、前もってご家族にお知らせします。願いごとの準備を。</p>
+      <div class="p-price">¥298,000<small>税込</small></div>
+    </div>
+    <div class="plan rv d1">
+      <span class="p-en">PLAN 02 — LUNA</span>
+      <h3>月還り</h3>
+      <p class="p-dest">月周回軌道 — 384,400 km</p>
+      <p>月をまわる静かな軌道に、眠り続けます。ご家族には月齢カレンダーをお渡しします。満月の夜は、月のふちを目でなぞってください。</p>
+      <div class="p-price">¥980,000<small>税込</small></div>
+    </div>
+    <div class="plan rv d2">
+      <span class="p-en">PLAN 03 — STELLAR</span>
+      <h3>星海還り</h3>
+      <p class="p-dest">深宇宙 — 4.2光年の彼方へ</p>
+      <p>深宇宙探査機に相乗りし、太陽系の外へ。もう地球からは見えません。けれど、たしかにどこかを飛びつづけています。もっとも遠い眠りです。</p>
+      <div class="p-price">¥1,980,000<small>税込</small></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="flow">
+      <div class="f-step rv"><div class="f-no">01</div><div class="f-t">ご相談</div><div class="f-d">オンラインまたは対面で。生前のご予約も承ります。</div></div>
+      <div class="f-step rv d1"><div class="f-no">02</div><div class="f-t">封入の儀</div><div class="f-d">ご家族の手で、遺灰と声のデータをカプセルへ。</div></div>
+      <div class="f-step rv d2"><div class="f-no">03</div><div class="f-t">打ち上げ</div><div class="f-d">射場の丘にご案内。あの光の中に、あの人が。</div></div>
+      <div class="f-step rv d3"><div class="f-no">04</div><div class="f-t">見守りの日々</div><div class="f-d">軌道情報とお知らせを、ずっとお届けします。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 星見の夜 ================= -->
+<section id="hoshimi" data-alt="0">
+  <div class="wrap sec-head">
+    <p class="sh-en rv">The Night of Falling Stars</p>
+    <h2 class="sh-jp rv d1">星見の夜</h2>
+    <p class="sh-lead rv d3">アプリ「ホシミル」が、あの人のいまの位置を教えてくれます。頭上を通る時刻の通知、流星還りの降る夜の予報、そして封入した声を、もういちど。</p>
+  </div>
+  <div class="panel" style="--scrim-top:rgba(2,3,10,.2);--scrim-bot:rgba(11,16,38,.88)">
+    <video src="images/meteor.mp4" poster="images/meteor.png" muted loop playsinline preload="metadata"></video>
+    <div class="cap">
+      <p class="cap-word rv">三年目の冬、父が流れた夜。</p>
+      <p class="cap-sub rv d1">the night father came home</p>
+      <p class="cap-desc rv d2">流星還りの最後の夜は、ご家族だけの流星群。空のどこを見ればいいか、私たちが必ずお伝えします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 声 ================= -->
+<section id="voices" data-alt="0">
+  <div class="wrap sec-head" style="min-height:36svh">
+    <p class="sh-en rv">Voices</p>
+    <h2 class="sh-jp rv d1">見送ったひとの声</h2>
+  </div>
+  <div class="wrap voices">
+    <div class="voice rv">
+      <p>「父は毎週金曜の二十一時すぎ、ベランダの上を通ります。息子は手を振ります。葬儀のかたちとしてではなく、暮らしのかたちとして、父がいます。」</p>
+      <div class="v-by">流星還り・ご長女(架空のお声です)</div>
+    </div>
+    <div class="voice rv d1">
+      <p>「満月を見るたび、あそこにいるんだと思えます。悲しみが消えるわけではないけれど、行き先がわかっているというのは、こんなに違うものなんですね。」</p>
+      <div class="v-by">月還り・ご主人(架空のお声です)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section id="contact" data-alt="0">
+  <div class="panel" style="--scrim-top:rgba(2,3,10,.2);--scrim-bot:rgba(11,16,38,.92)">
+    <div class="pimg" data-img="images/family.png"></div>
+    <div class="cap" style="text-align:center;padding-bottom:12vh">
+      <p class="cap-word rv" style="font-size:clamp(1.6rem,4vw,2.8rem)">見上げれば、いつでも会える。</p>
+      <div class="rv d2" style="margin-top:2.6rem">
+        <a class="btn" href="#" onclick="return false">資料請求(無料)</a>
+        <a class="btn" href="#" onclick="return false">生前のご相談</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">星に還る</div>
+  <p>これは架空の宇宙葬送サービスのコンセプトサイトです。実在のサービス・団体とは関係ありません。</p>
+  <p style="margin-top:.5rem">画像・映像はすべてローカルComfyUIで生成 / © 2026 STELLAWORKS Inc. (fictional)</p>
+</footer>
+
+<script>
+/* ================= altitude model =================
+   スクロール=上昇。各 [data-alt] セクションの下端で、その高度に到達する。
+   補間は log10 空間(km)。旅の終わりには、視点はまた地上へ還ってくる。 */
+const secs = [...document.querySelectorAll('[data-alt]')];
+let stops = [];
+function buildStops(){
+  stops = [{y:0, l:0}];
+  for(const s of secs){
+    stops.push({ y: s.offsetTop + s.offsetHeight - innerHeight, l: Math.log10(parseFloat(s.dataset.alt)+1) });
+  }
+  stops.sort((a,b)=>a.y-b.y);
+}
+function logAltAt(y){
+  if(y<=stops[0].y) return stops[0].l;
+  for(let i=1;i<stops.length;i++){
+    if(y<=stops[i].y){
+      const a=stops[i-1], b=stops[i];
+      const t=(y-a.y)/Math.max(1,(b.y-a.y));
+      return a.l + (b.l-a.l)*t;
+    }
+  }
+  return stops[stops.length-1].l;
+}
+function fmtAlt(km){
+  if(km<1e4) return Math.round(km).toLocaleString()+' km';
+  if(km<1e8){ const man=km/1e4; return (man<10?man.toFixed(1):Math.round(man).toLocaleString())+' 万km'; }
+  const ly=km/9.4607e12;
+  if(ly<0.05) return (km/1e8).toFixed(1)+' 億km';
+  return ly.toFixed(1)+' 光年';
+}
+const stages=[
+  [0,'地上'],[1,'打ち上げ'],[80,'境界線'],[250,'周回軌道'],[10000,'月の道'],[1e9,'星の海']
+];
+/* bg color ramp keyed by log-altitude */
+const ramp=[
+  [Math.log10(1),      [11,16,38]],
+  [Math.log10(101),    [6,10,28]],
+  [Math.log10(401),    [4,6,16]],
+  [Math.log10(384401), [2,3,9]],
+  [Math.log10(4e13),   [1,1,3]]
+];
+function colorAt(l){
+  if(l<=ramp[0][0]) return ramp[0][1];
+  for(let i=1;i<ramp.length;i++){
+    if(l<=ramp[i][0]){
+      const [l0,c0]=ramp[i-1],[l1,c1]=ramp[i];
+      const t=(l-l0)/(l1-l0);
+      return c0.map((v,k)=>Math.round(v+(c1[k]-v)*t));
+    }
+  }
+  return ramp[ramp.length-1][1];
+}
+
+const bg=document.getElementById('bg'),
+      altNum=document.getElementById('altNum'),
+      altStage=document.getElementById('altStage'),
+      altBox=document.getElementById('alt'),
+      altDot=document.getElementById('altDot');
+let curLog=0, shownLog=0;
+
+function onScroll(){
+  const y=scrollY;
+  curLog=logAltAt(y);
+  const c=colorAt(curLog);
+  bg.style.backgroundColor=`rgb(${c[0]},${c[1]},${c[2]})`;
+  const km=Math.pow(10,curLog)-1;
+  let st=stages[0][1];
+  for(const [k,n] of stages){ if(km>=k) st=n; }
+  if(altStage.textContent!==st) altStage.textContent=st;
+  altBox.classList.toggle('on', y>innerHeight*.4);
+  const prog=Math.min(1, y/Math.max(1,(document.body.scrollHeight-innerHeight)));
+  altDot.style.setProperty('--p',(1-prog).toFixed(4));
+  parallax();
+}
+
+/* ================= parallax image panels ================= */
+const pimgs=[...document.querySelectorAll('.pimg')];
+function parallax(){
+  const vh=innerHeight;
+  for(const el of pimgs){
+    const r=el.parentElement.getBoundingClientRect();
+    if(r.bottom<0||r.top>vh) continue;
+    const t=(r.top+r.height/2-vh/2)/(vh+r.height);
+    el.style.transform=`translateY(${(t*-12).toFixed(2)}%)`;
+  }
+}
+
+/* ================= lazy bg images ================= */
+const lazyIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    if(e.isIntersecting){
+      e.target.style.backgroundImage=`url('${e.target.dataset.img}')`;
+      lazyIO.unobserve(e.target);
+    }
+  }
+},{rootMargin:'50% 0px'});
+document.querySelectorAll('[data-img]').forEach(el=>lazyIO.observe(el));
+
+/* ================= play videos only in view ================= */
+const vidIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    const v=e.target;
+    if(e.isIntersecting){ v.play().catch(()=>{}); } else { v.pause(); }
+  }
+},{rootMargin:'20% 0px'});
+document.querySelectorAll('video').forEach(v=>vidIO.observe(v));
+
+/* ================= reveal ================= */
+const rvIO=new IntersectionObserver(es=>{
+  for(const e of es){ if(e.isIntersecting){ e.target.classList.add('in'); rvIO.unobserve(e.target);} }
+},{threshold:.16});
+document.querySelectorAll('.rv').forEach(el=>rvIO.observe(el));
+
+/* ================= starfield + shooting stars ================= */
+const cv=document.getElementById('stars'),ctx=cv.getContext('2d');
+let W,H,stars=[],meteors=[];
+function resize(){
+  W=cv.width=innerWidth*devicePixelRatio; H=cv.height=innerHeight*devicePixelRatio;
+  cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px';
+}
+function mkStar(){
+  const layer=Math.random(); // 0 far .. 1 near
+  return { x:Math.random()*W, y:Math.random()*H, layer,
+    r:(layer*1.3+.4)*devicePixelRatio,
+    o:Math.random()*.55+.25, tw:Math.random()*Math.PI*2, ts:.008+Math.random()*.03,
+    warm:Math.random()<.22 };
+}
+function initStars(){ stars=Array.from({length:340},mkStar); }
+function spawnMeteor(){
+  const x=Math.random()*W*.9+W*.05, y=Math.random()*H*.4;
+  const ang=Math.PI*(.62+Math.random()*.16); // down-left diagonal
+  meteors.push({ x,y, vx:Math.cos(ang)*14*devicePixelRatio, vy:Math.sin(ang)*14*devicePixelRatio, life:1 });
+  setTimeout(spawnMeteor, 3500+Math.random()*6000);
+}
+setTimeout(spawnMeteor, 2500);
+let lastY2=scrollY;
+
+addEventListener('resize',()=>{resize();buildStops();onScroll();});
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('load',()=>{buildStops();onScroll();});
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>{buildStops();onScroll();}); }
+resize();initStars();buildStops();onScroll();
+
+/* ================= main rAF loop =================
+   最末尾に配置(TDZ回避)。scrollY をポーリングし、星空を描く。
+   高度が上がるほど、見える星は増えていく。 */
+let lastSeenY=-1, lastSeenH=-1;
+(function tick(){
+  if(document.body.scrollHeight!==lastSeenH){ lastSeenH=document.body.scrollHeight; buildStops(); }
+  if(scrollY!==lastSeenY){ lastSeenY=scrollY; onScroll(); }
+
+  /* smooth altitude counter (log-space easing) */
+  shownLog += (curLog-shownLog)*0.09;
+  if(Math.abs(curLog-shownLog)<0.002) shownLog=curLog;
+  const shownTxt=fmtAlt(Math.pow(10,shownLog)-1);
+  if(altNum.textContent!==shownTxt) altNum.textContent=shownTxt;
+
+  ctx.clearRect(0,0,W,H);
+  const dy=(scrollY-lastY2); lastY2=scrollY;
+  const depthT=Math.min(1,curLog/13.6);              // 0 ground .. 1 deep space
+  const visible=Math.floor(180+160*depthT);          // more stars higher up
+  for(let i=0;i<visible && i<stars.length;i++){
+    const s=stars[i];
+    s.tw+=s.ts;
+    s.y-=dy*devicePixelRatio*(.06+.3*s.layer);       // parallax with scroll
+    if(s.y<-8){s.y=H+8;s.x=Math.random()*W}
+    if(s.y>H+8){s.y=-8;s.x=Math.random()*W}
+    const o=s.o*(.55+.45*Math.sin(s.tw));
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=s.warm
+      ? `rgba(255,222,168,${o.toFixed(3)})`
+      : `rgba(226,238,255,${o.toFixed(3)})`;
+    ctx.fill();
+  }
+  /* shooting stars */
+  for(let i=meteors.length-1;i>=0;i--){
+    const m=meteors[i];
+    m.x+=m.vx; m.y+=m.vy; m.life-=.022;
+    if(m.life<=0 || m.x<-50 || m.y>H+50){ meteors.splice(i,1); continue; }
+    const tx=m.x-m.vx*6, ty=m.y-m.vy*6;
+    const g=ctx.createLinearGradient(m.x,m.y,tx,ty);
+    g.addColorStop(0,`rgba(255,235,190,${(m.life*.95).toFixed(3)})`);
+    g.addColorStop(1,'rgba(255,235,190,0)');
+    ctx.strokeStyle=g;
+    ctx.lineWidth=1.6*devicePixelRatio;
+    ctx.beginPath();ctx.moveTo(m.x,m.y);ctx.lineTo(tx,ty);ctx.stroke();
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

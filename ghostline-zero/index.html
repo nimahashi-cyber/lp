@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHOSTLINE ZERO | 事前登録受付中 — 2099、亡霊都市ネオ東京。</title>
+<meta name="description" content="VOIDWORKS最新作『GHOSTLINE ZERO』事前登録受付中。2099年、死者のデータが徘徊する都市ネオ東京を舞台にしたサイバーパンク・アクションRPG。(架空のゲームのコンセプトLPです)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bk:#05060a;
+  --panel:#0a0c14;
+  --cy:#00f0ff;
+  --mg:#ff2d95;
+  --yl:#ffe93c;
+  --ink:#e8f4f8;
+  --ink-dim:rgba(232,244,248,.6);
+  --orb:'Orbitron',sans-serif;
+  --raj:'Rajdhani',sans-serif;
+  --jp:'Noto Sans JP',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--jp);color:var(--ink);background:var(--bk);
+  overflow-x:hidden;line-height:1.9;letter-spacing:.05em;
+}
+::selection{background:var(--mg);color:#0a0006}
+
+/* ===== fixed overlays ===== */
+#sparks{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.scanlines{position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.14;
+  background:repeating-linear-gradient(to bottom,transparent 0 2px,rgba(0,0,0,.9) 2px 3px)}
+.vig{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 40%,transparent 55%,rgba(0,0,0,.5) 100%)}
+
+/* ===== glitch text ===== */
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{
+  content:attr(data-text);position:absolute;inset:0;overflow:hidden;
+  clip-path:inset(50% 0 50% 0);opacity:.9;
+}
+.glitch::before{color:var(--cy);transform:translate(-3px,-2px);animation:gl1 3.2s infinite steps(1)}
+.glitch::after{color:var(--mg);transform:translate(3px,2px);animation:gl2 2.7s infinite steps(1)}
+@keyframes gl1{
+  0%,86%{clip-path:inset(100% 0 0 0)}
+  87%{clip-path:inset(12% 0 76% 0)}
+  89%{clip-path:inset(64% 0 8% 0)}
+  91%{clip-path:inset(30% 0 52% 0)}
+  93%{clip-path:inset(80% 0 4% 0)}
+  95%,100%{clip-path:inset(100% 0 0 0)}
+}
+@keyframes gl2{
+  0%,78%{clip-path:inset(100% 0 0 0)}
+  79%{clip-path:inset(40% 0 40% 0)}
+  81%{clip-path:inset(8% 0 80% 0)}
+  83%{clip-path:inset(70% 0 14% 0)}
+  85%,100%{clip-path:inset(100% 0 0 0)}
+}
+.glitch.burst::before{animation:gl1 .4s infinite steps(1)}
+.glitch.burst::after{animation:gl2 .35s infinite steps(1)}
+
+/* ===== header ===== */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(16px,3vw,40px);
+  background:linear-gradient(to bottom,rgba(5,6,10,.9),rgba(5,6,10,0));
+}
+.logo{font-family:var(--orb);font-weight:900;font-size:1.05rem;letter-spacing:.18em;color:#fff;text-decoration:none}
+.logo span{color:var(--cy)}
+nav{display:flex;gap:clamp(12px,2.2vw,28px);align-items:center}
+nav a{font-family:var(--raj);font-weight:600;font-size:.82rem;letter-spacing:.22em;
+  color:var(--ink);text-decoration:none;opacity:.85;transition:.25s}
+nav a:hover{color:var(--cy);opacity:1;text-shadow:0 0 12px var(--cy)}
+.nav-cta{
+  font-family:var(--raj);font-weight:700;font-size:.8rem;letter-spacing:.2em;
+  color:#0a0006;background:var(--mg);padding:.55em 1.5em;text-decoration:none;
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  transition:.25s;
+}
+.nav-cta:hover{background:var(--yl);box-shadow:0 0 18px var(--yl)}
+@media(max-width:760px){nav a{display:none}}
+
+/* ===== hero ===== */
+#hero{position:relative;min-height:100svh;overflow:hidden;display:grid;place-items:center;padding:14vh 20px 10vh}
+#hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(5,6,10,.55),rgba(5,6,10,.15) 40%,rgba(5,6,10,.92) 88%,var(--bk))}
+.hero-inner{position:relative;z-index:2;text-align:center;max-width:1000px}
+.h-kicker{font-family:var(--raj);font-weight:600;font-size:clamp(.72rem,1.5vw,.9rem);letter-spacing:.6em;color:var(--cy);
+  text-shadow:0 0 14px var(--cy);opacity:0;animation:rise 1.2s .3s cubic-bezier(.2,.7,.2,1) forwards}
+.h-title{
+  font-family:var(--orb);font-weight:900;
+  font-size:clamp(2.6rem,9vw,6.8rem);line-height:1.02;letter-spacing:.06em;color:#fff;
+  text-shadow:0 0 40px rgba(0,240,255,.45),0 6px 40px rgba(0,0,0,.8);
+  margin-top:1.2rem;opacity:0;animation:rise 1.2s .55s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.h-title .zero{color:var(--mg);text-shadow:0 0 40px rgba(255,45,149,.6)}
+.h-sub{
+  font-weight:900;font-size:clamp(1rem,2.6vw,1.5rem);letter-spacing:.5em;margin-top:1.4rem;color:var(--ink);
+  opacity:0;animation:rise 1.2s .8s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.h-copy{
+  font-size:clamp(.85rem,1.8vw,1rem);color:var(--ink-dim);letter-spacing:.24em;margin-top:1.2rem;
+  opacity:0;animation:rise 1.2s 1s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+/* countdown */
+#count{display:flex;justify-content:center;gap:clamp(10px,2.4vw,26px);margin-top:3rem;
+  opacity:0;animation:rise 1.2s 1.2s cubic-bezier(.2,.7,.2,1) forwards}
+.c-box{min-width:clamp(64px,10vw,110px);padding:.9em .4em .7em;
+  background:rgba(10,12,20,.72);border:1px solid rgba(0,240,255,.35);
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  backdrop-filter:blur(4px)}
+.c-box b{display:block;font-family:var(--orb);font-weight:700;font-size:clamp(1.6rem,4.2vw,2.8rem);line-height:1;color:var(--cy);
+  text-shadow:0 0 16px rgba(0,240,255,.7);font-variant-numeric:tabular-nums}
+.c-box span{display:block;margin-top:.5em;font-family:var(--raj);font-weight:600;font-size:.66rem;letter-spacing:.32em;color:var(--ink-dim)}
+.c-label{font-family:var(--raj);font-weight:600;letter-spacing:.4em;font-size:.75rem;color:var(--yl);margin-top:1.2rem;
+  opacity:0;animation:rise 1.2s 1.3s forwards}
+
+/* hero CTA */
+.h-cta{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:2.6rem;
+  opacity:0;animation:rise 1.2s 1.45s cubic-bezier(.2,.7,.2,1) forwards}
+.btn{
+  font-family:var(--jp);font-weight:900;letter-spacing:.3em;font-size:clamp(.9rem,2vw,1.05rem);
+  padding:1em 3.2em;text-decoration:none;position:relative;transition:.25s;
+  clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+}
+.btn.primary{color:#0a0006;background:linear-gradient(100deg,var(--cy),#7dfcff);box-shadow:0 0 30px rgba(0,240,255,.45)}
+.btn.primary:hover{background:var(--yl);box-shadow:0 0 40px rgba(255,233,60,.6);transform:translateY(-2px)}
+.btn.ghost{color:var(--ink);border:1px solid rgba(232,244,248,.5);background:rgba(10,12,20,.5)}
+.btn.ghost:hover{border-color:var(--mg);color:var(--mg);box-shadow:0 0 24px rgba(255,45,149,.35)}
+
+/* ===== marquee ===== */
+.marquee{overflow:hidden;border-block:1px solid rgba(0,240,255,.3);background:rgba(0,240,255,.05);padding:.55em 0}
+.marquee .track{display:flex;gap:0;white-space:nowrap;animation:mq 22s linear infinite;width:max-content}
+.marquee span{font-family:var(--orb);font-weight:700;font-size:.8rem;letter-spacing:.3em;color:var(--cy);padding-right:3em}
+.marquee span i{font-style:normal;color:var(--mg)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ===== sections ===== */
+section{position:relative}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(18px,4.5vw,56px)}
+.sec-head{padding:14vh 0 6vh;text-align:center}
+.sec-en{font-family:var(--orb);font-weight:900;font-size:clamp(2rem,6.4vw,4.2rem);letter-spacing:.1em;color:#fff}
+.sec-jp{font-family:var(--raj);font-weight:600;font-size:.8rem;letter-spacing:.5em;color:var(--mg);margin-top:.8rem;text-transform:uppercase}
+.sec-jp::before,.sec-jp::after{content:"—";color:rgba(255,45,149,.5);margin:0 1em}
+
+/* story */
+#story .panel{position:relative;height:104svh;overflow:hidden;display:flex;align-items:center;margin-top:4vh}
+#story .pimg{position:absolute;inset:-12% 0 0;height:124%;background-size:cover;background-position:center;will-change:transform}
+#story .panel::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(5,6,10,.92) 0%,rgba(5,6,10,.55) 45%,rgba(5,6,10,.15) 100%)}
+#story .story-txt{position:relative;z-index:2;max-width:1160px;margin:0 auto;width:100%;
+  padding:0 clamp(18px,4.5vw,56px)}
+#story .story-txt h3{font-family:var(--jp);font-weight:900;font-size:clamp(1.5rem,4vw,2.6rem);line-height:1.7;letter-spacing:.14em}
+#story .story-txt h3 em{font-style:normal;color:var(--cy);text-shadow:0 0 18px rgba(0,240,255,.6)}
+#story .story-txt p{max-width:520px;margin-top:2rem;font-size:.92rem;color:var(--ink-dim)}
+.story-tag{display:inline-block;font-family:var(--raj);font-weight:700;font-size:.7rem;letter-spacing:.4em;
+  color:var(--yl);border:1px solid rgba(255,233,60,.5);padding:.4em 1.4em;margin-bottom:1.6rem}
+
+/* characters */
+.chars{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(16px,2.6vw,30px);padding:4vh 0 12vh}
+.char{position:relative;overflow:hidden;background:var(--panel);
+  border:1px solid rgba(0,240,255,.18);transition:.4s;
+  clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px)}
+.char:hover{transform:translateY(-8px);border-color:var(--cy);box-shadow:0 14px 50px rgba(0,240,255,.25)}
+.char .cimg{aspect-ratio:3/4.4;background-size:cover;background-position:top center;
+  transform:scale(1.04);transition:transform 1.2s cubic-bezier(.2,.7,.2,1);filter:saturate(1.05)}
+.char:hover .cimg{transform:scale(1.0)}
+.char .cinfo{position:relative;padding:1.2rem 1.4rem 1.6rem;
+  background:linear-gradient(to top,var(--panel) 60%,transparent)}
+.char .c-role{font-family:var(--raj);font-weight:700;font-size:.68rem;letter-spacing:.4em;color:var(--mg)}
+.char .c-name-en{font-family:var(--orb);font-weight:700;font-size:1.4rem;letter-spacing:.12em;color:#fff;margin-top:.3rem}
+.char .c-name-jp{font-size:.8rem;font-weight:700;letter-spacing:.3em;color:var(--ink-dim);margin-top:.1rem}
+.char .c-quote{font-size:.82rem;color:var(--ink-dim);margin-top:.8rem;letter-spacing:.12em}
+.char .c-num{position:absolute;top:-.4em;right:.4rem;font-family:var(--orb);font-weight:900;
+  font-size:3.2rem;color:transparent;-webkit-text-stroke:1px rgba(0,240,255,.4)}
+
+/* world */
+.world-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(14px,2.4vw,24px);padding:4vh 0 12vh}
+.wcard{position:relative;overflow:hidden;border:1px solid rgba(255,45,149,.2)}
+.wcard .wimg,.wcard video{aspect-ratio:16/9;width:100%;object-fit:cover;display:block;
+  background-size:cover;background-position:center;transform:scale(1.05);transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.wcard:hover .wimg,.wcard:hover video{transform:scale(1)}
+.wcard figcaption{position:absolute;left:0;right:0;bottom:0;padding:2.2rem 1.2rem .9rem;
+  background:linear-gradient(to top,rgba(5,6,10,.92),transparent);
+  font-family:var(--raj);font-weight:600;font-size:.78rem;letter-spacing:.3em;color:var(--ink)}
+.wcard figcaption i{font-style:normal;color:var(--cy);margin-right:1em}
+
+/* rewards */
+#rewards{background:linear-gradient(rgba(5,6,10,.88),rgba(5,6,10,.94)),var(--reward-bg,none) center/cover fixed}
+.reg-now{display:flex;flex-direction:column;align-items:center;padding:2vh 0 4vh}
+.reg-now .rn-label{font-family:var(--raj);font-weight:600;letter-spacing:.4em;font-size:.78rem;color:var(--ink-dim)}
+.reg-now .rn-num{font-family:var(--orb);font-weight:900;font-size:clamp(2.6rem,7.5vw,5rem);line-height:1.15;color:var(--yl);
+  text-shadow:0 0 30px rgba(255,233,60,.5);font-variant-numeric:tabular-nums}
+.reg-now .rn-num small{font-family:var(--jp);font-weight:900;font-size:.4em;color:var(--ink);margin-left:.2em}
+.bar-wrap{width:min(760px,90%);margin:1.5rem auto 0}
+.bar{height:14px;background:rgba(232,244,248,.08);border:1px solid rgba(0,240,255,.3);position:relative;overflow:hidden;
+  clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+.bar i{position:absolute;inset:0;width:0;transition:width 2.2s cubic-bezier(.2,.7,.2,1);
+  background:linear-gradient(90deg,var(--cy),var(--mg));box-shadow:0 0 18px rgba(0,240,255,.6)}
+.bar-marks{display:flex;justify-content:space-between;font-family:var(--raj);font-weight:600;
+  font-size:.7rem;letter-spacing:.14em;color:var(--ink-dim);margin-top:.5rem}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(12px,2vw,20px);padding:5vh 0 12vh}
+.tier{border:1px solid rgba(232,244,248,.14);background:rgba(10,12,20,.66);padding:1.6rem 1.4rem;position:relative;
+  clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.tier.done{border-color:var(--cy);box-shadow:inset 0 0 30px rgba(0,240,255,.08)}
+.tier .t-num{font-family:var(--orb);font-weight:900;font-size:1.5rem;color:#fff}
+.tier .t-num i{font-style:normal;font-size:.55em;color:var(--cy);margin-left:.2em}
+.tier .t-reward{font-size:.85rem;font-weight:700;letter-spacing:.14em;margin-top:.7rem}
+.tier .t-desc{font-size:.75rem;color:var(--ink-dim);margin-top:.3rem}
+.tier .t-badge{position:absolute;top:.8rem;right:.9rem;font-family:var(--raj);font-weight:700;font-size:.62rem;letter-spacing:.26em;
+  color:#0a0006;background:var(--cy);padding:.25em 1em}
+.tier.locked .t-badge{background:transparent;color:var(--ink-dim);border:1px solid rgba(232,244,248,.3)}
+.tier.locked{opacity:.75}
+
+/* spec */
+.spec{max-width:760px;margin:0 auto;padding:2vh 0 12vh}
+.spec dl{display:grid;grid-template-columns:150px 1fr;font-size:.9rem}
+.spec dt{font-family:var(--raj);font-weight:700;letter-spacing:.3em;color:var(--cy);
+  padding:1.05em 0;border-bottom:1px solid rgba(232,244,248,.1)}
+.spec dd{padding:1.05em 0;border-bottom:1px solid rgba(232,244,248,.1);letter-spacing:.1em}
+@media(max-width:560px){.spec dl{grid-template-columns:110px 1fr;font-size:.8rem}}
+
+/* final cta */
+#final{position:relative;padding:16vh 20px 14vh;text-align:center;overflow:hidden}
+#final .f-copy{font-weight:900;font-size:clamp(1.3rem,3.6vw,2.2rem);letter-spacing:.3em;line-height:2}
+#final .f-copy em{font-style:normal;color:var(--mg);text-shadow:0 0 20px rgba(255,45,149,.6)}
+.plats{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:2.4rem}
+.plat{font-family:var(--raj);font-weight:700;font-size:.78rem;letter-spacing:.3em;color:var(--ink-dim);
+  border:1px solid rgba(232,244,248,.25);padding:.6em 1.6em}
+
+footer{padding:6vh 0 5vh;text-align:center;font-size:.7rem;letter-spacing:.2em;color:var(--ink-dim);
+  border-top:1px solid rgba(232,244,248,.08)}
+footer .f-logo{font-family:var(--orb);font-weight:900;font-size:1rem;letter-spacing:.2em;color:var(--ink);margin-bottom:1.2rem}
+footer .f-logo span{color:var(--cy)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(36px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+.archive-back{position:fixed;top:18px;left:18px;z-index:100;padding:9px 12px;border:1px solid rgba(255,255,255,.38);border-radius:999px;background:rgba(5,6,10,.58);backdrop-filter:blur(10px);color:#e8f4f8;font:600 10px var(--raj);letter-spacing:.15em;text-decoration:none;transition:background .2s,color .2s}.archive-back:hover{background:#00f0ff;color:#05060a}@media(max-width:640px){.archive-back{top:12px;left:12px;font-size:9px;padding:8px 10px}}
+</style>
+</head>
+<body>
+<a class="archive-back" href="../" aria-label="ONE LAUNCHの他のパターンを見る">←&nbsp; OTHER PATTERNS</a>
+
+<canvas id="sparks"></canvas>
+<div class="vig"></div>
+<div class="scanlines"></div>
+
+<header>
+  <a class="logo" href="#hero">GHOSTLINE <span>ZERO</span></a>
+  <nav>
+    <a href="#story">STORY</a>
+    <a href="#character">CHARACTER</a>
+    <a href="#world">WORLD</a>
+    <a href="#rewards">REWARDS</a>
+    <a class="nav-cta" href="#final">事前登録</a>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <video src="images/keyart.mp4" poster="images/keyart.png" autoplay muted loop playsinline></video>
+  <div class="hero-inner">
+    <p class="h-kicker">VOIDWORKS PRESENTS — CYBERPUNK ACTION RPG</p>
+    <h1 class="h-title"><span class="glitch" data-text="GHOSTLINE">GHOSTLINE</span> <span class="zero glitch" data-text="ZERO">ZERO</span></h1>
+    <p class="h-sub">亡霊都市、ネオ東京。</p>
+    <p class="h-copy">2099年——死者のデータが、街を歩いている。</p>
+    <div id="count">
+      <div class="c-box"><b id="cd-d">--</b><span>DAYS</span></div>
+      <div class="c-box"><b id="cd-h">--</b><span>HOURS</span></div>
+      <div class="c-box"><b id="cd-m">--</b><span>MIN</span></div>
+      <div class="c-box"><b id="cd-s">--</b><span>SEC</span></div>
+    </div>
+    <p class="c-label">RELEASE — 2026.12.24</p>
+    <div class="h-cta">
+      <a class="btn primary" href="#final">事前登録する</a>
+      <a class="btn ghost" href="#world">ティザー映像</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee"><div class="track" id="mqTrack">
+  <span>PRE-REGISTRATION NOW OPEN <i>//</i> GHOSTLINE ZERO <i>//</i> 2099 NEO-TOKYO <i>//</i> CYBERPUNK ACTION RPG <i>//</i> RELEASE 2026.12.24 <i>//</i> </span>
+</div></div>
+
+<!-- ================= STORY ================= -->
+<section id="story">
+  <div class="sec-head">
+    <h2 class="sec-en rv"><span class="glitch" data-text="STORY">STORY</span></h2>
+    <p class="sec-jp rv d1">物語</p>
+  </div>
+  <div class="panel">
+    <div class="pimg" data-img="images/world-tower.png"></div>
+    <div class="story-txt">
+      <span class="story-tag rv">2099 — NEO TOKYO</span>
+      <h3 class="rv d1">死者は、消えない。<br><em>データ</em>として、この街を彷徨い続ける。</h3>
+      <p class="rv d2">脳内チップに宿った人格データは、肉体の死後も都市ネットワークを漂流する——人々はそれを「ゴースト」と呼んだ。ゴーストを喰らい肥大化する電脳体〈リヴァイア〉が街を蝕むとき、死者の声を聞く力を持つ回収屋の少年カイは、消えたはずの妹のゴーストと再会する。</p>
+      <p class="rv d3">斬って、潜って、喰われる前に喰らえ。生者と死者の境界線〈ゴーストライン〉を疾走する、高速電脳アクションRPG。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHARACTER ================= -->
+<section id="character">
+  <div class="sec-head">
+    <h2 class="sec-en rv"><span class="glitch" data-text="CHARACTER">CHARACTER</span></h2>
+    <p class="sec-jp rv d1">キャラクター</p>
+  </div>
+  <div class="wrap chars">
+    <figure class="char rv">
+      <div class="cimg" data-img="images/char-kai.png"></div>
+      <figcaption class="cinfo">
+        <span class="c-num">01</span>
+        <div class="c-role">GHOST COLLECTOR / 主人公</div>
+        <div class="c-name-en">KAI</div>
+        <div class="c-name-jp">カイ・シノノメ</div>
+        <p class="c-quote">「死んだやつの声が、うるさいんだよ——この街は。」</p>
+      </figcaption>
+    </figure>
+    <figure class="char rv d1">
+      <div class="cimg" data-img="images/char-rin.png"></div>
+      <figcaption class="cinfo">
+        <span class="c-num">02</span>
+        <div class="c-role">NET DIVER / 電脳師</div>
+        <div class="c-name-en">RIN</div>
+        <div class="c-name-jp">リン・カグラギ</div>
+        <p class="c-quote">「ファイアウォール?あー、うん、もう溶かした。」</p>
+      </figcaption>
+    </figure>
+    <figure class="char rv d2">
+      <div class="cimg" data-img="images/char-goro.png"></div>
+      <figcaption class="cinfo">
+        <span class="c-num">03</span>
+        <div class="c-role">EX-MILITARY / 掃除屋</div>
+        <div class="c-name-en">GORO</div>
+        <div class="c-name-jp">ゴロウ・ドウモト</div>
+        <p class="c-quote">「ガキども、伏せてろ。ここからは大人の時間だ。」</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= WORLD ================= -->
+<section id="world">
+  <div class="sec-head">
+    <h2 class="sec-en rv"><span class="glitch" data-text="WORLD">WORLD</span></h2>
+    <p class="sec-jp rv d1">世界観</p>
+  </div>
+  <div class="wrap world-grid">
+    <figure class="wcard rv" style="grid-column:1/-1">
+      <video src="images/ghost.mp4" poster="images/world-ghost.png" muted loop playsinline preload="metadata"></video>
+      <figcaption><i>AREA-00</i>亡霊駅 — ゴーストの吹き溜まり。近づく生者を、彼らは覚えている。</figcaption>
+    </figure>
+    <figure class="wcard rv">
+      <div class="wimg" data-img="images/world-street.png"></div>
+      <figcaption><i>AREA-07</i>歌舞伎町アンダー — 生者の欲望が最も濃い場所。</figcaption>
+    </figure>
+    <figure class="wcard rv d1">
+      <div class="wimg" data-img="images/world-tower.png"></div>
+      <figcaption><i>AREA-99</i>ヴォイド・タワー — 死者を「資源」に変える企業の心臓部。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= REWARDS ================= -->
+<section id="rewards">
+  <div class="sec-head">
+    <h2 class="sec-en rv"><span class="glitch" data-text="REWARDS">REWARDS</span></h2>
+    <p class="sec-jp rv d1">事前登録報酬</p>
+  </div>
+  <div class="reg-now rv">
+    <span class="rn-label">CURRENT PRE-REGISTRATIONS</span>
+    <span class="rn-num"><span id="regNum">236,842</span><small>人</small></span>
+    <div class="bar-wrap">
+      <div class="bar"><i id="barFill" data-target="47"></i></div>
+      <div class="bar-marks"><span>0</span><span>10万</span><span>30万</span><span>50万</span><span>100万</span></div>
+    </div>
+  </div>
+  <div class="wrap tiers">
+    <div class="tier done rv">
+      <span class="t-badge">達成!</span>
+      <div class="t-num">100,000<i>人</i></div>
+      <div class="t-reward">ガチャチケット ×10</div>
+      <div class="t-desc">リリース時に全員へ配布</div>
+    </div>
+    <div class="tier done rv d1">
+      <span class="t-badge">達成!</span>
+      <div class="t-num">200,000<i>人</i></div>
+      <div class="t-reward">限定スキン「亡霊の外套」</div>
+      <div class="t-desc">カイ専用・事前登録限定カラー</div>
+    </div>
+    <div class="tier locked rv d2">
+      <span class="t-badge">NEXT</span>
+      <div class="t-num">300,000<i>人</i></div>
+      <div class="t-reward">SSR確定チケット ×1</div>
+      <div class="t-desc">初回10連で使用可能</div>
+    </div>
+    <div class="tier locked rv d3">
+      <span class="t-badge">LOCKED</span>
+      <div class="t-num">1,000,000<i>人</i></div>
+      <div class="t-reward">限定キャラ「ZERO」解放</div>
+      <div class="t-desc">???「——ワタシヲ、ミツケテ。」</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SPEC ================= -->
+<section id="spec">
+  <div class="sec-head">
+    <h2 class="sec-en rv"><span class="glitch" data-text="SPEC">SPEC</span></h2>
+    <p class="sec-jp rv d1">製品情報</p>
+  </div>
+  <div class="wrap spec rv">
+    <dl>
+      <dt>TITLE</dt><dd>GHOSTLINE ZERO(ゴーストライン・ゼロ)</dd>
+      <dt>GENRE</dt><dd>サイバーパンク・高速電脳アクションRPG</dd>
+      <dt>PLATFORM</dt><dd>iOS / Android / PC</dd>
+      <dt>PRICE</dt><dd>基本プレイ無料(アイテム課金あり)</dd>
+      <dt>RELEASE</dt><dd>2026年12月24日(予定)</dd>
+      <dt>DEVELOPER</dt><dd>VOIDWORKS Inc.(架空のスタジオです)</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section id="final">
+  <p class="f-copy rv">その街で、<em>最後の生者</em>になれ。</p>
+  <div class="h-cta rv d1" style="animation:none;opacity:1">
+    <a class="btn primary rv d2" href="#" onclick="return false">事前登録する — 無料</a>
+  </div>
+  <div class="plats rv d3">
+    <span class="plat">iOS</span><span class="plat">ANDROID</span><span class="plat">PC</span>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">GHOSTLINE <span>ZERO</span></div>
+  <p>これは架空のゲームタイトルのコンセプトLPです。画像・映像はすべてローカルComfyUIで生成。</p>
+  <p style="margin-top:.5rem">© 2026 VOIDWORKS Inc. (fictional)</p>
+</footer>
+
+<script>
+/* ================= countdown ================= */
+const TARGET = new Date('2026-12-24T00:00:00+09:00').getTime();
+const cdD=document.getElementById('cd-d'),cdH=document.getElementById('cd-h'),
+      cdM=document.getElementById('cd-m'),cdS=document.getElementById('cd-s');
+function pad(n){return String(n).padStart(2,'0')}
+function updateCount(){
+  let ms=Math.max(0,TARGET-Date.now());
+  const d=Math.floor(ms/86400000); ms-=d*86400000;
+  const h=Math.floor(ms/3600000);  ms-=h*3600000;
+  const m=Math.floor(ms/60000);    ms-=m*60000;
+  const s=Math.floor(ms/1000);
+  cdD.textContent=d; cdH.textContent=pad(h); cdM.textContent=pad(m); cdS.textContent=pad(s);
+}
+updateCount(); setInterval(updateCount,1000);
+
+/* ================= fake live registration counter ================= */
+let regCount=236842;
+const regNum=document.getElementById('regNum');
+(function bump(){
+  setTimeout(()=>{
+    regCount+=Math.floor(Math.random()*3)+1;
+    regNum.textContent=regCount.toLocaleString();
+    bump();
+  }, 2500+Math.random()*5000);
+})();
+
+/* ================= marquee: duplicate track for seamless loop ===== */
+const mq=document.getElementById('mqTrack');
+mq.innerHTML=mq.innerHTML+mq.innerHTML;
+
+/* ================= random glitch bursts on headings ================= */
+const glitches=[...document.querySelectorAll('.glitch')];
+(function burst(){
+  setTimeout(()=>{
+    const g=glitches[Math.floor(Math.random()*glitches.length)];
+    g.classList.add('burst');
+    setTimeout(()=>g.classList.remove('burst'), 260+Math.random()*300);
+    burst();
+  }, 1800+Math.random()*3200);
+})();
+
+/* ================= parallax story panel ================= */
+const pimgsP=[...document.querySelectorAll('#story .pimg')];
+function parallax(){
+  const vh=innerHeight;
+  for(const el of pimgsP){
+    const r=el.parentElement.getBoundingClientRect();
+    if(r.bottom<0||r.top>vh) continue;
+    const t=(r.top+r.height/2-vh/2)/(vh+r.height);
+    el.style.transform=`translateY(${(t*-12).toFixed(2)}%)`;
+  }
+}
+
+/* ================= lazy bg images ================= */
+const lazyIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    if(e.isIntersecting){
+      e.target.style.backgroundImage=`url('${e.target.dataset.img}')`;
+      lazyIO.unobserve(e.target);
+    }
+  }
+},{rootMargin:'50% 0px'});
+document.querySelectorAll('[data-img]').forEach(el=>lazyIO.observe(el));
+
+/* rewards section bg */
+document.getElementById('rewards').style.setProperty('--reward-bg',"url('images/glitch-bg.png')");
+
+/* ================= video play-in-view ================= */
+const vidIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    const v=e.target;
+    if(e.isIntersecting){ v.play().catch(()=>{}); } else { v.pause(); }
+  }
+},{rootMargin:'20% 0px'});
+document.querySelectorAll('video').forEach(v=>vidIO.observe(v));
+
+/* ================= reveal + milestone bar ================= */
+const rvIO=new IntersectionObserver(es=>{
+  for(const e of es){ if(e.isIntersecting){ e.target.classList.add('in'); rvIO.unobserve(e.target);} }
+},{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>rvIO.observe(el));
+const barIO=new IntersectionObserver(es=>{
+  for(const e of es){
+    if(e.isIntersecting){
+      e.target.style.width=e.target.dataset.target+'%';
+      barIO.unobserve(e.target);
+    }
+  }
+},{threshold:.4});
+barIO.observe(document.getElementById('barFill'));
+
+/* ================= neon sparks ================= */
+const cv=document.getElementById('sparks'),ctx=cv.getContext('2d');
+let W,H,parts=[];
+function resize(){
+  W=cv.width=innerWidth*devicePixelRatio; H=cv.height=innerHeight*devicePixelRatio;
+  cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px';
+}
+const COLORS=[[0,240,255],[255,45,149],[255,233,60]];
+function mkPart(){
+  return { x:Math.random()*W, y:H+Math.random()*H*.3,
+    r:(Math.random()*1.4+.5)*devicePixelRatio,
+    vy:-(Math.random()*.9+.35)*devicePixelRatio,
+    vx:(Math.random()-.5)*.3*devicePixelRatio,
+    o:Math.random()*.55+.2,
+    c:COLORS[Math.floor(Math.random()*COLORS.length)],
+    fl:Math.random()*Math.PI*2 };
+}
+function initParts(){ parts=Array.from({length:110},mkPart); }
+let lastY2=scrollY;
+
+addEventListener('resize',()=>{resize();});
+resize();initParts();
+
+/* main rAF loop — declared last (TDZ-safe), polls scroll for parallax */
+let lastSeenY=-1;
+(function tick(){
+  if(scrollY!==lastSeenY){ lastSeenY=scrollY; parallax(); }
+  ctx.clearRect(0,0,W,H);
+  const dy=(scrollY-lastY2); lastY2=scrollY;
+  for(const p of parts){
+    p.fl+=.15;
+    p.x+=p.vx; p.y+=p.vy - dy*devicePixelRatio*.2;
+    if(p.y<-12){ Object.assign(p,mkPart()); p.y=H+10; }
+    if(p.y>H+40){ Object.assign(p,mkPart()); p.y=-10; }
+    if(p.x>W+10)p.x=-10; if(p.x<-10)p.x=W+10;
+    const flick=.6+.4*Math.sin(p.fl);
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${p.c[0]},${p.c[1]},${p.c[2]},${(p.o*flick).toFixed(3)})`;
+    ctx.shadowColor=`rgba(${p.c[0]},${p.c[1]},${p.c[2]},.9)`;
+    ctx.shadowBlur=6*devicePixelRatio;
+    ctx.fill();
+  }
+  ctx.shadowBlur=0;
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
