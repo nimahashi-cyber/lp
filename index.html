@@ -93,9 +93,9 @@ header p.lead b{color:var(--accent);font-weight:700}
   display:flex;flex-wrap:wrap;justify-content:center;gap:56px 40px;
   max-width:1280px;margin:56px auto 0;padding:0 24px 40px;
 }
-.template-collection{max-width:1280px;margin:76px auto 0;padding:64px 24px 70px;background:#eee5d8}.template-head{max-width:760px;margin:0 auto;text-align:center}.template-head .label{font-family:var(--en);font-size:11px;letter-spacing:.44em;color:var(--accent)}.template-head h2{margin-top:12px;font-size:clamp(24px,4vw,35px);font-weight:300;letter-spacing:.12em}.template-head p{margin:12px auto 0;font-size:12px;line-height:2;color:rgba(28,37,48,.7)}.template-head + .grid{margin:38px auto 0;padding:0}.template-collection .note{margin:28px auto 0;padding:0;max-width:640px}
+.template-collection{max-width:1280px;margin:76px auto 0;padding:64px 24px 70px;background:#eee5d8;overflow:hidden}.template-head{max-width:760px;margin:0 auto;text-align:center}.template-head .label{font-family:var(--en);font-size:11px;letter-spacing:.44em;color:var(--accent)}.template-head h2{margin-top:12px;font-size:clamp(24px,4vw,35px);font-weight:300;letter-spacing:.12em}.template-head p{margin:12px auto 0;font-size:12px;line-height:2;color:rgba(28,37,48,.7)}.template-head + .grid{margin:38px auto 0;padding:0}.template-collection .note{margin:28px auto 0;padding:0;max-width:640px}.template-download{display:flex;justify-content:center;margin-top:30px}.template-download a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 22px;border:1px solid var(--ink);font-size:12px;font-weight:700;letter-spacing:.12em;transition:.25s}.template-download a:hover{background:var(--ink);color:var(--base)}
 @media (min-width:1100px){.template-collection .grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;align-items:start}.template-collection .card{width:auto}.template-collection .phone{width:100%}.template-collection .card h2{font-size:15px;letter-spacing:.1em}.template-collection .card p.desc{font-size:11px}.template-collection .phone .badge{right:-4px}}
-@media (max-width:720px){.template-collection{margin-top:56px;padding:50px 18px 52px}.template-collection .grid{padding:0}.template-collection .note{font-size:11px}}
+@media (max-width:720px){.template-collection{margin-top:56px;padding:50px 18px 52px}.template-collection .grid{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 0 8px}.template-collection .card{width:72vw;flex:0 0 72vw;scroll-snap-align:start}.template-collection .phone{width:100%}.template-collection .note{font-size:11px}.template-download a{width:100%}}
 .card{width:var(--phone-w);text-align:center}
 
 /* phone mockup */
@@ -339,6 +339,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
   ※ 端末内の表示はライブプレビューです。タップ(クリック)すると実際のサンプルページが開きます。<br>
   掲載の写真はすべてAIで生成したサンプル素材です。ダウンロード版もこの状態のまま、あとから自由に差し替えられます。
 </p>
+<p class="template-download"><a href="https://line.me/R/ti/p/@542fjeef" rel="noopener">LINE登録で無料ダウンロード&nbsp; →</a></p>
 </section>
 
 <section class="concept-archives" aria-labelledby="concept-title">
