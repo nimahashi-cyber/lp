@@ -180,10 +180,10 @@ header p.lead b{color:var(--accent);font-weight:700}
 
 /* ===== concept archives ===== */
 .concept-archives{max-width:1280px;margin:112px auto 0;padding:64px 24px 70px;background:#101217;color:#f6f1e8}
-.concept-head{max-width:680px;margin:0 auto 38px;text-align:center}
+.concept-head{max-width:1180px;margin:0 auto 38px;text-align:center}
 .concept-head .label{font-family:var(--en);font-size:11px;letter-spacing:.44em;color:#d6a868}
 .concept-head h2{margin-top:12px;font-size:clamp(24px,4vw,35px);font-weight:300;letter-spacing:.12em}
-.concept-head p{margin-top:12px;font-size:12px;line-height:2;color:rgba(246,241,232,.68)}
+.concept-head p{max-width:680px;margin:12px auto 0;font-size:12px;line-height:2;color:rgba(246,241,232,.68)}
 .concept-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
 .concept-card{position:relative;min-height:310px;overflow:hidden;background:#1c2029;color:#fff}
 .concept-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;transition:transform .6s ease,opacity .4s ease}
@@ -192,7 +192,7 @@ header p.lead b{color:var(--accent);font-weight:700}
 .concept-copy{position:absolute;z-index:1;right:18px;bottom:17px;left:18px}.concept-copy small{display:block;font-family:var(--en);font-size:9px;letter-spacing:.22em;color:#e7bd80}.concept-copy h3{margin-top:5px;font-family:var(--en);font-size:20px;font-weight:400;line-height:1.2;letter-spacing:.06em}.concept-copy p{margin-top:7px;font-size:10px;line-height:1.65;color:rgba(255,255,255,.78)}.concept-copy span{display:inline-block;margin-top:12px;font-family:var(--en);font-size:9px;letter-spacing:.18em;color:#fff;border-bottom:1px solid #d6a868;padding-bottom:4px}
 .concept-download{display:flex;justify-content:center;margin-top:30px}.concept-download a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 22px;border:1px solid rgba(246,241,232,.55);font-size:12px;font-weight:700;letter-spacing:.12em;transition:.25s}.concept-download a:hover{background:#f6f1e8;color:#101217}
 @media (max-width:1000px){.concept-grid{grid-template-columns:repeat(3,1fr)}.concept-card{min-height:280px}}
-@media (max-width:640px){.concept-archives{margin-top:72px;padding:50px 18px 52px}.concept-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.concept-card{flex:0 0 72vw;min-height:360px;scroll-snap-align:start}.concept-head p{font-size:11px}.concept-download a{width:100%}}
+@media (min-width:641px){.concept-head h2{white-space:nowrap}}@media (max-width:640px){.concept-archives{margin-top:72px;padding:50px 18px 52px}.concept-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.concept-card{flex:0 0 72vw;min-height:360px;scroll-snap-align:start}.concept-head p{font-size:11px}.concept-download a{width:100%}}
 
 /* ===== contact ===== */
 .contact{
