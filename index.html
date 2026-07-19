@@ -88,6 +88,7 @@ header p.lead b{color:var(--accent);font-weight:700}
   transition:transform .3s,filter .3s;
 }
 .header-cta:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.header-consult{display:block;width:max-content;margin:12px auto 0;color:rgba(28,37,48,.7);font-size:11px;letter-spacing:.12em;border-bottom:1px solid rgba(28,37,48,.35);padding-bottom:2px}
 
 .grid{
   display:flex;flex-wrap:wrap;justify-content:center;gap:56px 40px;
@@ -198,6 +199,8 @@ header p.lead b{color:var(--accent);font-weight:700}
 @media (min-width:641px){.concept-head h2{white-space:nowrap}}@media (max-width:640px){.concept-archives{margin-top:72px;padding:50px 18px 52px}.concept-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.concept-card{flex:0 0 72vw;min-height:360px;scroll-snap-align:start}.concept-head p{font-size:11px}.concept-download a{width:100%}}
 
 /* ===== contact ===== */
+.production{max-width:1280px;margin:112px auto 0;padding:72px 56px;background:#fff;border:1px solid rgba(28,37,48,.1)}.production-head{max-width:700px;margin:0 auto;text-align:center}.production-head .label{font-family:var(--en);font-size:11px;letter-spacing:.44em;color:var(--accent)}.production-head h2{margin-top:12px;font-size:clamp(24px,4vw,36px);font-weight:300;letter-spacing:.1em;line-height:1.55}.production-head p{margin:14px auto 0;font-size:12px;line-height:2;color:rgba(28,37,48,.72)}.production-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:48px;background:rgba(28,37,48,.12)}.production-card{padding:30px 28px;background:#fff}.production-card small{font-family:var(--en);font-size:10px;letter-spacing:.24em;color:var(--accent)}.production-card h3{margin-top:9px;font-size:17px;letter-spacing:.1em}.production-card p{margin-top:10px;font-size:12px;line-height:2;color:rgba(28,37,48,.7)}.production-flow{display:flex;justify-content:center;gap:18px;margin:42px 0 0;font-family:var(--en);font-size:11px;letter-spacing:.16em;color:rgba(28,37,48,.65)}.production-flow span{display:flex;align-items:center;gap:18px}.production-flow span:not(:last-child)::after{content:"→";color:var(--accent)}.consult-btn{display:flex;width:max-content;align-items:center;justify-content:center;min-height:50px;margin:30px auto 0;padding:12px 28px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;letter-spacing:.12em;box-shadow:0 14px 30px -14px rgba(28,37,48,.48);transition:transform .25s,filter .25s}.consult-btn:hover{transform:translateY(-2px);filter:brightness(1.1)}.consult-note{text-align:center;margin-top:12px;font-size:11px;color:rgba(28,37,48,.58)}
+@media(max-width:720px){.production{margin-top:72px;padding:52px 20px}.production-grid{grid-template-columns:1fr;margin-top:32px}.production-card{padding:25px 22px}.production-flow{display:block;margin-top:30px;text-align:center;line-height:2.5}.production-flow span{display:block}.production-flow span:not(:last-child)::after{display:block;content:"↓";line-height:1.4}.consult-btn{width:100%}}
 .contact{
   max-width:560px;margin:80px auto 0;padding:0 24px;
   text-align:center;
@@ -253,6 +256,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.42 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.87c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.46 8.01-5.92C21.56 13.35 22 11.8 22 10.13 22 5.64 17.52 2 12 2z"/></svg>
     LINE登録で無料ダウンロード
   </a>
+  <a class="header-consult" href="#lp-consult">オリジナルLPを無料で相談する&nbsp;→</a>
 </header>
 
 <section class="template-collection" aria-labelledby="templates-title">
@@ -358,6 +362,22 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
   <p class="concept-download"><a href="https://line.me/R/ti/p/@542fjeef" rel="noopener">LINE登録で無料ダウンロード&nbsp; →</a></p>
 </section>
 
+<section class="production" id="lp-consult" aria-labelledby="production-title">
+  <div class="production-head">
+    <p class="label">FREE LP CONSULTATION</p>
+    <h2 id="production-title">テンプレートを起点に、<br>自社らしいLPへ。</h2>
+    <p>「このデザインをベースに、自社用に整えたい」からで大丈夫です。<br>目的・業種・必要な導線を伺い、オリジナルLP制作の進め方をご提案します。</p>
+  </div>
+  <div class="production-grid">
+    <article class="production-card"><small>01 / START WITH A TEMPLATE</small><h3>好きな方向性から始める</h3><p>公開中のテンプレートを起点に、色・文章・写真・構成をブランドに合わせて組み替えます。</p></article>
+    <article class="production-card"><small>02 / MOBILE FIRST</small><h3>スマホで伝わる導線にする</h3><p>問い合わせ、予約、LINE登録など、目的に合わせて「次の行動」へ進みやすいLPを考えます。</p></article>
+    <article class="production-card"><small>03 / AFTER LAUNCH</small><h3>公開後の改善も相談できる</h3><p>公開して終わりではなく、反応を見ながら文章・導線・運用を見直す進め方もご相談いただけます。</p></article>
+  </div>
+  <div class="production-flow"><span>無料相談</span><span>ヒアリング</span><span>制作のご提案</span></div>
+  <a class="consult-btn" href="hearing.html">オリジナルLPを無料で相談する&nbsp;→</a>
+  <p class="consult-note">相談時点で費用はかかりません。まずは作りたいことをお聞かせください。</p>
+</section>
+
 <section class="studio-journal" aria-labelledby="vanta-title">
   <p class="journal-kicker">STUDIO JOURNAL&nbsp;&nbsp; / &nbsp;&nbsp;BY ONE LAUNCH</p>
   <div class="studio-feature">
@@ -384,11 +404,7 @@ footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
   </a>
   <p class="line-note">友だち追加 → すぐ届くテンプレートカードからZIPを受け取れます。</p>
 
-  <div class="secondary">
-    <p class="s-lead"><span>「このテンプレートをベースに、</span><span>うちのブランド用に作ってほしい」</span></p>
-    <p class="s-sub"><span>そんなオリジナル制作のご相談も、</span><span>同じLINEからお気軽にどうぞ。</span></p>
-    <p class="hearing-link">制作をご希望の方は → <a href="https://liff.line.me/2010657195-SCfcdhyy?page=form&amp;id=e81e52bd-bd20-4fdb-a23c-aab0006826e7">LINE内ヒアリングシートへ</a></p>
-  </div>
+  <div class="secondary"><p class="s-lead"><span>テンプレートを見て、</span><span>オリジナルLPが必要になった方へ。</span></p><p class="s-sub"><span>業種や目的に合わせた制作は、</span><span>無料相談からご案内します。</span></p><p class="hearing-link">制作のご相談は → <a href="hearing.html">無料ヒアリングシートへ</a></p></div>
 </section>
 
 <footer>
