@@ -1,0 +1,8 @@
+[
+  { "name": "hero", "src": "images\\hero.png", "seed": 1301,
+    "pos": "Dust particles float and drift slowly through the shaft of pale moonlight from the skylight, the light beam shimmers subtly, faint shadows breathe on the marble floor, everything else stays still and silent, very slow camera push forward, continuous smooth slow motion, cinematic, highly detailed." },
+  { "name": "jar", "src": "images\\jar.png", "seed": 1302,
+    "pos": "The preserved anglerfish sways very slightly in the fluid, the glowing orb lure pulses gently brighter and dimmer, tiny particles and small bubbles drift slowly upward through the green preservation fluid, faint light refractions move on the glass, eerie quiet atmosphere, continuous smooth slow motion, cinematic, highly detailed." },
+  { "name": "finale", "src": "images\\finale.png", "seed": 1303,
+    "pos": "The warm candelabra lamps glow and flicker softly like candle flames, their golden reflections shimmer gently on the polished marble floor, faint dust drifts through the warm air, a calm welcoming atmosphere, very slow camera drift forward, continuous smooth slow motion, cinematic, highly detailed." }
+]

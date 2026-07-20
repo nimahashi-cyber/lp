@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>百年辻 — ひとつの街角の、百年をドラッグする</title>
+<meta name="description" content="同じ街角の1925年から2025年までを、左右のドラッグで行き来する定点観測サイト。2025年の先には——。架空のコンセプトサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#2a211a; --ink:#e9dcc4; --ink-dim:rgba(233,220,196,.55); --accent:#c08a4a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Zen Kaku Gothic New',sans-serif; font-weight:300;
+  letter-spacing:.06em; line-height:1.9; user-select:none;
+  touch-action:none; cursor:grab;
+}
+body.dragging{cursor:grabbing}
+::selection{background:rgba(192,138,74,.35)}
+
+/* ---- 時代ステージ ---- */
+#stage{position:fixed;inset:0;overflow:hidden}
+.era{position:absolute;inset:-3%;opacity:0;will-change:opacity}
+.era img,.era video{width:100%;height:100%;object-fit:cover;display:block}
+#stageWrap{position:absolute;inset:0;will-change:transform}
+.scrim{position:fixed;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(0,0,0,.42) 0%,transparent 26%,transparent 55%,rgba(0,0,0,.62) 100%)}
+.vig{position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(0,0,0,.4) 100%)}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:5}
+
+/* ---- グリッチ(時の跳躍) ---- */
+#glitch{position:fixed;inset:0;pointer-events:none;z-index:30;opacity:0;
+  background:repeating-linear-gradient(0deg,rgba(120,220,255,.08) 0 2px,transparent 2px 7px)}
+#glitch.on{animation:gl .12s steps(2) infinite}
+@keyframes gl{
+  0%{opacity:.85;transform:translateX(-6px);filter:hue-rotate(0deg)}
+  50%{opacity:.4;transform:translateX(7px) scaleY(1.01);filter:hue-rotate(120deg)}
+  100%{opacity:.75;transform:translateX(-3px);filter:hue-rotate(240deg)}
+}
+
+/* ---- ヘッダー ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;
+  align-items:baseline;padding:24px 4vw;pointer-events:none}
+header .brand{font-family:'Shippori Mincho',serif;font-weight:600;font-size:18px;letter-spacing:.32em;
+  text-shadow:0 2px 14px rgba(0,0,0,.6)}
+header .brand small{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+  font-size:10.5px;letter-spacing:.4em;color:var(--accent);margin-top:2px}
+header .obs{font-size:11px;letter-spacing:.3em;color:var(--ink-dim);text-align:right}
+
+/* ---- 年号表示 ---- */
+#yearBox{position:fixed;left:0;right:0;bottom:118px;z-index:40;text-align:center;pointer-events:none}
+#gengo{font-family:'Shippori Mincho',serif;font-weight:600;font-size:clamp(15px,2.2vh,20px);
+  letter-spacing:.42em;color:var(--ink);text-shadow:0 2px 12px rgba(0,0,0,.7)}
+#yearNum{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+  font-size:clamp(54px,9.5vh,92px);line-height:1.1;letter-spacing:.06em;
+  color:var(--ink);text-shadow:0 4px 26px rgba(0,0,0,.75)}
+#yearNum b{color:var(--accent);font-weight:600}
+
+/* ---- 年代ルーラー ---- */
+#ruler{position:fixed;left:0;right:0;bottom:0;height:96px;z-index:45;overflow:hidden;
+  background:linear-gradient(to top,rgba(8,7,6,.88),rgba(8,7,6,.4) 70%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
+#tape{position:absolute;left:0;bottom:0;height:100%;will-change:transform}
+.tick{position:absolute;bottom:18px;width:1px;background:rgba(233,220,196,.4)}
+.tick.t1{height:10px}
+.tick.t5{height:17px}
+.tick.t25{height:26px;background:var(--accent);width:1.5px}
+.ticklabel{position:absolute;bottom:52px;transform:translateX(-50%);
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:.1em;
+  color:var(--ink-dim)}
+.tickbreak{position:absolute;bottom:24px;transform:translateX(-50%);
+  font-size:15px;letter-spacing:.2em;color:var(--ink-dim)}
+#needle{position:fixed;bottom:0;left:50%;width:2px;height:64px;z-index:46;
+  background:var(--accent);box-shadow:0 0 12px var(--accent);transform:translateX(-50%)}
+#needle::after{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+  border:7px solid transparent;border-top-color:var(--accent)}
+
+/* ---- 角の店の系譜 ---- */
+#plaque{position:fixed;left:4vw;bottom:130px;z-index:40;max-width:340px;
+  border-left:2px solid var(--accent);padding:6px 0 6px 18px;
+  transition:opacity .5s ease;pointer-events:none;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+#plaque.fade{opacity:0}
+#plaque .lab{font-size:10.5px;letter-spacing:.34em;color:var(--ink-dim)}
+#plaque h2{font-family:'Shippori Mincho',serif;font-weight:600;font-size:clamp(19px,2.8vh,25px);
+  letter-spacing:.18em;margin:4px 0 2px}
+#plaque h2 small{font-size:12px;letter-spacing:.24em;color:var(--accent);margin-left:10px}
+#plaque p{font-size:12.5px;line-height:2;letter-spacing:.1em;color:var(--ink-dim)}
+
+/* ---- ヒント・奥付 ---- */
+#hint{position:fixed;left:0;right:0;bottom:230px;z-index:40;text-align:center;pointer-events:none;
+  font-size:12.5px;letter-spacing:.3em;color:var(--ink);text-shadow:0 2px 10px rgba(0,0,0,.8);
+  transition:opacity 1s ease}
+#hint b{color:var(--accent);font-weight:400}
+#hint.off{opacity:0}
+#credit{position:fixed;right:4vw;bottom:110px;z-index:40;text-align:right;pointer-events:none;
+  font-size:10px;letter-spacing:.16em;color:rgba(233,220,196,.4);line-height:1.9}
+
+@media (max-width:760px){
+  header .obs{display:none}
+  #plaque{left:5vw;bottom:150px;max-width:74vw}
+  #credit{display:none}
+  #yearBox{bottom:112px}
+}
+</style>
+</head>
+<body>
+<div id="stage"><div id="stageWrap"></div></div>
+<div class="scrim"></div>
+<div class="vig"></div>
+<canvas id="fx"></canvas>
+<div id="glitch"></div>
+
+<header>
+  <div class="brand">百年辻<small>ONE CORNER, A HUNDRED YEARS</small></div>
+  <div class="obs">定点観測 第七號<br>同一地点・同一画角</div>
+</header>
+
+<div id="plaque">
+  <div class="lab">角の店の系譜</div>
+  <h2 id="pName">呉服 井筒屋<small id="pGen">初代</small></h2>
+  <p id="pLine">角に藍ののれん。呉服商「井筒屋」、開業の年。</p>
+</div>
+
+<div id="yearBox">
+  <div id="gengo">大正十四年</div>
+  <div id="yearNum"><b>1925</b></div>
+</div>
+
+<div id="hint">← 左右に<b>ドラッグ</b>で、時を送る →<br><span style="font-size:10.5px;letter-spacing:.24em;color:var(--ink-dim)">ホイール・矢印キーでも進みます。2025年の、その先へも。</span></div>
+
+<div id="credit">※これは架空のコンセプトサイトです。実在の店舗・地点とは関係ありません。<br>全時代の画・映像: ローカルComfyUI (Z-Image Turbo / Wan 2.2)</div>
+
+<div id="ruler"><div id="tape"></div></div>
+<div id="needle"></div>
+
+<script>
+/* ============ 時代データ ============ */
+const ERAS = [
+  { y:1925, img:'images/y1925.png', video:'images/y1925.mp4',
+    name:'呉服 井筒屋', gen:'初代', line:'角に藍ののれん。呉服商「井筒屋」、開業の年。',
+    pal:{bg:[42,33,26], ink:[233,220,196], accent:[192,138,74]}, fx:'dust' },
+  { y:1950, img:'images/y1950.png', video:null,
+    name:'イヅツヤ電機', gen:'二代目', line:'焼け跡から建て直した店に、真空管の灯がともる。',
+    pal:{bg:[38,30,22], ink:[236,224,200], accent:[210,162,82]}, fx:'dust' },
+  { y:1975, img:'images/y1975.png', video:'images/y1975.mp4',
+    name:'純喫茶 いづつ', gen:'三代目', line:'ナポリタンとクリームソーダ。ネオンが濡れた舗道に滲む。',
+    pal:{bg:[26,19,32], ink:[238,226,232], accent:[232,138,160]}, fx:'neon' },
+  { y:2000, img:'images/y2000.png', video:null,
+    name:'イヅツヤマート', gen:'四代目', line:'二十四時間、灯りの絶えない角になった。',
+    pal:{bg:[27,31,37], ink:[224,232,238], accent:[122,176,216]}, fx:'rain' },
+  { y:2025, img:'images/y2025.png', video:null,
+    name:'IZUTSUYA COFFEE', gen:'五代目', line:'ガラス張りの店で、五代目が豆を挽く。',
+    pal:{bg:[30,34,38], ink:[228,236,234], accent:[88,192,168]}, fx:'petal' },
+  { y:2125, img:'images/y2125.png', video:'images/y2125.mp4',
+    name:'呉服 井筒屋(再興)', gen:'八代目', line:'百年後。曾孫がもう一度、藍ののれんを掛けた。',
+    pal:{bg:[15,23,33], ink:[218,236,240], accent:[102,216,232]}, fx:'holo' }
+];
+const root = document.documentElement;
+const stageWrap = document.getElementById('stageWrap');
+const eraEls = ERAS.map(e=>{
+  const d = document.createElement('div');
+  d.className = 'era';
+  if(e.video){
+    d.innerHTML = `<video src="${e.video}" poster="${e.img}" muted loop playsinline preload="metadata"></video>`;
+  }else{
+    d.innerHTML = `<img src="${e.img}" alt="">`;
+  }
+  stageWrap.appendChild(d);
+  return d;
+});
+
+/* ============ 年代ルーラー構築 ============ */
+const PXY = 14;                 // 1年 = 14px
+const BREAK_YEARS = 20;         // 2025-2125 を圧縮表示する仮想年数
+function vpos(t){ return t <= 2025 ? (t - 1925) : 100 + (t - 2025)/100 * BREAK_YEARS; }
+const tape = document.getElementById('tape');
+function buildTape(){
+  tape.innerHTML = '';
+  for(let y=1925; y<=2025; y++){
+    const tk = document.createElement('div');
+    tk.className = 'tick ' + (y%25===0 ? 't25' : y%5===0 ? 't5' : 't1');
+    tk.style.left = (vpos(y)*PXY) + 'px';
+    tape.appendChild(tk);
+    if(y%25===0){
+      const lb = document.createElement('div');
+      lb.className = 'ticklabel';
+      lb.style.left = (vpos(y)*PXY) + 'px';
+      lb.textContent = y;
+      tape.appendChild(lb);
+    }
+  }
+  const br = document.createElement('div');
+  br.className = 'tickbreak';
+  br.style.left = ((100 + BREAK_YEARS*0.45)*PXY) + 'px';
+  br.textContent = '≈';
+  tape.appendChild(br);
+  const ftk = document.createElement('div');
+  ftk.className = 'tick t25';
+  ftk.style.left = (vpos(2125)*PXY) + 'px';
+  tape.appendChild(ftk);
+  const flb = document.createElement('div');
+  flb.className = 'ticklabel';
+  flb.style.left = (vpos(2125)*PXY) + 'px';
+  flb.textContent = '2125';
+  tape.appendChild(flb);
+}
+buildTape();
+
+/* ============ 時間エンジン ============ */
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t = 1925, vel = 0, dragging = false, tween = null;
+let lastPX = 0, lastMoveT = 0;
+const hint = document.getElementById('hint');
+let interacted = false;
+function firstTouch(){ if(!interacted){ interacted = true; hint.classList.add('off'); } }
+
+addEventListener('pointerdown', e=>{
+  dragging = true; document.body.classList.add('dragging');
+  lastPX = e.clientX; vel = 0; firstTouch();
+});
+addEventListener('pointermove', e=>{
+  if(!dragging) return;
+  const dx = e.clientX - lastPX;
+  lastPX = e.clientX;
+  const dt = -dx * (100 / (innerWidth * 1.7));
+  if(!tween){ t += dt; vel = Math.max(-2.5, Math.min(2.5, vel*0.5 + dt*0.5)); clampT(); }
+});
+addEventListener('pointerup', ()=>{ dragging = false; document.body.classList.remove('dragging'); });
+addEventListener('pointercancel', ()=>{ dragging = false; document.body.classList.remove('dragging'); });
+addEventListener('wheel', e=>{
+  e.preventDefault(); firstTouch();
+  if(!tween){ t += e.deltaY * 0.018; vel = 0; clampT(); }
+}, {passive:false});
+addEventListener('keydown', e=>{
+  if(tween) return;
+  if(e.key === 'ArrowRight'){ t += 1; firstTouch(); }
+  else if(e.key === 'ArrowLeft'){ t -= 1; firstTouch(); }
+  else if(e.key === 'PageDown'){ t += 25; firstTouch(); }
+  else if(e.key === 'PageUp'){ t -= 25; firstTouch(); }
+  clampT();
+});
+function clampT(){ t = Math.max(1925, Math.min(2125, t)); }
+
+const glitch = document.getElementById('glitch');
+function tweenTo(target){
+  tween = { from:t, to:target, start:performance.now(), dur:900 };
+  vel = 0;
+  glitch.classList.add('on');
+}
+function updateTween(now){
+  if(!tween) return;
+  let f = (now - tween.start) / tween.dur;
+  if(f >= 1){
+    t = tween.to; tween = null;
+    glitch.classList.remove('on');
+    return;
+  }
+  const e = f<.5 ? 2*f*f : 1-Math.pow(-2*f+2,2)/2;
+  t = tween.from + (tween.to - tween.from)*e;
+}
+/* 2025↔2125 の跳躍ゾーン */
+function zoneLogic(){
+  if(dragging || tween) return;
+  if(t > 2025 && t < 2125){
+    if(t > 2040 && t < 2100){ tweenTo(2125); }
+    else if(t <= 2040){ t += (2025 - t)*0.12; if(Math.abs(t-2025)<.05) t = 2025; }
+    else { t += (2125 - t)*0.12; if(Math.abs(t-2125)<.05) t = 2125; }
+  }
+}
+
+/* ============ 元号 ============ */
+function gengoOf(y){
+  const yy = Math.round(y);
+  if(yy < 1926) return '大正' + kanji(yy-1911) + '年';
+  if(yy < 1989) return '昭和' + kanji(yy-1925) + '年';
+  if(yy < 2019) return '平成' + kanji(yy-1988) + '年';
+  if(yy <= 2050) return '令和' + kanji(yy-2018) + '年';
+  return '――';
+}
+const KD = ['','一','二','三','四','五','六','七','八','九'];
+function kanji(n){
+  if(n <= 0) return '元';
+  if(n < 10) return KD[n];
+  if(n < 20) return '十' + KD[n-10];
+  const j = Math.floor(n/10), r = n%10;
+  return KD[j] + '十' + (r ? KD[r] : '');
+}
+
+/* ============ 粒子 ============ */
+const cv = document.getElementById('fx');
+const g = cv.getContext('2d');
+let W=0,H=0;
+function resize(){
+  const DPR = Math.min(2, devicePixelRatio||1);
+  W = innerWidth; H = innerHeight;
+  cv.width = W*DPR; cv.height = H*DPR;
+  cv.style.width = W+'px'; cv.style.height = H+'px';
+  g.setTransform(DPR,0,0,DPR,0,0);
+}
+const POOLS = {
+  dust:  { n:36, mk:()=>({x:Math.random()*W,y:Math.random()*H,r:.6+Math.random()*1.6,vy:-.12-Math.random()*.2,ph:Math.random()*6.3}),
+           dr:(p,w,tm)=>{ p.y+=p.vy; p.x+=Math.sin(p.ph+=.008)*.2; if(p.y<-4){p.y=H+4;p.x=Math.random()*W;}
+             const tw=.5+.5*Math.sin(tm/900+p.ph*2);
+             g.fillStyle=`rgba(228,196,140,${(w*.5*tw).toFixed(3)})`;
+             g.beginPath();g.arc(p.x,p.y,p.r,0,Math.PI*2);g.fill(); } },
+  neon:  { n:22, mk:()=>({x:Math.random()*W,y:H*.3+Math.random()*H*.7,r:2+Math.random()*5,vy:-.06-Math.random()*.1,ph:Math.random()*6.3,c:Math.random()<.5?'232,138,160':'240,180,100'}),
+           dr:(p,w,tm)=>{ p.y+=p.vy; if(p.y<H*.2){p.y=H+8;p.x=Math.random()*W;}
+             const tw=.4+.6*Math.sin(tm/700+p.ph);
+             g.fillStyle=`rgba(${p.c},${(w*.3*tw).toFixed(3)})`;
+             g.beginPath();g.arc(p.x,p.y,p.r,0,Math.PI*2);g.fill(); } },
+  rain:  { n:60, mk:()=>({x:Math.random()*W,y:Math.random()*H,vy:9+Math.random()*6,len:10+Math.random()*14}),
+           dr:(p,w)=>{ p.y+=p.vy; if(p.y>H+20){p.y=-20;p.x=Math.random()*W;}
+             g.strokeStyle=`rgba(190,210,230,${(w*.4).toFixed(3)})`;
+             g.lineWidth=1;
+             g.beginPath();g.moveTo(p.x,p.y);g.lineTo(p.x+2,p.y-p.len);g.stroke(); } },
+  petal: { n:20, mk:()=>({x:Math.random()*W,y:Math.random()*H,r:1.8+Math.random()*2.6,vx:.3+Math.random()*.4,vy:.3+Math.random()*.4,ph:Math.random()*6.3}),
+           dr:(p,w)=>{ p.x+=p.vx+Math.sin(p.ph+=.015)*.4; p.y+=p.vy; if(p.y>H+6||p.x>W+6){p.x=Math.random()*W*.4-10;p.y=-6;}
+             g.fillStyle=`rgba(244,196,206,${(w*.7).toFixed(3)})`;
+             g.beginPath();g.ellipse(p.x,p.y,p.r,p.r*.6,p.ph,0,Math.PI*2);g.fill(); } },
+  holo:  { n:30, mk:()=>({x:Math.random()*W,y:Math.random()*H,s:1+Math.random()*2.6,vy:-.3-Math.random()*.5,ph:Math.random()*6.3}),
+           dr:(p,w,tm)=>{ p.y+=p.vy; if(p.y<-6){p.y=H+6;p.x=Math.random()*W;}
+             const tw=.4+.6*Math.sin(tm/500+p.ph*3);
+             g.fillStyle=`rgba(120,220,240,${(w*.5*tw).toFixed(3)})`;
+             g.fillRect(p.x,p.y,p.s,p.s*2); } }
+};
+function initParts(){ for(const k in POOLS){ const P=POOLS[k]; P.parts = Array.from({length:P.n}, P.mk); } }
+
+/* ============ 描画 ============ */
+const gengoEl = document.getElementById('gengo');
+const yearEl = document.getElementById('yearNum');
+const plaque = document.getElementById('plaque');
+const pName = document.getElementById('pName');
+const pGen = document.getElementById('pGen');
+const pLine = document.getElementById('pLine');
+let plaqueIdx = 0, plaqueSwap = 0;
+function mix(a,b,f){ return a.map((v,i)=>Math.round(v+(b[i]-v)*f)); }
+function render(now){
+  /* 時代ウェイト */
+  let i = 0;
+  while(i < ERAS.length-2 && t >= ERAS[i+1].y) i++;
+  const a = ERAS[i], b = ERAS[i+1];
+  const f = Math.min(1, Math.max(0, (t - a.y)/(b.y - a.y)));
+  eraEls.forEach((el,k)=>{
+    const w = k===i ? 1-f : k===i+1 ? f : 0;
+    el.style.opacity = w.toFixed(3);
+    const v = el.querySelector('video');
+    if(v){ if(w > 0.01){ v.play().catch(()=>{}); } else if(!v.paused){ v.pause(); } }
+  });
+  /* パレット */
+  const bg = mix(a.pal.bg, b.pal.bg, f), ink = mix(a.pal.ink, b.pal.ink, f), ac = mix(a.pal.accent, b.pal.accent, f);
+  root.style.setProperty('--bg', `rgb(${bg})`);
+  root.style.setProperty('--ink', `rgb(${ink})`);
+  root.style.setProperty('--ink-dim', `rgba(${ink},.55)`);
+  root.style.setProperty('--accent', `rgb(${ac})`);
+  /* 年号 */
+  gengoEl.textContent = gengoOf(t);
+  yearEl.innerHTML = `<b>${Math.round(t)}</b>`;
+  /* ルーラー */
+  tape.style.transform = `translateX(${(innerWidth/2 - vpos(t)*PXY).toFixed(1)}px)`;
+  /* 系譜プレート(最寄り時代) */
+  const near = f < 0.5 ? i : i+1;
+  if(near !== plaqueIdx && now > plaqueSwap){
+    plaqueIdx = near; plaqueSwap = now + 600;
+    plaque.classList.add('fade');
+    setTimeout(()=>{
+      const e = ERAS[plaqueIdx];
+      pName.childNodes[0].textContent = e.name;
+      pGen.textContent = e.gen;
+      pLine.textContent = e.line;
+      plaque.classList.remove('fade');
+    }, 260);
+  }
+  /* ステージの揺れ(ドラッグ速度で僅かに流れる) */
+  if(!reduceMotion){
+    stageWrap.style.transform = `translateX(${(-vel*26).toFixed(1)}px) scale(1.02)`;
+  }
+  /* 粒子 */
+  g.clearRect(0,0,W,H);
+  const weights = {};
+  weights[a.fx] = (weights[a.fx]||0) + (1-f);
+  weights[b.fx] = (weights[b.fx]||0) + f;
+  for(const k in POOLS){
+    const w = weights[k] || 0;
+    if(w <= 0.01) continue;
+    for(const p of POOLS[k].parts) POOLS[k].dr(p, w, now);
+  }
+}
+
+/* ============ 初期化+メインループ(必ず最末尾) ============ */
+addEventListener('resize', ()=>{ resize(); initParts(); buildTape(); });
+resize(); initParts();
+setTimeout(()=>{ if(!interacted) hint.classList.remove('off'); }, 400);
+
+(function tick(now){
+  updateTween(now);
+  if(!dragging && !tween && Math.abs(vel) > 0.002){
+    t += vel; vel *= 0.90; clampT();
+  }
+  zoneLogic();
+  render(now);
+  requestAnimationFrame(tick);
+})(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>百鬼夜行絵巻 — 縦に廻せば、夜が横にほどける</title>
+<meta name="description" content="縦スクロールで絵巻が横にほどけていく、百鬼夜行の一夜。黄昏の出発から暁の消散まで。架空の絵巻体験サイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;800&family=Cormorant+Garamond:ital,wght@1,500&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1a141a; --ink:#ece2d2; --ink-dim:rgba(236,226,210,.55); --accent:#c89658;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Zen Kaku Gothic New',sans-serif; font-weight:300;
+  letter-spacing:.06em; line-height:2; overflow-x:hidden;
+}
+::selection{background:rgba(200,150,88,.35)}
+#spacer{width:1px}
+#bg{position:fixed;inset:0;z-index:-3;background:var(--bg)}
+#grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.5;
+  background-image:repeating-linear-gradient(0deg,rgba(255,250,240,.016) 0 1px,transparent 1px 3px),
+                   repeating-linear-gradient(90deg,rgba(0,0,0,.02) 0 1px,transparent 1px 4px)}
+.vig{position:fixed;inset:0;z-index:40;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,transparent 60%,rgba(0,0,0,.38) 100%)}
+
+#viewport{position:fixed;inset:0;overflow:hidden}
+.moon{
+  position:absolute;top:9svh;right:12vw;width:min(11vw,90px);height:min(11vw,90px);border-radius:50%;
+  background:radial-gradient(circle at 42% 40%, #f4ecd8, #d9cba8 68%, #b8a887);
+  box-shadow:0 0 60px 18px rgba(244,236,216,.18);
+  transition:opacity 1s ease;z-index:1;
+}
+#skyfx{position:absolute;inset:0;z-index:1;pointer-events:none}
+#mid{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;
+  gap:6vw;padding:0 8vw;will-change:transform;z-index:2}
+#fg{position:absolute;top:0;left:0;height:100%;will-change:transform;z-index:6;pointer-events:none}
+#fx{position:absolute;inset:0;z-index:7;pointer-events:none}
+
+/* ---- 軸(巻物の芯) ---- */
+.jiku{flex:none;width:30px;height:82svh;border-radius:15px;
+  background:linear-gradient(90deg,#1a0f0a,#4a2f1c 30%,#241408 70%,#0d0704);
+  box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 0 0 1px rgba(200,150,88,.25);position:relative}
+.jiku::before,.jiku::after{content:"";position:absolute;left:50%;transform:translateX(-50%);
+  width:44px;height:16px;border-radius:8px;
+  background:linear-gradient(90deg,#3a2412,#6a4a28,#2a1a0c);box-shadow:inset 0 0 0 1px rgba(200,150,88,.3)}
+.jiku::before{top:-8px}
+.jiku::after{bottom:-8px}
+
+/* ---- 巻頭・巻末 ---- */
+.makito{flex:none;display:flex;align-items:center;gap:5vw;padding:0 3vw}
+.makito .ttl{writing-mode:vertical-rl;font-family:'Shippori Mincho',serif;font-weight:800;
+  font-size:clamp(44px,9svh,76px);letter-spacing:.28em;line-height:1.15;height:auto}
+.makito .side{display:flex;flex-direction:column;gap:22px;max-width:300px}
+.makito .eng{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+  font-size:13px;letter-spacing:.4em;color:var(--accent)}
+.makito p{font-size:13.5px;line-height:2.4;letter-spacing:.14em;color:var(--ink-dim)}
+.makito .seal{width:44px;height:44px;background:#b0402e;border-radius:4px;color:#f5ead8;
+  display:flex;align-items:center;justify-content:center;font-family:'Shippori Mincho',serif;
+  font-size:22px;font-weight:600;transform:rotate(-4deg);box-shadow:0 4px 16px rgba(176,64,46,.4)}
+.hint{font-size:11.5px;letter-spacing:.28em;color:var(--ink-dim)}
+.hint b{color:var(--accent);font-weight:400}
+
+/* ---- 詞書 ---- */
+.kotoba{flex:none;writing-mode:vertical-rl;font-family:'Shippori Mincho',serif;
+  font-size:clamp(15px,2svh,19px);letter-spacing:.3em;line-height:2.6;height:44svh;
+  color:var(--ink);opacity:.85;align-self:center}
+.kotoba small{font-size:.65em;color:var(--ink-dim)}
+
+/* ---- 情景パネル ---- */
+.scene{flex:none;position:relative;height:min(66svh,58vw);aspect-ratio:1344/768;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 5%,#000 95%,transparent 100%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 5%,#000 95%,transparent 100%);
+}
+.scene .pimg,.scene video,.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scene .pimg{background-size:cover;background-position:center}
+.scene::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.12) 0%,transparent 22%,transparent 78%,rgba(0,0,0,.2) 100%)}
+
+/* ---- 妖怪スプライト ---- */
+.sprite{position:absolute;bottom:9svh;pointer-events:none;z-index:4;filter:drop-shadow(0 10px 14px rgba(0,0,0,.45))}
+.sprite canvas{width:100%;height:100%;display:block}
+@keyframes bobA{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-2.2svh) rotate(1.4deg)}}
+@keyframes bobB{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.4svh)}}
+@keyframes hop{0%,58%,100%{transform:translateY(0) rotate(-2deg)}30%{transform:translateY(-5svh) rotate(4deg)}}
+@keyframes floatA{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-3.5svh) rotate(3deg)}}
+
+/* ---- 奥付 ---- */
+.okuzuke{flex:none;max-width:340px;display:flex;flex-direction:column;gap:20px;padding:0 2vw}
+.okuzuke h2{font-family:'Shippori Mincho',serif;font-weight:600;font-size:clamp(20px,3svh,26px);letter-spacing:.3em}
+.okuzuke p{font-size:12px;line-height:2.3;letter-spacing:.12em;color:var(--ink-dim)}
+.okuzuke button{
+  font-family:'Shippori Mincho',serif;font-size:14px;letter-spacing:.3em;color:var(--ink);
+  background:none;border:1px solid var(--accent);padding:13px 30px;cursor:pointer;transition:all .4s ease;align-self:flex-start}
+.okuzuke button:hover{background:var(--accent);color:#1a1410}
+
+/* ---- ヘッダー・刻ダイヤル ---- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;
+  align-items:baseline;padding:22px 4vw;pointer-events:none}
+header .brand{font-family:'Shippori Mincho',serif;font-weight:600;font-size:17px;letter-spacing:.3em}
+header .brand small{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+  font-size:10.5px;letter-spacing:.4em;color:var(--accent);margin-top:2px}
+header .stat{font-size:11px;letter-spacing:.3em;color:var(--ink-dim)}
+#dial{
+  position:fixed;right:20px;bottom:20px;z-index:50;display:flex;align-items:center;gap:14px;
+  padding:12px 18px;border:1px solid rgba(200,150,88,.35);background:rgba(16,12,16,.62);
+  backdrop-filter:blur(4px);
+}
+#dial .circle{position:relative;width:54px;height:54px;border-radius:50%;border:1px solid rgba(236,226,210,.3)}
+#dial .circle .mdot{position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 10px var(--accent)}
+#dial .koku{font-family:'Shippori Mincho',serif;font-size:19px;letter-spacing:.14em;color:var(--ink)}
+#dial .koku small{display:block;font-size:10px;letter-spacing:.24em;color:var(--ink-dim)}
+#dial .shaku{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-dim)}
+@media (max-width:760px){
+  header .stat{display:none}
+  #dial{right:50%;transform:translateX(50%);bottom:12px;padding:9px 14px;gap:10px}
+  #dial .circle{width:40px;height:40px}
+  .kotoba{height:36svh;font-size:14px}
+}
+</style>
+</head>
+<body>
+<div id="spacer"></div>
+<div id="bg"></div>
+<div id="grain"></div>
+<div class="vig"></div>
+
+<div id="viewport">
+  <div class="moon" id="moon"></div>
+  <canvas id="skyfx"></canvas>
+  <div id="mid">
+    <div class="jiku"></div>
+
+    <div class="makito" data-world="kanto">
+      <div class="side">
+        <div class="eng">NIGHT PARADE OF ONE HUNDRED DEMONS</div>
+        <p>これは、ある一夜の記録である。<br>
+        日が沈み、人が寝静まったあと、<br>
+        道は、人ならぬものたちに明け渡される。</p>
+        <div class="seal">夜</div>
+        <p class="hint"><b>縦に廻す</b>と、絵巻が横にほどけます。<br>巻末、暁までどうぞ。</p>
+      </div>
+      <div class="ttl">百鬼夜行絵巻</div>
+    </div>
+
+    <div class="kotoba" data-world="tasogare">日暮れて、提灯に<br>ひとつ火が入る<br><small>— 宵の口、酉の刻 —</small></div>
+
+    <div class="scene" data-world="tasogare">
+      <div class="pimg" data-img="images/tasogare.png"></div>
+    </div>
+
+    <div class="kotoba" data-world="yoi">宵闇に、行列の<br>ざわめきが近づく<br><small>— 亥の刻 —</small></div>
+
+    <div class="scene" data-world="yoi">
+      <video src="images/gyoretsu.mp4" poster="images/gyoretsu.png" muted loop playsinline preload="metadata"></video>
+    </div>
+
+    <div class="kotoba" data-world="kawabe">川面を、狐火が<br>先導する<br><small>— 子の刻 —</small></div>
+
+    <div class="scene" data-world="kawabe">
+      <video src="images/kawabe.mp4" poster="images/kawabe.png" muted loop playsinline preload="metadata"></video>
+    </div>
+
+    <div class="kotoba" data-world="yashiro">古社の杜に、<br>大いなるものが立つ<br><small>— 丑三つ刻 —</small></div>
+
+    <div class="scene" data-world="yashiro">
+      <div class="pimg" data-img="images/yashiro.png"></div>
+    </div>
+
+    <div class="kotoba" data-world="akatsuki">一番鶏。<br>夜のものは、夜へ帰る<br><small>— 暁、卯の刻 —</small></div>
+
+    <div class="scene" data-world="akatsuki">
+      <div class="pimg" data-img="images/akatsuki.png"></div>
+    </div>
+
+    <div class="okuzuke" data-world="akatsuki">
+      <h2>奥付</h2>
+      <p>百鬼夜行絵巻 全一巻、これにて仕舞い。<br>
+      夜のものたちは、また日が沈めば歩き出します。</p>
+      <p>※これは架空の絵巻体験のコンセプトサイトです。<br>
+      画・妖怪はすべてローカルComfyUI(Z-Image Turbo / Wan 2.2)による摺り。<br>
+      実在の寺社・団体・妖怪とは関係ありません。</p>
+      <button id="rewind">巻き戻す</button>
+    </div>
+
+    <div class="jiku"></div>
+  </div>
+  <div id="fg"></div>
+  <canvas id="fx"></canvas>
+</div>
+
+<header>
+  <div class="brand">百鬼夜行絵巻<small>HYAKKI YAGYŌ EMAKI</small></div>
+  <div class="stat">夜行中 — 日没より暁まで</div>
+</header>
+
+<aside id="dial">
+  <div class="circle"><div class="mdot" id="mdot"></div></div>
+  <div class="koku"><span id="kokuName">酉の刻</span><small id="kokuSub">たそがれ</small></div>
+  <div class="shaku"><span id="shakuNow">0.0</span> / 拾尺</div>
+</aside>
+
+<script>
+/* ============ 世界パレット(刻ごとの空の色) ============ */
+const WORLDS = {
+  kanto:    { bg:[26,20,26],    ink:[236,226,210], accent:[200,150,88]  },
+  tasogare: { bg:[46,26,24],    ink:[240,228,208], accent:[224,138,60]  },
+  yoi:      { bg:[14,12,26],    ink:[232,226,214], accent:[232,180,90]  },
+  kawabe:   { bg:[6,12,18],     ink:[220,232,232], accent:[138,212,216] },
+  yashiro:  { bg:[18,10,24],    ink:[230,222,238], accent:[185,167,224] },
+  akatsuki: { bg:[226,202,186], ink:[58,44,40],    accent:[192,74,52]   }
+};
+const KOKU = [
+  { name:'酉の刻', sub:'たそがれ' },
+  { name:'戌の刻', sub:'よいのくち' },
+  { name:'亥の刻', sub:'よい' },
+  { name:'子の刻', sub:'まよなか' },
+  { name:'丑三つ刻', sub:'ものの刻' },
+  { name:'寅の刻', sub:'よあけまえ' },
+  { name:'卯の刻', sub:'あかつき' }
+];
+const root = document.documentElement;
+const mid = document.getElementById('mid');
+const fgLayer = document.getElementById('fg');
+const spacer = document.getElementById('spacer');
+const moon = document.getElementById('moon');
+
+let stripW = 0, maxX = 1;
+let stops = [];
+function buildStops(){
+  stripW = mid.scrollWidth;
+  maxX = Math.max(1, stripW - innerWidth);
+  spacer.style.height = (maxX + innerHeight) + 'px';
+  fgLayer.style.width = (stripW * 1.4) + 'px';
+  stops = []; let prev = null;
+  for(const el of mid.querySelectorAll('[data-world]')){
+    const w = el.dataset.world;
+    if(w === prev) continue;
+    prev = w;
+    stops.push({ x: Math.max(0, el.offsetLeft - innerWidth*0.55), w });
+  }
+  stops.sort((a,b)=>a.x-b.x);
+  if(stops.length) stops[0].x = 0;
+}
+function mix(a,b,t){ return a.map((v,i)=>Math.round(v+(b[i]-v)*t)); }
+function paletteAt(x){
+  let i = stops.length-1;
+  for(let k=0;k<stops.length;k++){ if(x < stops[k].x){ i = k-1; break; } }
+  if(i < 0) i = 0;
+  const cur = WORLDS[stops[i].w], nxt = stops[i+1] ? WORLDS[stops[i+1].w] : null;
+  if(!nxt) return cur;
+  const span = innerWidth*0.55;
+  const t = Math.min(1, Math.max(0, (x-(stops[i+1].x-span))/span));
+  return { bg:mix(cur.bg,nxt.bg,t), ink:mix(cur.ink,nxt.ink,t), accent:mix(cur.accent,nxt.accent,t) };
+}
+let curPal = WORLDS.kanto;
+let curX = 0;
+function onScroll(){
+  curX = Math.min(maxX, scrollY);
+  const p = paletteAt(curX);
+  curPal = p;
+  root.style.setProperty('--bg', `rgb(${p.bg})`);
+  root.style.setProperty('--ink', `rgb(${p.ink})`);
+  root.style.setProperty('--ink-dim', `rgba(${p.ink},.55)`);
+  root.style.setProperty('--accent', `rgb(${p.accent})`);
+  mid.style.transform = `translateX(${-curX}px)`;
+  fgLayer.style.transform = `translateX(${-curX*1.35}px)`;
+  /* 刻ダイヤル */
+  const prog = curX / maxX;
+  const ki = Math.min(KOKU.length-1, Math.floor(prog * KOKU.length));
+  kokuName.textContent = KOKU[ki].name;
+  kokuSub.textContent = KOKU[ki].sub;
+  shakuNow.textContent = (prog*10).toFixed(1);
+  const ang = -Math.PI/2 + prog * Math.PI * 2;
+  const r = 20;
+  mdot.style.transform = `translate(${(Math.cos(ang)*r).toFixed(1)}px, ${(Math.sin(ang)*r).toFixed(1)}px)`;
+  /* 月: 夜の深さで出没、僅かな視差 */
+  const lum = (p.bg[0]*.299 + p.bg[1]*.587 + p.bg[2]*.114);
+  const night = Math.max(0, Math.min(1, (120 - lum) / 90));
+  moon.style.opacity = (night * .95).toFixed(2);
+  moon.style.transform = `translateX(${(-curX*0.03).toFixed(1)}px)`;
+}
+const kokuName = document.getElementById('kokuName');
+const kokuSub = document.getElementById('kokuSub');
+const shakuNow = document.getElementById('shakuNow');
+const mdot = document.getElementById('mdot');
+
+/* ============ クロマキー(マゼンタ地の妖怪・小物を抜く) ============ */
+function chromaKey(img){
+  const W = img.naturalWidth, H = img.naturalHeight, N = W*H;
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const g = c.getContext('2d');
+  g.drawImage(img, 0, 0);
+  const d = g.getImageData(0, 0, W, H);
+  const px = d.data;
+  const isKey = i => {
+    const r = px[i*4], gr = px[i*4+1], b = px[i*4+2];
+    return r > 175 && (r - gr) >= 42 && b >= gr + 5 && b > 100;
+  };
+  const bg = new Uint8Array(N);
+  for(let i=0;i<N;i++){ if(isKey(i)) bg[i] = 1; }
+  /* 孤立小成分の除去 */
+  const comp = new Int32Array(N);
+  const stack = new Int32Array(N);
+  const minArea = N * 0.01;
+  for(let s=0;s<N;s++){
+    if(bg[s] || comp[s]) continue;
+    let sp = 0, size = 0, touches = false;
+    const members = [];
+    stack[sp++] = s; comp[s] = 1;
+    while(sp > 0){
+      const i = stack[--sp];
+      size++; members.push(i);
+      const x = i % W, y = (i - x) / W;
+      if(x===0 || x===W-1 || y===0 || y===H-1) touches = true;
+      if(x>0   && !bg[i-1] && !comp[i-1]){ comp[i-1]=1; stack[sp++]=i-1; }
+      if(x<W-1 && !bg[i+1] && !comp[i+1]){ comp[i+1]=1; stack[sp++]=i+1; }
+      if(y>0   && !bg[i-W] && !comp[i-W]){ comp[i-W]=1; stack[sp++]=i-W; }
+      if(y<H-1 && !bg[i+W] && !comp[i+W]){ comp[i+W]=1; stack[sp++]=i+W; }
+    }
+    if(size < minArea && !touches){ for(const i of members) bg[i] = 1; }
+  }
+  const a0 = new Uint8Array(N);
+  for(let i=0;i<N;i++) a0[i] = bg[i] ? 0 : 255;
+  for(let i=0;i<N;i++){
+    const x = i % W;
+    let sum = a0[i]*4, cnt = 4;
+    if(x>0){ sum += a0[i-1]; cnt++; }
+    if(x<W-1){ sum += a0[i+1]; cnt++; }
+    if(i>=W){ sum += a0[i-W]; cnt++; }
+    if(i<N-W){ sum += a0[i+W]; cnt++; }
+    px[i*4+3] = Math.round(sum/cnt);
+  }
+  g.putImageData(d, 0, 0);
+  return c;
+}
+
+/* ============ 妖怪スプライトと近景の配置 ============ */
+const SPRITES = [
+  { src:'images/chochin.png',  h:24, anchor:'tasogare', dx:1.06, bottom:20, anim:'floatA 5.2s ease-in-out infinite' },
+  { src:'images/oni.png',      h:32, anchor:'yoi',      dx:-0.14, bottom:8,  anim:'bobA 3.4s ease-in-out infinite' },
+  { src:'images/nekomata.png', h:24, anchor:'yoi',      dx:0.52, bottom:7,  anim:'bobB 2.8s ease-in-out infinite' },
+  { src:'images/kasa.png',     h:27, anchor:'yoi',      dx:0.88, bottom:8,  anim:'hop 2.4s ease-in-out infinite' },
+  { src:'images/kitsune.png',  h:31, anchor:'kawabe',   dx:-0.32, bottom:8,  anim:'bobB 3.8s ease-in-out infinite' },
+  { src:'images/hitotsume.png',h:25, anchor:'yashiro',  dx:1.07, bottom:8,  anim:'bobA 3.1s ease-in-out infinite' }
+];
+const FGITEMS = [
+  { src:'images/susuki.png', h:26, frac:.12 }, { src:'images/saku.png',   h:22, frac:.27 },
+  { src:'images/tourou.png', h:30, frac:.40 }, { src:'images/susuki.png', h:24, frac:.55 },
+  { src:'images/saku.png',   h:20, frac:.70 }, { src:'images/susuki.png', h:28, frac:.86 }
+];
+const keyed = {};   // src -> canvas
+function loadKeyed(src){
+  return new Promise(res=>{
+    if(keyed[src]) return res(keyed[src]);
+    const im = new Image();
+    im.onload = ()=>{ keyed[src] = chromaKey(im); res(keyed[src]); };
+    im.src = src;
+  });
+}
+async function placeSprites(){
+  const scenes = {};
+  mid.querySelectorAll('.scene').forEach(s=>{ scenes[s.dataset.world] = s; });
+  for(const sp of SPRITES){
+    const base = scenes[sp.anchor];
+    if(!base) continue;
+    const cv = await loadKeyed(sp.src);
+    const el = document.createElement('div');
+    el.className = 'sprite';
+    const hh = sp.h;
+    el.style.height = hh + 'svh';
+    el.style.width = (hh * cv.width / cv.height) + 'svh';
+    el.style.left = (base.offsetLeft + base.offsetWidth * sp.dx) + 'px';
+    el.style.bottom = sp.bottom + 'svh';
+    const inner = cv.cloneNode(false);
+    inner.getContext('2d').drawImage(cv,0,0);
+    inner.style.animation = sp.anim;
+    inner.style.width = '100%'; inner.style.height = '100%'; inner.style.display = 'block';
+    el.appendChild(inner);
+    mid.appendChild(el);
+  }
+  for(const it of FGITEMS){
+    const cv = await loadKeyed(it.src);
+    const el = document.createElement('div');
+    el.className = 'sprite';
+    el.style.height = it.h + 'svh';
+    el.style.width = (it.h * cv.width / cv.height) + 'svh';
+    el.style.left = (it.frac * stripW * 1.35) + 'px';
+    el.style.bottom = '-3svh';
+    el.style.filter = 'drop-shadow(0 6px 10px rgba(0,0,0,.5)) brightness(.75)';
+    const inner = cv.cloneNode(false);
+    inner.getContext('2d').drawImage(cv,0,0);
+    inner.style.width = '100%'; inner.style.height = '100%'; inner.style.display = 'block';
+    el.appendChild(inner);
+    fgLayer.appendChild(el);
+  }
+}
+
+/* ============ 空と狐火(Canvas) ============ */
+const skyCv = document.getElementById('skyfx');
+const fxCv = document.getElementById('fx');
+const skyG = skyCv.getContext('2d');
+const fxG = fxCv.getContext('2d');
+let W=0,H=0,DPR=1;
+function resize(){
+  DPR = Math.min(2, devicePixelRatio||1);
+  W = innerWidth; H = innerHeight;
+  for(const [cv,g] of [[skyCv,skyG],[fxCv,fxG]]){
+    cv.width = W*DPR; cv.height = H*DPR;
+    cv.style.width = W+'px'; cv.style.height = H+'px';
+    g.setTransform(DPR,0,0,DPR,0,0);
+  }
+}
+const stars = [], hibi = [];
+function initParts(){
+  stars.length = 0; hibi.length = 0;
+  for(let i=0;i<110;i++){
+    stars.push({ x:Math.random()*W*3, y:Math.random()*H*.62, r:.5+Math.random()*1.2, ph:Math.random()*6.3 });
+  }
+  const n = innerWidth < 760 ? 22 : 38;
+  for(let i=0;i<n;i++){
+    hibi.push({ x:Math.random()*W, y:H*.25+Math.random()*H*.65, r:1.5+Math.random()*3,
+                vx:(Math.random()-.5)*.3, vy:-(.15+Math.random()*.3), ph:Math.random()*6.3 });
+  }
+}
+function drawSky(t){
+  skyG.clearRect(0,0,W,H);
+  const lum = (curPal.bg[0]*.299 + curPal.bg[1]*.587 + curPal.bg[2]*.114);
+  const night = Math.max(0, Math.min(1, (120 - lum)/90));
+  if(night <= 0.02) return;
+  for(const s of stars){
+    const sx = ((s.x - curX*0.25) % (W*3) + W*3) % (W*3) - W;
+    if(sx < -8 || sx > W+8) continue;
+    const tw = .5 + .5*Math.sin(t/1100 + s.ph);
+    skyG.fillStyle = `rgba(240,238,225,${(night*.8*tw).toFixed(3)})`;
+    skyG.beginPath(); skyG.arc(sx, s.y, s.r, 0, Math.PI*2); skyG.fill();
+  }
+}
+function drawFx(t){
+  fxG.clearRect(0,0,W,H);
+  const lum = (curPal.bg[0]*.299 + curPal.bg[1]*.587 + curPal.bg[2]*.114);
+  const night = Math.max(0, Math.min(1, (120 - lum)/90));
+  const [ar,ag,ab] = curPal.accent;
+  for(const p of hibi){
+    p.x += p.vx; p.y += p.vy;
+    if(p.y < H*.15){ p.y = H*.95; p.x = Math.random()*W; }
+    if(p.x < -10) p.x = W+10;
+    if(p.x > W+10) p.x = -10;
+    const tw = .45 + .55*Math.sin(t/700 + p.ph);
+    const a = (night*.5 + .12) * tw;
+    fxG.shadowColor = `rgba(${ar},${ag},${ab},.9)`;
+    fxG.shadowBlur = 10;
+    fxG.fillStyle = `rgba(${ar},${ag},${ab},${a.toFixed(3)})`;
+    fxG.beginPath(); fxG.arc(p.x, p.y, p.r, 0, Math.PI*2); fxG.fill();
+  }
+  fxG.shadowBlur = 0;
+}
+
+/* ============ 画像・動画オブザーバ ============ */
+const imgIO = new IntersectionObserver(es=>{
+  for(const e of es){
+    if(e.isIntersecting){
+      const el = e.target;
+      el.style.backgroundImage = `url("${el.dataset.img}")`;
+      imgIO.unobserve(el);
+    }
+  }
+},{rootMargin:'0px 100% 0px 100%'});
+document.querySelectorAll('.pimg[data-img]').forEach(el=>imgIO.observe(el));
+const vidIO = new IntersectionObserver(es=>{
+  for(const e of es){
+    const v = e.target;
+    if(e.isIntersecting){ v.play().catch(()=>{}); } else { v.pause(); }
+  }
+},{rootMargin:'0px 60% 0px 60%'});
+document.querySelectorAll('video').forEach(v=>vidIO.observe(v));
+
+/* ============ 巻き戻し・横ドラッグ ============ */
+document.getElementById('rewind').addEventListener('click', ()=>{
+  scrollTo({top:0, behavior:'smooth'});
+});
+let tX = null, tY = null;
+addEventListener('touchstart', e=>{
+  if(e.touches[0]){ tX = e.touches[0].clientX; tY = e.touches[0].clientY; }
+}, {passive:true});
+addEventListener('touchmove', e=>{
+  if(!e.touches[0] || tX === null) return;
+  const dx = e.touches[0].clientX - tX;
+  const dy = e.touches[0].clientY - tY;
+  tX = e.touches[0].clientX; tY = e.touches[0].clientY;
+  if(Math.abs(dx) > Math.abs(dy)) scrollBy(0, -dx * 1.4);
+}, {passive:true});
+
+/* ============ 初期化+メインループ(必ず最末尾) ============ */
+addEventListener('resize', ()=>{ resize(); initParts(); buildStops(); onScroll(); });
+addEventListener('scroll', onScroll, {passive:true});
+addEventListener('load', ()=>{ buildStops(); onScroll(); });
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(()=>{ buildStops(); onScroll(); });
+}
+resize(); initParts(); buildStops(); onScroll();
+placeSprites().then(()=>{ buildStops(); onScroll(); });
+
+let lastSeenY = -1, lastSeenW = -1;
+(function tick(t){
+  if(mid.scrollWidth !== lastSeenW){ lastSeenW = mid.scrollWidth; buildStops(); onScroll(); }
+  if(scrollY !== lastSeenY){ lastSeenY = scrollY; onScroll(); }
+  drawSky(t);
+  drawFx(t);
+  requestAnimationFrame(tick);
+})(0);
+</script>
+</body>
+</html>

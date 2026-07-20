@@ -1,0 +1,6 @@
+[
+  { "name": "wave", "src": "images\\wave-bg.png", "seed": 1501,
+    "pos": "The dark sea waves roll and swell slowly in ukiyo-e woodblock print style, white foam crests curling and breaking gently, the small boats rock on the swells, moonlight reflection shimmers on the water, clouds drift very slowly, flat woodblock print textures preserved, continuous smooth slow motion, highly detailed." },
+  { "name": "hotaru", "src": "images\\hotaru-bg.png", "seed": 1502,
+    "pos": "Tiny glowing yellow firefly lights drift and float slowly over the dark river, blinking softly, the water surface shimmers with faint moonlight ripples, reeds sway very gently in the night breeze, flat ukiyo-e woodblock print style preserved, quiet mysterious summer night, continuous smooth slow motion, highly detailed." }
+]
