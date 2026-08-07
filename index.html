@@ -21,417 +21,137 @@
 <meta name="twitter:title" content="URLを送るだけ。無料サイト診断｜ONE LAUNCH">
 <meta name="twitter:description" content="集客・SEO・問い合わせ導線の改善点を無料診断。業種別LPテンプレートも無料配布中。">
 <meta name="twitter:image" content="https://one-launch.pages.dev/images/x-site-diagnosis-campaign.png">
-<meta name="theme-color" content="#F7F3EC">
+<meta name="theme-color" content="#080808">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Organization",
-      "name": "ONE LAUNCH",
-      "url": "https://one-launch.pages.dev/",
-      "description": "業種別LPテンプレートの無料配布とオリジナル制作を行うデザインサービスです。"
-    },
-    {
-      "@type": "WebSite",
-      "name": "ONE LAUNCH",
-      "url": "https://one-launch.pages.dev/",
-      "inLanguage": "ja"
-    },
-    {
-      "@type": "Service",
-      "name": "無料Webサイト診断",
-      "provider": { "@type": "Organization", "name": "ONE LAUNCH" },
-      "areaServed": "JP",
-      "serviceType": "Webサイト改善診断",
-      "description": "公開中のWebサイトを対象に、集客・SEO・問い合わせ導線の改善点を無料で案内します。"
-    }
+    {"@type":"Organization","name":"ONE LAUNCH","url":"https://one-launch.pages.dev/","description":"業種別LPテンプレートの無料配布とオリジナル制作を行うデザインサービスです。"},
+    {"@type":"WebSite","name":"ONE LAUNCH","url":"https://one-launch.pages.dev/","inLanguage":"ja"},
+    {"@type":"Service","name":"無料Webサイト診断","provider":{"@type":"Organization","name":"ONE LAUNCH"},"areaServed":"JP","serviceType":"Webサイト改善診断","description":"公開中のWebサイトを対象に、集客・SEO・問い合わせ導線の改善点を無料で案内します。"}
   ]
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --base:#F7F3EC;
-  --ink:#1C2530;
-  --accent:#B8722F;
-  --en:'Outfit',sans-serif;
-  --jp:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
-  --phone-w:300px;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:var(--base);
-  color:var(--ink);
-  font-family:var(--jp);
-  line-height:1.9;
-  letter-spacing:.06em;
-}
-a{color:inherit;text-decoration:none}
-.en{font-family:var(--en)}
-
-header{
-  text-align:center;
-  padding:72px 24px 20px;
-}
-header .label{font-family:var(--en);font-weight:400;font-size:12px;letter-spacing:.5em;color:var(--accent)}
-header h1{
-  font-family:var(--en);font-weight:200;
-  font-size:clamp(34px,6vw,58px);letter-spacing:.14em;margin-top:10px;
-}
-header h1 b{font-weight:500}
-header p.lead{
-  max-width:620px;margin:18px auto 0;
-  font-size:13.5px;letter-spacing:.1em;
-}
-header p.lead b{color:var(--accent);font-weight:700}
-.diagnosis-points{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;max-width:720px;margin:24px auto 0;list-style:none}.diagnosis-points li{padding:7px 13px;border:1px solid rgba(28,37,48,.14);border-radius:999px;background:rgba(255,255,255,.58);font-size:10.5px;font-weight:700;letter-spacing:.08em}.diagnosis-step{max-width:680px;margin:18px auto 0;font-size:11.5px;color:rgba(28,37,48,.68)}
-.header-cta{
-  display:inline-flex;align-items:center;gap:9px;
-  margin-top:26px;padding:14px 34px;border-radius:999px;
-  background:#06C755;color:#fff;
-  font-size:13.5px;font-weight:700;letter-spacing:.1em;
-  box-shadow:0 14px 30px -12px rgba(6,199,85,.5);
-  transition:transform .3s,filter .3s;
-}
-.header-cta:hover{transform:translateY(-2px);filter:brightness(1.06)}
-.header-consult{display:block;width:max-content;margin:12px auto 0;color:rgba(28,37,48,.7);font-size:11px;letter-spacing:.12em;border-bottom:1px solid rgba(28,37,48,.35);padding-bottom:2px}
-.header-subcta{display:inline-flex;align-items:center;justify-content:center;margin:12px 6px 0;padding:10px 20px;border:1px solid rgba(28,37,48,.34);border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.1em;transition:.25s}.header-subcta:hover{background:var(--ink);color:var(--base)}
-@media(max-width:640px){header{padding-top:52px}.diagnosis-points{gap:6px}.diagnosis-points li{font-size:9.5px;padding:6px 9px}.header-cta{display:flex;width:100%;max-width:360px;justify-content:center;margin-right:auto;margin-left:auto}.header-subcta{display:flex;width:100%;max-width:360px;margin:10px auto 0}}
-
-.grid{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:56px 40px;
-  max-width:1280px;margin:56px auto 0;padding:0 24px 40px;
-}
-.template-collection{max-width:1280px;margin:76px auto 0;padding:64px 24px 70px;background:#eee5d8;overflow:hidden}.template-head{max-width:760px;margin:0 auto;text-align:center}.template-head .label{font-family:var(--en);font-size:11px;letter-spacing:.44em;color:var(--accent)}.template-head h2{margin-top:12px;font-size:clamp(24px,4vw,35px);font-weight:300;letter-spacing:.12em}.template-head p{margin:12px auto 0;font-size:12px;line-height:2;color:rgba(28,37,48,.7)}.template-head + .grid{margin:38px auto 0;padding:0}.template-collection .note{margin:28px auto 0;padding:0;max-width:640px}.template-download{display:flex;justify-content:center;margin-top:30px}.template-download a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 22px;border:1px solid var(--ink);font-size:12px;font-weight:700;letter-spacing:.12em;transition:.25s}.template-download a:hover{background:var(--ink);color:var(--base)}
-@media (min-width:1100px){.template-collection .grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;align-items:start}.template-collection .card{width:auto}.template-collection .phone{width:100%}.template-collection .card h2{font-size:15px;letter-spacing:.1em}.template-collection .card p.desc{font-size:11px}.template-collection .phone .badge{right:-4px}}
-@media (max-width:720px){.template-collection{margin-top:56px;padding:50px 18px 52px}.template-collection .grid{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 0 8px}.template-collection .card{width:72vw;flex:0 0 72vw;scroll-snap-align:start}.template-collection .phone{width:100%}.template-collection .note{font-size:11px}.template-download a{width:100%}}
-.card{width:var(--phone-w);text-align:center}
-
-/* phone mockup */
-.phone{
-  position:relative;
-  width:var(--phone-w);
-  aspect-ratio:375/760;
-  border-radius:34px;
-  background:#111;
-  padding:10px;
-  box-shadow:0 30px 60px -24px rgba(28,37,48,.45), 0 0 0 1px rgba(28,37,48,.08);
-  transition:transform .4s ease, box-shadow .4s ease;
-}
-.card:hover .phone{transform:translateY(-8px);box-shadow:0 44px 74px -26px rgba(28,37,48,.55), 0 0 0 1px rgba(28,37,48,.08)}
-.phone .screen{
-  position:relative;width:100%;height:100%;
-  border-radius:26px;overflow:hidden;background:#fff;
-}
-.phone .screen::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,24,.16),rgba(247,243,236,.08) 38%,rgba(247,243,236,.78));pointer-events:none}
-.preview-image{width:100%;height:100%;object-fit:cover;display:block}
-.preview-copy{position:absolute;z-index:1;left:12px;right:12px;top:54%;transform:translateY(-50%);text-align:center;color:var(--ink);text-shadow:0 1px 14px rgba(255,255,255,.28)}
-.preview-copy .brand{font-family:var(--en);font-size:clamp(21px,2.05vw,30px);font-weight:300;letter-spacing:.12em;line-height:1.12}
-.preview-copy .brand b{display:block;font-weight:600;letter-spacing:.14em;margin-top:4px}
-.preview-copy .sub{margin-top:13px;font-size:10px;font-weight:700;letter-spacing:.18em;line-height:1.8}
-.screen.is-dark::after{background:linear-gradient(180deg,rgba(3,8,14,.28),rgba(3,8,14,.08) 38%,rgba(3,8,14,.62))}
-.screen.is-dark .preview-copy{color:#f7f3ec;text-shadow:0 2px 16px rgba(0,0,0,.35)}
-.phone .notch{
-  position:absolute;top:10px;left:50%;transform:translateX(-50%);
-  width:86px;height:18px;border-radius:0 0 12px 12px;background:#111;z-index:2;
-}
-.phone .tap{position:absolute;inset:0;z-index:3;border-radius:34px}
-.phone .badge{
-  position:absolute;top:14px;right:-8px;z-index:4;
-  background:#06C755;color:#fff;
-  font-family:var(--en);font-weight:600;font-size:10px;letter-spacing:.18em;
-  padding:5px 12px;border-radius:999px;
-  box-shadow:0 8px 18px -6px rgba(6,199,85,.6);
-}
-
-.card .tone{
-  display:flex;justify-content:center;gap:6px;margin-top:22px;
-}
-.card .tone i{width:18px;height:18px;border-radius:50%;border:1px solid rgba(28,37,48,.15)}
-.card h2{
-  font-size:17px;font-weight:700;letter-spacing:.16em;margin-top:10px;
-}
-.card .tag{
-  font-family:var(--en);font-weight:400;font-size:10px;letter-spacing:.4em;color:var(--accent);
-}
-.card p.desc{font-size:12px;letter-spacing:.06em;line-height:2;margin-top:8px;color:rgba(28,37,48,.75)}
-.card .open{
-  display:inline-block;margin-top:14px;
-  font-size:12px;font-weight:500;letter-spacing:.14em;
-  border:1px solid var(--ink);border-radius:999px;padding:9px 26px;
-  transition:background .3s,color .3s;
-}
-.card .open:hover{background:var(--ink);color:var(--base)}
-
-.note{
-  text-align:center;max-width:640px;margin:24px auto 0;padding:0 24px;
-  font-size:12px;letter-spacing:.1em;color:rgba(28,37,48,.65);
-}
-
-/* ===== VANTA creative studio ===== */
-.studio-journal{max-width:1280px;margin:112px auto 0;padding:0 24px}
-.studio-journal .journal-kicker{font-family:var(--en);font-size:10px;letter-spacing:.36em;color:var(--accent);margin:0 0 18px 4px}
-.studio-feature{display:grid;grid-template-columns:1.08fr .92fr;min-height:460px;background:#0b0b0c;overflow:hidden}
-.studio-visual{position:relative;min-height:460px;overflow:hidden}
-.studio-visual img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:brightness(.84)}
-.studio-copy{display:flex;flex-direction:column;justify-content:center;padding:56px 54px;color:#f7f3ec;background:#0b0b0c}
-.studio-copy .eyebrow{font-family:var(--en);font-size:10px;letter-spacing:.38em;color:#c78d51}
-.studio-copy h2{font-size:clamp(25px,2.45vw,36px);font-weight:300;letter-spacing:.08em;line-height:1.7;margin-top:22px;white-space:nowrap}
-.studio-copy .studio-text{font-size:13px;line-height:2.1;letter-spacing:.1em;color:rgba(247,243,236,.72);margin-top:20px}
-.studio-copy .studio-link{align-self:flex-start;margin-top:34px;padding-bottom:7px;border-bottom:1px solid #c78d51;font-family:var(--en);font-size:12px;letter-spacing:.22em;color:#e3ad72;transition:color .25s,border-color .25s}
-.studio-copy .studio-link:hover{color:#fff;border-color:#fff}
-@media (max-width:720px){
-  .studio-journal{margin-top:76px;padding:0 18px}
-  .studio-journal .journal-kicker{margin-left:2px}
-  .studio-feature{grid-template-columns:1fr;min-height:0}
-  .studio-visual{min-height:270px}
-  .studio-copy{padding:38px 28px 42px}
-  .studio-copy h2{font-size:clamp(20px,6.4vw,26px);letter-spacing:.07em}
-  .studio-copy .studio-text{font-size:12px}
-}
-
-/* ===== concept archives ===== */
-.concept-archives{max-width:1280px;margin:112px auto 0;padding:64px 24px 70px;background:#101217;color:#f6f1e8}
-.concept-head{max-width:1180px;margin:0 auto 38px;text-align:center}
-.concept-head .label{font-family:var(--en);font-size:11px;letter-spacing:.44em;color:#d6a868}
-.concept-head h2{margin-top:12px;font-size:clamp(24px,4vw,35px);font-weight:300;letter-spacing:.12em}
-.concept-head p{max-width:680px;margin:12px auto 0;font-size:12px;line-height:2;color:rgba(246,241,232,.68)}
-.concept-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.concept-card{position:relative;min-height:310px;overflow:hidden;background:#1c2029;color:#fff}
-.concept-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;transition:transform .6s ease,opacity .4s ease}
-.concept-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,.08),rgba(5,7,12,.84));pointer-events:none}
-.concept-card:hover img{transform:scale(1.06);opacity:.9}.concept-card a{position:absolute;inset:0;z-index:2}
-.concept-copy{position:absolute;z-index:1;right:18px;bottom:17px;left:18px}.concept-copy small{display:block;font-family:var(--en);font-size:9px;letter-spacing:.22em;color:#e7bd80}.concept-copy h3{margin-top:5px;font-family:var(--en);font-size:20px;font-weight:400;line-height:1.2;letter-spacing:.06em}.concept-copy p{margin-top:7px;font-size:10px;line-height:1.65;color:rgba(255,255,255,.78)}.concept-copy span{display:inline-block;margin-top:12px;font-family:var(--en);font-size:9px;letter-spacing:.18em;color:#fff;border-bottom:1px solid #d6a868;padding-bottom:4px}
-.concept-download{display:flex;justify-content:center;margin-top:30px}.concept-download a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 22px;border:1px solid rgba(246,241,232,.55);font-size:12px;font-weight:700;letter-spacing:.12em;transition:.25s}.concept-download a:hover{background:#f6f1e8;color:#101217}
-@media (max-width:1000px){.concept-grid{grid-template-columns:repeat(3,1fr)}.concept-card{min-height:280px}}
-@media (min-width:641px){.concept-head h2{white-space:nowrap}}@media (max-width:640px){.concept-archives{margin-top:72px;padding:50px 18px 52px}.concept-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.concept-card{flex:0 0 72vw;min-height:360px;scroll-snap-align:start}.concept-head p{font-size:11px}.concept-download a{width:100%}}
-
-/* ===== contact ===== */
-.production{max-width:1280px;margin:112px auto 0;padding:72px 56px;background:#fff;border:1px solid rgba(28,37,48,.1)}.production-head{max-width:700px;margin:0 auto;text-align:center}.production-head .label{font-family:var(--en);font-size:11px;letter-spacing:.44em;color:var(--accent)}.production-head h2{margin-top:12px;font-size:clamp(24px,4vw,36px);font-weight:300;letter-spacing:.1em;line-height:1.55}.production-head p{margin:14px auto 0;font-size:12px;line-height:2;color:rgba(28,37,48,.72)}.production-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:48px;background:rgba(28,37,48,.12)}.production-card{padding:30px 28px;background:#fff}.production-card small{font-family:var(--en);font-size:10px;letter-spacing:.24em;color:var(--accent)}.production-card h3{margin-top:9px;font-size:17px;letter-spacing:.1em}.production-card p{margin-top:10px;font-size:12px;line-height:2;color:rgba(28,37,48,.7)}.production-flow{display:flex;justify-content:center;gap:18px;margin:42px 0 0;font-family:var(--en);font-size:11px;letter-spacing:.16em;color:rgba(28,37,48,.65)}.production-flow span{display:flex;align-items:center;gap:18px}.production-flow span:not(:last-child)::after{content:"→";color:var(--accent)}.consult-btn{display:flex;width:max-content;align-items:center;justify-content:center;min-height:50px;margin:30px auto 0;padding:12px 28px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;letter-spacing:.12em;box-shadow:0 14px 30px -14px rgba(28,37,48,.48);transition:transform .25s,filter .25s}.consult-btn:hover{transform:translateY(-2px);filter:brightness(1.1)}.consult-note{text-align:center;margin-top:12px;font-size:11px;color:rgba(28,37,48,.58)}
-@media(max-width:720px){.production{margin-top:72px;padding:52px 20px}.production-grid{grid-template-columns:1fr;margin-top:32px}.production-card{padding:25px 22px}.production-flow{display:block;margin-top:30px;text-align:center;line-height:2.5}.production-flow span{display:block}.production-flow span:not(:last-child)::after{display:block;content:"↓";line-height:1.4}.consult-btn{width:100%}}
-.contact{
-  max-width:560px;margin:80px auto 0;padding:0 24px;
-  text-align:center;
-}
-.contact .label{font-family:var(--en);font-weight:400;font-size:11px;letter-spacing:.5em;color:var(--accent)}
-.contact h2{font-size:clamp(20px,4.6vw,26px);font-weight:500;letter-spacing:.16em;margin-top:10px}
-.contact h2 span{display:inline-block}
-.contact p.sub{font-size:12.5px;letter-spacing:.08em;margin-top:12px;color:rgba(28,37,48,.75)}
-.contact p.sub span{display:inline-block}
-.line-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  margin-top:24px;padding:16px 44px;border-radius:999px;
-  background:#06C755;color:#fff;
-  font-size:14px;font-weight:700;letter-spacing:.12em;
-  box-shadow:0 14px 30px -12px rgba(6,199,85,.55);
-  transition:transform .3s,filter .3s;
-}
-.line-btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
-.contact .line-note{font-size:11.5px;letter-spacing:.08em;color:rgba(28,37,48,.6);margin-top:14px}
-.contact .secondary{
-  margin-top:44px;padding-top:32px;border-top:1px solid rgba(28,37,48,.12);
-}
-.contact .s-lead{font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--ink)}
-.contact .s-lead span,.contact .s-sub span{display:inline-block}
-.contact .s-sub{font-size:12.5px;letter-spacing:.08em;margin-top:8px;color:rgba(28,37,48,.75)}
-.hearing-link{
-  display:block;margin-top:18px;
-  font-size:12px;letter-spacing:.1em;
-}
-.hearing-link a{color:var(--accent);font-weight:700;border-bottom:1px solid currentColor;padding-bottom:2px}
-
-footer{
-  text-align:center;padding:64px 24px 44px;
-}
-footer .b{font-family:var(--en);font-weight:500;font-size:14px;letter-spacing:.3em}
-footer .b small{display:block;font-family:var(--jp);font-size:9px;letter-spacing:.28em;color:var(--accent);margin-top:3px}
-footer .copy{font-family:var(--en);font-weight:300;font-size:9px;letter-spacing:.3em;margin-top:20px;color:rgba(28,37,48,.5)}
-footer .vanta-link{margin-top:12px;font-family:var(--en);font-size:10px;letter-spacing:.18em}
-footer .vanta-link a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(28,37,48,.28);padding-bottom:3px}
-footer .vanta-link a:hover{color:var(--accent);border-color:var(--accent)}
+:root{--bg:#080808;--bg2:#0e0e0e;--ink:#f2f0ea;--muted:#9a978d;--faint:#55524b;--line:rgba(242,240,234,.14);--accent:#c8a15e;--green:#06c755;--pad:clamp(20px,5vw,80px);--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{overflow-x:hidden;background:var(--bg);color:var(--ink);font-family:"Hanken Grotesk","Noto Sans JP",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}img{display:block;width:100%}.jp{font-family:"Noto Sans JP",sans-serif}.grain{position:fixed;inset:0;z-index:1000;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.site-header{position:fixed;z-index:900;top:0;left:0;display:flex;width:100%;align-items:center;justify-content:space-between;padding:22px var(--pad);mix-blend-mode:difference}.site-brand{font-size:18px;font-weight:700;letter-spacing:.22em}.site-nav{display:flex;gap:32px}.site-nav a{position:relative;padding:4px 0;font-size:11px;font-weight:600;letter-spacing:.18em}.site-nav a::after{position:absolute;bottom:0;left:0;width:0;height:1px;background:currentColor;content:"";transition:width .35s var(--ease)}.site-nav a:hover::after{width:100%}
+.hero{position:relative;display:flex;min-height:100svh;align-items:flex-end;overflow:hidden}.hero-media{position:absolute;inset:-7% 0}.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover}.hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,8,.58),rgba(8,8,8,.1) 34%,rgba(8,8,8,.42) 64%,rgba(8,8,8,.97))}.hero-inner{position:relative;z-index:1;width:100%;padding:0 var(--pad) clamp(30px,5vw,66px)}.hero-meta{display:flex;justify-content:space-between;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--line);color:#c7c4ba;font-size:10px;font-weight:600;letter-spacing:.22em}.wordmark{display:flex;margin-top:clamp(18px,3vw,34px);overflow:hidden;font-size:clamp(58px,13.6vw,220px);font-weight:700;letter-spacing:-.045em;line-height:.78;white-space:nowrap}.wordmark span{display:inline-block;transform:translateY(110%);animation:rise 1s var(--ease) forwards}.wordmark span:nth-child(2){animation-delay:.13s}.wordmark span:nth-child(3){animation-delay:.2s}.wordmark span:nth-child(4){animation-delay:.27s}.wordmark span:nth-child(5){animation-delay:.34s}.wordmark span:nth-child(6){animation-delay:.41s}.wordmark span:nth-child(7){animation-delay:.48s}.wordmark span:nth-child(8){animation-delay:.55s}.wordmark span:nth-child(9){animation-delay:.62s}@keyframes rise{to{transform:none}}
+.hero-bottom{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(420px,.85fr);align-items:end;gap:36px;margin-top:clamp(22px,3vw,40px)}.hero-copy .eyebrow{color:var(--accent);font-size:10px;font-weight:600;letter-spacing:.24em}.hero-copy h1{max-width:16ch;margin-top:12px;font-family:"Noto Sans JP",sans-serif;font-size:clamp(23px,3.4vw,52px);font-weight:400;letter-spacing:.02em;line-height:1.45}.hero-copy h1 em{color:#b7b3aa;font-style:normal}.hero-copy p{max-width:51ch;margin-top:16px;color:#c5c2ba;font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:2}.hero-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}.primary,.secondary-btn{display:inline-flex;min-height:50px;align-items:center;justify-content:center;padding:13px 22px;border:1px solid var(--line);font-size:12px;font-weight:700;letter-spacing:.08em;transition:.3s}.primary{border-color:var(--green);background:var(--green);color:#fff}.primary:hover{filter:brightness(1.08);transform:translateY(-2px)}.secondary-btn:hover{border-color:var(--ink);background:var(--ink);color:#080808}
+.section{padding:clamp(90px,12vw,170px) var(--pad);border-top:1px solid var(--line)}.section-head{display:flex;align-items:center;gap:16px;margin-bottom:clamp(42px,6vw,78px)}.section-head .no{color:var(--accent);font-size:11px;font-weight:600;letter-spacing:.2em}.section-head .title{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.23em;text-transform:uppercase}.section-head::after{height:1px;flex:1;background:var(--line);content:""}.diagnosis{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(42px,8vw,130px);align-items:start}.diagnosis h2{max-width:16ch;font-family:"Noto Sans JP",sans-serif;font-size:clamp(29px,4.9vw,70px);font-weight:400;letter-spacing:-.02em;line-height:1.35}.diagnosis h2 span{color:var(--muted)}.diagnosis-copy>p{max-width:48ch;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:14px;line-height:2}.steps{margin-top:34px;border-top:1px solid var(--line)}.step{display:grid;grid-template-columns:42px 1fr;gap:14px;padding:20px 0;border-bottom:1px solid var(--line)}.step b{color:var(--accent);font-size:11px;letter-spacing:.15em}.step h3{font-family:"Noto Sans JP",sans-serif;font-size:15px;font-weight:500}.step p{margin-top:5px;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:12px;line-height:1.8}.diagnosis-cta{display:inline-flex;margin-top:28px;color:var(--ink);font-size:12px;font-weight:700;letter-spacing:.1em;border-bottom:1px solid var(--accent);padding-bottom:7px}
+.template-collection{padding:clamp(90px,11vw,150px) var(--pad);border-top:1px solid var(--line);background:var(--bg2);overflow:hidden}.template-head{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:end;margin-bottom:50px}.template-head .label,.concept-head .label{color:var(--accent);font-size:11px;font-weight:600;letter-spacing:.28em}.template-head h2,.concept-head h2{margin-top:13px;font-family:"Noto Sans JP",sans-serif;font-size:clamp(27px,4vw,56px);font-weight:400;line-height:1.45}.template-head p,.concept-head p{color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:2}.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.card{min-width:0}.phone{position:relative;overflow:hidden;width:100%;aspect-ratio:4/5;background:#121212}.phone .screen{position:absolute;inset:0;overflow:hidden}.preview-image{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}.phone:hover .preview-image{transform:scale(1.04)}.screen::after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.06) 38%,rgba(0,0,0,.72));content:""}.preview-copy{position:absolute;z-index:1;right:16px;bottom:22px;left:16px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.5)}.preview-copy .brand{font-size:clamp(17px,1.5vw,25px);font-weight:300;letter-spacing:.12em;line-height:1.05}.preview-copy .brand b{display:block;font-weight:600}.preview-copy .sub{margin-top:8px;font-family:"Noto Sans JP",sans-serif;font-size:8px;font-weight:500;letter-spacing:.1em}.phone .tap{position:absolute;z-index:3;inset:0}.phone .badge{position:absolute;z-index:4;top:12px;right:12px;padding:5px 9px;background:var(--green);font-size:8px;font-weight:700;letter-spacing:.12em}.notch{display:none}.tone{display:flex;gap:5px;margin-top:15px}.tone i{width:12px;height:12px;border:1px solid var(--line);border-radius:50%}.tag{margin-top:12px;color:var(--accent);font-size:8px;font-weight:600;letter-spacing:.17em}.card h2{margin-top:6px;font-family:"Noto Sans JP",sans-serif;font-size:14px;font-weight:500;letter-spacing:.03em}.card .desc{margin-top:7px;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:10px;line-height:1.8}.card .open{display:inline-flex;margin-top:12px;padding-bottom:4px;border-bottom:1px solid var(--accent);font-size:9px;font-weight:600;letter-spacing:.13em}.note{max-width:700px;margin:38px auto 0;color:var(--muted);text-align:center;font-family:"Noto Sans JP",sans-serif;font-size:11px;line-height:2}.template-download,.concept-download{text-align:center;margin-top:30px}.template-download a,.concept-download a{display:inline-flex;min-height:46px;align-items:center;justify-content:center;padding:10px 23px;border:1px solid var(--line);font-size:11px;font-weight:700;letter-spacing:.12em;transition:.3s}.template-download a:hover,.concept-download a:hover{background:var(--ink);color:#080808}
+.concept-archives{padding:clamp(90px,11vw,150px) var(--pad);border-top:1px solid var(--line)}.concept-head{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:end;margin-bottom:50px}.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}.concept-card{position:relative;min-height:420px;overflow:hidden;background:#161616}.concept-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.67;transition:transform .7s var(--ease),opacity .5s}.concept-card::after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.08),rgba(5,5,5,.9));content:""}.concept-card:hover img{opacity:.9;transform:scale(1.05)}.concept-copy{position:absolute;z-index:1;right:24px;bottom:24px;left:24px}.concept-copy small{color:var(--accent);font-size:9px;font-weight:600;letter-spacing:.2em}.concept-copy h3{margin-top:7px;font-size:clamp(21px,2.2vw,34px);font-weight:400;line-height:1.15}.concept-copy p{margin-top:8px;color:#cbc8c0;font-family:"Noto Sans JP",sans-serif;font-size:11px}.concept-copy span{display:inline-block;margin-top:16px;padding-bottom:5px;border-bottom:1px solid var(--accent);font-size:9px;font-weight:600;letter-spacing:.16em}.concept-card>a{position:absolute;z-index:2;inset:0}
+.production{padding:clamp(90px,12vw,170px) var(--pad);border-top:1px solid var(--line);background:var(--bg2)}.production-head{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:end}.production-head .label{color:var(--accent);font-size:11px;font-weight:600;letter-spacing:.26em}.production-head h2{margin-top:12px;font-family:"Noto Sans JP",sans-serif;font-size:clamp(30px,5vw,72px);font-weight:400;line-height:1.35}.production-head p{color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:2}.production-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:60px;border-top:1px solid var(--line);border-left:1px solid var(--line)}.production-card{min-height:250px;padding:30px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.production-card small{color:var(--accent);font-size:9px;font-weight:600;letter-spacing:.18em}.production-card h3{margin-top:28px;font-family:"Noto Sans JP",sans-serif;font-size:18px;font-weight:500}.production-card p{margin-top:12px;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:12px;line-height:2}.production-flow{display:flex;justify-content:center;gap:22px;margin-top:38px;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:.15em}.production-flow span:not(:last-child)::after{margin-left:22px;color:var(--accent);content:"→"}.consult-btn{display:flex;width:max-content;min-height:50px;align-items:center;justify-content:center;margin:27px auto 0;padding:12px 28px;background:var(--ink);color:#080808;font-size:12px;font-weight:700;letter-spacing:.1em;transition:.3s}.consult-btn:hover{background:var(--accent)}.consult-note{margin-top:12px;color:var(--muted);text-align:center;font-family:"Noto Sans JP",sans-serif;font-size:10px}
+.studio-journal{display:grid;grid-template-columns:1.15fr .85fr;min-height:78svh;border-top:1px solid var(--line)}.studio-visual{min-height:520px;overflow:hidden}.studio-visual img{width:100%;height:100%;object-fit:cover}.studio-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(42px,7vw,100px);background:#0b0b0b}.studio-copy .eyebrow,.journal-kicker{color:var(--accent);font-size:10px;font-weight:600;letter-spacing:.25em}.journal-kicker{display:none}.studio-copy h2{margin-top:24px;font-family:"Noto Sans JP",sans-serif;font-size:clamp(27px,3.8vw,56px);font-weight:400;line-height:1.55}.studio-text{margin-top:20px;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:2}.studio-link{align-self:flex-start;margin-top:30px;padding-bottom:6px;border-bottom:1px solid var(--accent);font-size:10px;font-weight:600;letter-spacing:.16em}
+.contact{padding:clamp(100px,14vw,190px) var(--pad) clamp(70px,9vw,110px);border-top:1px solid var(--line)}.contact>.label{color:var(--accent);font-size:10px;font-weight:600;letter-spacing:.25em}.contact h2{max-width:16ch;margin-top:25px;font-family:"Noto Sans JP",sans-serif;font-size:clamp(34px,7vw,105px);font-weight:400;line-height:1.2}.contact h2 span{display:block}.contact .sub{max-width:58ch;margin-top:30px;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:2}.contact .sub span{display:inline}.line-btn{display:inline-flex;min-height:54px;align-items:center;gap:10px;margin-top:30px;padding:14px 25px;background:var(--green);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em;transition:.3s}.line-btn:hover{filter:brightness(1.08);transform:translateY(-2px)}.line-note{margin-top:12px;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:10px}.secondary{max-width:700px;margin-top:70px;padding-top:30px;border-top:1px solid var(--line)}.s-lead{font-family:"Noto Sans JP",sans-serif;font-size:16px}.s-sub,.hearing-link{margin-top:8px;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:12px}.hearing-link a{color:var(--accent);border-bottom:1px solid currentColor}
+footer{display:flex;justify-content:space-between;gap:24px;padding:36px var(--pad);border-top:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.15em}.b{color:var(--ink);font-size:15px;font-weight:700;letter-spacing:.22em}.b small{display:block;color:var(--muted);font-family:"Noto Sans JP",sans-serif;font-size:8px;font-weight:400}.vanta-link a{border-bottom:1px solid var(--line)}.reveal{opacity:0;transform:translateY(32px);transition:opacity .85s var(--ease),transform .85s var(--ease)}.reveal.in{opacity:1;transform:none}
+@media(max-width:980px){.grid{grid-template-columns:repeat(3,1fr)}.concept-grid{grid-template-columns:repeat(2,1fr)}.hero-bottom{grid-template-columns:1fr}.hero-actions{justify-content:flex-start}.diagnosis,.template-head,.concept-head,.production-head{grid-template-columns:1fr}.diagnosis h2{max-width:18ch}.studio-journal{grid-template-columns:1fr}.studio-visual{min-height:55svh}.production-grid{grid-template-columns:1fr}.production-card{min-height:0}}
+@media(max-width:680px){.site-header{padding:18px 20px}.site-brand{font-size:14px}.site-nav{gap:14px}.site-nav a{font-size:8px}.hero{min-height:760px}.hero-inner{padding:0 20px 28px}.hero-meta span:last-child{display:none}.wordmark{font-size:13.6vw;letter-spacing:-.045em}.hero-copy h1{font-size:27px}.hero-copy p{font-size:12px}.hero-actions{display:grid;grid-template-columns:1fr;width:100%}.primary,.secondary-btn{width:100%}.section,.template-collection,.concept-archives,.production{padding-right:20px;padding-left:20px}.diagnosis{gap:38px}.diagnosis h2{font-size:32px}.grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.card{flex:0 0 76vw;scroll-snap-align:start}.phone{aspect-ratio:4/5}.template-head,.concept-head{margin-bottom:34px}.template-head h2,.concept-head h2{font-size:29px}.template-head p,.concept-head p{font-size:12px}.concept-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;background:none;padding-bottom:10px}.concept-card{flex:0 0 79vw;min-height:450px;scroll-snap-align:start}.template-download a,.concept-download a{width:100%}.production-flow{display:block;text-align:center;line-height:2.7}.production-flow span{display:block}.production-flow span:not(:last-child)::after{display:block;margin:0;content:"↓"}.consult-btn{width:100%}.studio-visual{min-height:380px}.studio-copy{padding:48px 24px 55px}.contact h2{font-size:42px}.contact .sub span{display:inline}.line-btn{width:100%;justify-content:center}footer{flex-direction:column}.vanta-link{order:2}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.wordmark span,.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-
-<header>
-  <p class="label">FREE WEBSITE DIAGNOSIS</p>
-  <h1>ONE <b>LAUNCH</b></h1>
-  <p class="lead">
-    <span style="display:inline-block">公開中のWebサイトURLを送るだけ。</span><br>
-    <span style="display:inline-block">集客・SEO・問い合わせ導線の</span><span style="display:inline-block"><b>改善点を無料で診断</b>します。</span>
-  </p>
-  <ul class="diagnosis-points" aria-label="診断項目">
-    <li>伝わりやすさ</li><li>問い合わせ導線</li><li>スマホ・SEO</li>
-  </ul>
-  <p class="diagnosis-step">LINEで「診断」を送信後、診断したいページのURLを送ってください。通常1分以内に改善ポイントをお届けします。</p>
-  <a class="header-cta" href="https://line.me/R/oaMessage/@542fjeef/?%E8%A8%BA%E6%96%AD" rel="noopener">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.42 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.87c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.46 8.01-5.92C21.56 13.35 22 11.8 22 10.13 22 5.64 17.52 2 12 2z"/></svg>
-    LINEで無料サイト診断を始める
-  </a>
-  <a class="header-subcta" href="#templates-title">無料LPテンプレートを見る&nbsp;→</a>
-  <a class="header-consult" href="#lp-consult">オリジナルLPを無料で相談する&nbsp;→</a>
+<div class="grain" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="site-brand" href="#top">ONE LAUNCH</a>
+  <nav class="site-nav" aria-label="メインナビゲーション"><a href="#diagnosis">DIAGNOSIS</a><a href="#templates">TEMPLATES</a><a href="#contact">CONTACT</a></nav>
 </header>
 
-<section class="template-collection" aria-labelledby="templates-title">
+<main>
+<section class="hero" id="top">
+  <div class="hero-media"><video autoplay muted loop playsinline poster="vanta-agency/images/hero.png"><source src="vanta-agency/images/hero.mp4" type="video/mp4"></video></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <div class="hero-meta"><span>WEB DIAGNOSIS &amp; LP TEMPLATE STUDIO</span><span>TOKYO — 2026</span></div>
+    <div class="wordmark" aria-label="ONE LAUNCH"><span>O</span><span>N</span><span>E</span><span>&nbsp;</span><span>L</span><span>A</span><span>U</span><span>N</span><span>C</span><span>H</span></div>
+    <div class="hero-bottom">
+      <div class="hero-copy">
+        <p class="eyebrow">FREE WEBSITE DIAGNOSIS</p>
+        <h1>URLを送るだけ。<br><em>Webサイトの次の一手を。</em></h1>
+        <p>集客・SEO・問い合わせ導線を無料で診断。業種別LPテンプレートと、ブランドの世界観を形にするオリジナル制作も提供しています。</p>
+      </div>
+      <div class="hero-actions">
+        <a class="primary" href="https://line.me/R/oaMessage/@542fjeef/?%E8%A8%BA%E6%96%AD" rel="noopener">LINEで無料診断を始める&nbsp; →</a>
+        <a class="secondary-btn" href="#templates">テンプレートを見る&nbsp; →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="diagnosis">
+  <div class="section-head"><span class="no">01</span><span class="title">Free Website Diagnosis</span></div>
+  <div class="diagnosis">
+    <h2 class="reveal">デザインだけではなく、<span>成果につながる導線</span>を見直します。</h2>
+    <div class="diagnosis-copy reveal">
+      <p>公開中のURLをLINEで送ると、伝わりやすさ・問い合わせ導線・スマホ表示・SEOの観点から改善ポイントをお届けします。</p>
+      <div class="steps">
+        <div class="step"><b>01</b><div><h3>LINEで「診断」と送信</h3><p>ボタンを押すと、診断用のメッセージが入力されたLINEが開きます。</p></div></div>
+        <div class="step"><b>02</b><div><h3>診断したいURLを送る</h3><p>トップページ以外の公開ページも診断できます。</p></div></div>
+        <div class="step"><b>03</b><div><h3>改善ポイントを受け取る</h3><p>優先して直したい内容を、分かりやすくまとめて返信します。</p></div></div>
+      </div>
+      <a class="diagnosis-cta" href="https://line.me/R/oaMessage/@542fjeef/?%E8%A8%BA%E6%96%AD" rel="noopener">無料診断へ進む&nbsp; →</a>
+    </div>
+  </div>
+</section>
+
+<section class="template-collection" id="templates" aria-labelledby="templates-title">
   <div class="template-head">
-    <p class="label">ONE LAUNCH TEMPLATES</p>
-    <h2 id="templates-title">業種別に使える、実用LPテンプレート。</h2>
-    <p>すぐに使える構成と導線を備えた、業種別のLPテンプレートです。<br>こちらも編集して使えるテンプレートとして、無料で配布しています。</p>
+    <div><p class="label">02 — ONE LAUNCH TEMPLATES</p><h2 id="templates-title">業種から選ぶ、<br>実用LPテンプレート。</h2></div>
+    <p>すぐに使える構成と導線を備えた、業種別のLPテンプレートです。編集可能なデータとして、LINE登録者へ無料で配布しています。</p>
   </div>
-<div class="grid">
-
-  <div class="card">
-    <div class="phone">
-      <span class="notch"></span>
-      <span class="badge">無料DL</span>
-      <div class="screen"><img class="preview-image" src="images/kv-1.png" alt=""><div class="preview-copy"><p class="brand">LUMIÈRE<b>HAIR</b></p><p class="sub">髪から、毎日を整える。</p></div></div>
-      <a class="tap" href="3col.html" aria-label="サロン向けパターンを開く"></a>
-    </div>
-    <div class="tone"><i style="background:#F9F2E7"></i><i style="background:#0C2034"></i><i style="background:#B8722F"></i><i style="background:#D9A05B"></i></div>
-    <p class="tag">PATTERN 01 — SALON</p>
-    <h2>サロン・美容室向け</h2>
-    <p class="desc">クリーム×アンバーの暖色トーン。<br>ゴールデンアワーの上質な世界観。</p>
-    <a class="open" href="3col.html">サンプルを開く</a>
+  <div class="grid">
+    <article class="card"><div class="phone"><span class="badge">無料DL</span><div class="screen"><img class="preview-image" src="images/kv-1.png" alt="美容室向けLP LUMIÈRE HAIR"><div class="preview-copy"><p class="brand">LUMIÈRE<b>HAIR</b></p><p class="sub">髪から、毎日を整える。</p></div></div><a class="tap" href="3col.html" aria-label="サロン向けLPを開く"></a></div><div class="tone"><i style="background:#F9F2E7"></i><i style="background:#0C2034"></i><i style="background:#B8722F"></i></div><p class="tag">SALON / BEAUTY</p><h2>サロン・美容室向け</h2><p class="desc">上質な世界観から、LINE予約まで。</p><a class="open" href="3col.html">VIEW PROJECT →</a></article>
+    <article class="card"><div class="phone"><span class="badge">無料DL</span><div class="screen"><img class="preview-image" src="images/cosme-kv-1.png" alt="クリニック向けLP SORA SKIN CLINIC"><div class="preview-copy"><p class="brand">SORA SKIN<b>CLINIC</b></p><p class="sub">素肌に、確かな選択を。</p></div></div><a class="tap" href="clinic.html" aria-label="クリニック向けLPを開く"></a></div><div class="tone"><i style="background:#F8F4EF"></i><i style="background:#2C2724"></i><i style="background:#A98A63"></i></div><p class="tag">CLINIC / COSME</p><h2>クリニック・美容物販向け</h2><p class="desc">信頼感と購入導線をひとつのページに。</p><a class="open" href="clinic.html">VIEW PROJECT →</a></article>
+    <article class="card"><div class="phone"><span class="badge">無料DL</span><div class="screen"><img class="preview-image" src="images/shop-kv-1.png" alt="小売店向けLP ATELIER NOMA"><div class="preview-copy"><p class="brand">ATELIER<b>NOMA</b></p><p class="sub">暮らしの景色を、少しだけ変える。</p></div></div><a class="tap" href="shop.html" aria-label="小売店向けLPを開く"></a></div><div class="tone"><i style="background:#F4F2ED"></i><i style="background:#24252A"></i><i style="background:#A87C55"></i></div><p class="tag">SHOP / RETAIL</p><h2>アパレル・雑貨店向け</h2><p class="desc">商品の魅力と購入理由を丁寧に伝える。</p><a class="open" href="shop.html">VIEW PROJECT →</a></article>
+    <article class="card"><div class="phone"><span class="badge">無料DL</span><div class="screen"><img class="preview-image" src="images/pulse-kv.png" alt="スポーツ向けLP PULSE ENERGY"><div class="preview-copy"><p class="brand">PULSE<b>ENERGY</b></p><p class="sub">限界の、その先へ。</p></div></div><a class="tap" href="pulse.html" aria-label="スポーツ向けLPを開く"></a></div><div class="tone"><i style="background:#07090C"></i><i style="background:#B6F24A"></i><i style="background:#3AE3E8"></i></div><p class="tag">SPORTS / VIDEO</p><h2>スポーツ・エンタメ向け</h2><p class="desc">映像で熱量を伝える、没入型のLP。</p><a class="open" href="pulse.html">VIEW PROJECT →</a></article>
+    <article class="card"><div class="phone"><span class="badge">無料DL</span><div class="screen"><img class="preview-image" src="images/axis-kv.png" alt="自動車向けLP AXIS ELECTRIC"><div class="preview-copy"><p class="brand">AXIS<b>ELECTRIC</b></p><p class="sub">静けさが、力になる。</p></div></div><a class="tap" href="axis.html" aria-label="EV・自動車向けLPを開く"></a></div><div class="tone"><i style="background:#07090C"></i><i style="background:#5AA9FF"></i><i style="background:#8FD0FF"></i></div><p class="tag">EV / MOBILITY</p><h2>EV・自動車向け</h2><p class="desc">製品価値から試乗予約へつなげる。</p><a class="open" href="axis.html">VIEW PROJECT →</a></article>
   </div>
-
-  <div class="card">
-    <div class="phone">
-      <span class="notch"></span>
-      <span class="badge">無料DL</span>
-      <div class="screen"><img class="preview-image" src="images/cosme-kv-1.png" alt=""><div class="preview-copy"><p class="brand">SORA SKIN<b>CLINIC</b></p><p class="sub">素肌に、確かな選択を。</p></div></div>
-      <a class="tap" href="clinic.html" aria-label="クリニック向けパターンを開く"></a>
-    </div>
-    <div class="tone"><i style="background:#F8F4EF"></i><i style="background:#2C2724"></i><i style="background:#A98A63"></i><i style="background:#BE7C74"></i></div>
-    <p class="tag">PATTERN 02 — CLINIC / COSME</p>
-    <h2>クリニック・美容物販向け</h2>
-    <p class="desc">ドクターズコスメを、LINE友だち追加から<br>そのまま購入まで一直線。薬機法にも配慮。</p>
-    <a class="open" href="clinic.html">サンプルを開く</a>
-  </div>
-
-  <div class="card">
-    <div class="phone">
-      <span class="notch"></span>
-      <span class="badge">無料DL</span>
-      <div class="screen"><img class="preview-image" src="images/shop-kv-1.png" alt=""><div class="preview-copy"><p class="brand">ATELIER<b>NOMA</b></p><p class="sub">暮らしの景色を、少しだけ変える。</p></div></div>
-      <a class="tap" href="shop.html" aria-label="アパレル・雑貨ショップ向けパターンを開く"></a>
-    </div>
-    <div class="tone"><i style="background:#F4F2ED"></i><i style="background:#24252A"></i><i style="background:#A87C55"></i><i style="background:#B5544A"></i></div>
-    <p class="tag">PATTERN 03 — SHOP</p>
-    <h2>アパレル・雑貨ショップ向け</h2>
-    <p class="desc">オフホワイト×キャメルの上質トーン。<br>友だち追加からそのまま購入まで一直線。</p>
-    <a class="open" href="shop.html">サンプルを開く</a>
-  </div>
-
-  <div class="card">
-    <div class="phone">
-      <span class="notch"></span>
-      <span class="badge">無料DL</span>
-      <div class="screen is-dark"><img class="preview-image" src="images/pulse-kv.png" alt=""><div class="preview-copy"><p class="brand">PULSE<b>ENERGY</b></p><p class="sub">限界の、その先へ。</p></div></div>
-      <a class="tap" href="pulse.html" aria-label="スポーツ・エンタメ向けパターンを開く"></a>
-    </div>
-    <div class="tone"><i style="background:#07090C"></i><i style="background:#EEF3F6"></i><i style="background:#B6F24A"></i><i style="background:#3AE3E8"></i></div>
-    <p class="tag">PATTERN 04 — SPORTS / VIDEO</p>
-    <h2>スポーツ・エンタメ向け</h2>
-    <p class="desc">ダーク×動画背景。スクロールで<br>映像が動く、没入型のLP。</p>
-    <a class="open" href="pulse.html">サンプルを開く</a>
-  </div>
-
-  <div class="card">
-    <div class="phone">
-      <span class="notch"></span>
-      <span class="badge">無料DL</span>
-      <div class="screen is-dark"><img class="preview-image" src="images/axis-kv.png" alt=""><div class="preview-copy"><p class="brand">AXIS<b>ELECTRIC</b></p><p class="sub">静けさが、力になる。</p></div></div>
-      <a class="tap" href="axis.html" aria-label="EV・自動車向けパターンを開く"></a>
-    </div>
-    <div class="tone"><i style="background:#07090C"></i><i style="background:#EEF3F6"></i><i style="background:#5AA9FF"></i><i style="background:#8FD0FF"></i></div>
-    <p class="tag">PATTERN 05 — EV / VIDEO</p>
-    <h2>EV・自動車向け</h2>
-    <p class="desc">静謐なブルー×動画背景。<br>試乗予約へつなぐ、上質な導線。</p>
-    <a class="open" href="axis.html">サンプルを開く</a>
-  </div>
-
-</div>
-
-<p class="note">
-  ※ 端末内の表示はライブプレビューです。タップ(クリック)すると実際のサンプルページが開きます。<br>
-  掲載の写真はすべてAIで生成したサンプル素材です。ダウンロード版もこの状態のまま、あとから自由に差し替えられます。
-</p>
-<p class="template-download"><a href="https://line.me/R/ti/p/@542fjeef" rel="noopener">LINE登録で無料ダウンロード&nbsp; →</a></p>
+  <p class="note">端末内の表示をタップすると実際のサンプルページが開きます。掲載写真はAI生成のサンプル素材で、ダウンロード後に自由に差し替えられます。</p>
+  <p class="template-download"><a href="https://line.me/R/ti/p/@542fjeef" rel="noopener">LINE登録で無料ダウンロード&nbsp; →</a></p>
 </section>
 
 <section class="concept-archives" aria-labelledby="concept-title">
-  <div class="concept-head">
-    <p class="label">CONCEPT ARCHIVES</p>
-    <h2 id="concept-title">物語からはじまる、ブランドのためのLP。</h2>
-    <p>架空のブランドや施設を題材に、映像・スクロール・言葉で世界観を描くコンセプトLPです。<br>こちらも編集して使えるテンプレートとして、無料で配布しています。</p>
-  </div>
+  <div class="concept-head"><div><p class="label">03 — CONCEPT ARCHIVES</p><h2 id="concept-title">物語からはじまる、<br>ブランドのためのLP。</h2></div><p>架空のブランドや施設を題材に、映像・スクロール・言葉で世界観を描くコンセプトLPです。こちらも編集できるテンプレートとして無料配布しています。</p></div>
   <div class="concept-grid">
-    <article class="concept-card"><img src="abyss-aquarium/images/hero.png" alt="ABYSS AQUARIUMの深海ビジュアル" loading="lazy"><div class="concept-copy"><small>AQUARIUM / EXPERIENCE</small><h3>ABYSS AQUARIUM</h3><p>深海へ潜る没入型水族館LP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="abyss-aquarium/" aria-label="ABYSS AQUARIUMを開く"></a></article>
-    <article class="concept-card"><img src="ghostline-zero/images/keyart.png" alt="GHOSTLINE ZEROのゲームビジュアル" loading="lazy"><div class="concept-copy"><small>GAME / CYBERPUNK</small><h3>GHOSTLINE ZERO</h3><p>2099年ネオ東京を舞台にしたゲームLP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="ghostline-zero/" aria-label="GHOSTLINE ZEROを開く"></a></article>
-    <article class="concept-card"><img src="hoshi-ni-kaeru/images/hero.png" alt="星に還るの宇宙葬送サービスビジュアル" loading="lazy"><div class="concept-copy"><small>MEMORIAL / SPACE</small><h3>星に還る</h3><p>宇宙葬送サービスの静かなブランドLP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="hoshi-ni-kaeru/" aria-label="星に還るを開く"></a></article>
-    <article class="concept-card"><img src="tsukigasumi-ryokan/images/hero.png" alt="月霞の温泉旅館ビジュアル" loading="lazy"><div class="concept-copy"><small>RYOKAN / HOSPITALITY</small><h3>月霞 TSUKIGASUMI</h3><p>信州の温泉宿を描く和の宿泊LP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="tsukigasumi-ryokan/" aria-label="月霞を開く"></a></article>
-    <article class="concept-card"><img src="utsuroi-parfum/images/hero.png" alt="UTSUROIの香水メゾンビジュアル" loading="lazy"><div class="concept-copy"><small>PARFUM / MAISON</small><h3>UTSUROI</h3><p>京都の香水メゾンを表現した香水LP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="utsuroi-parfum/" aria-label="UTSUROIを開く"></a></article>
-    <article class="concept-card"><img src="hyakunen-tsuji/images/y2025.png" alt="百年辻の街角ビジュアル" loading="lazy"><div class="concept-copy"><small>TIME / STREET</small><h3>百年辻</h3><p>ひとつの街角を百年にわたり巡る、時間旅行LP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="hyakunen-tsuji/" aria-label="百年辻を開く"></a></article>
-    <article class="concept-card"><img src="nocturne-museum/images/hero.png" alt="常夜博物館の夜の展示ビジュアル" loading="lazy"><div class="concept-copy"><small>MUSEUM / NOCTURNE</small><h3>常夜博物館</h3><p>夜だけ開館する博物館を巡る、静かな体験LP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="nocturne-museum/" aria-label="常夜博物館を開く"></a></article>
-    <article class="concept-card"><img src="ukiedo-gallery/images/wave-bg.png" alt="浮絵堂の浮世絵ビジュアル" loading="lazy"><div class="concept-copy"><small>ART / UKIYO-E</small><h3>浮絵堂 UKIE-DŌ</h3><p>浮世絵の奥へ入る、擬似3D美術館LP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="ukiedo-gallery/" aria-label="浮絵堂を開く"></a></article>
-    <article class="concept-card"><img src="yagyo-emaki/images/gyoretsu.png" alt="百鬼夜行絵巻の夜の行列ビジュアル" loading="lazy"><div class="concept-copy"><small>FOLKLORE / EMAKI</small><h3>百鬼夜行絵巻</h3><p>縦に廻せば、夜が横にほどける絵巻体験LP。</p><span>VIEW PROJECT&nbsp; →</span></div><a href="yagyo-emaki/" aria-label="百鬼夜行絵巻を開く"></a></article>
+    <article class="concept-card"><img src="abyss-aquarium/images/hero.png" alt="ABYSS AQUARIUMの深海ビジュアル" loading="lazy"><div class="concept-copy"><small>AQUARIUM / EXPERIENCE</small><h3>ABYSS AQUARIUM</h3><p>深海へ潜る没入型水族館LP。</p><span>VIEW PROJECT →</span></div><a href="abyss-aquarium/" aria-label="ABYSS AQUARIUMを開く"></a></article>
+    <article class="concept-card"><img src="ghostline-zero/images/keyart.png" alt="GHOSTLINE ZEROのゲームビジュアル" loading="lazy"><div class="concept-copy"><small>GAME / CYBERPUNK</small><h3>GHOSTLINE ZERO</h3><p>2099年ネオ東京を舞台にしたゲームLP。</p><span>VIEW PROJECT →</span></div><a href="ghostline-zero/" aria-label="GHOSTLINE ZEROを開く"></a></article>
+    <article class="concept-card"><img src="hoshi-ni-kaeru/images/hero.png" alt="星に還るの宇宙葬送サービスビジュアル" loading="lazy"><div class="concept-copy"><small>MEMORIAL / SPACE</small><h3>星に還る</h3><p>宇宙葬送サービスの静かなブランドLP。</p><span>VIEW PROJECT →</span></div><a href="hoshi-ni-kaeru/" aria-label="星に還るを開く"></a></article>
+    <article class="concept-card"><img src="tsukigasumi-ryokan/images/hero.png" alt="月霞の温泉旅館ビジュアル" loading="lazy"><div class="concept-copy"><small>RYOKAN / HOSPITALITY</small><h3>月霞 TSUKIGASUMI</h3><p>信州の温泉宿を描く和の宿泊LP。</p><span>VIEW PROJECT →</span></div><a href="tsukigasumi-ryokan/" aria-label="月霞を開く"></a></article>
+    <article class="concept-card"><img src="utsuroi-parfum/images/hero.png" alt="UTSUROIの香水メゾンビジュアル" loading="lazy"><div class="concept-copy"><small>PARFUM / MAISON</small><h3>UTSUROI</h3><p>京都の香水メゾンを表現した香水LP。</p><span>VIEW PROJECT →</span></div><a href="utsuroi-parfum/" aria-label="UTSUROIを開く"></a></article>
+    <article class="concept-card"><img src="hyakunen-tsuji/images/y2025.png" alt="百年辻の街角ビジュアル" loading="lazy"><div class="concept-copy"><small>TIME / STREET</small><h3>百年辻</h3><p>ひとつの街角を百年にわたり巡る時間旅行LP。</p><span>VIEW PROJECT →</span></div><a href="hyakunen-tsuji/" aria-label="百年辻を開く"></a></article>
+    <article class="concept-card"><img src="nocturne-museum/images/hero.png" alt="常夜博物館の夜の展示ビジュアル" loading="lazy"><div class="concept-copy"><small>MUSEUM / NOCTURNE</small><h3>常夜博物館</h3><p>夜だけ開館する博物館を巡る体験LP。</p><span>VIEW PROJECT →</span></div><a href="nocturne-museum/" aria-label="常夜博物館を開く"></a></article>
+    <article class="concept-card"><img src="ukiedo-gallery/images/wave-bg.png" alt="浮絵堂の浮世絵ビジュアル" loading="lazy"><div class="concept-copy"><small>ART / UKIYO-E</small><h3>浮絵堂 UKIE-DŌ</h3><p>浮世絵の奥へ入る、擬似3D美術館LP。</p><span>VIEW PROJECT →</span></div><a href="ukiedo-gallery/" aria-label="浮絵堂を開く"></a></article>
+    <article class="concept-card"><img src="yagyo-emaki/images/gyoretsu.png" alt="百鬼夜行絵巻の夜の行列ビジュアル" loading="lazy"><div class="concept-copy"><small>FOLKLORE / EMAKI</small><h3>百鬼夜行絵巻</h3><p>縦に廻せば、夜が横にほどける絵巻体験LP。</p><span>VIEW PROJECT →</span></div><a href="yagyo-emaki/" aria-label="百鬼夜行絵巻を開く"></a></article>
   </div>
-  <p class="concept-download"><a href="https://line.me/R/ti/p/@542fjeef" rel="noopener">LINE登録で無料ダウンロード&nbsp; →</a></p>
+  <p class="concept-download"><a href="https://line.me/R/ti/p/@542fjeef" rel="noopener">CONCEPT ARCHIVESを無料ダウンロード&nbsp; →</a></p>
 </section>
 
 <section class="production" id="lp-consult" aria-labelledby="production-title">
-  <div class="production-head">
-    <p class="label">FREE LP CONSULTATION</p>
-    <h2 id="production-title">テンプレートを起点に、<br>自社らしいLPへ。</h2>
-    <p>「このデザインをベースに、自社用に整えたい」からで大丈夫です。<br>目的・業種・必要な導線を伺い、オリジナルLP制作の進め方をご提案します。</p>
-  </div>
+  <div class="production-head"><div><p class="label">04 — FREE LP CONSULTATION</p><h2 id="production-title">テンプレートを起点に、<br>自社らしいLPへ。</h2></div><p>「このデザインをベースに、自社用に整えたい」からで大丈夫です。目的・業種・必要な導線を伺い、オリジナルLP制作の進め方をご提案します。</p></div>
   <div class="production-grid">
-    <article class="production-card"><small>01 / START WITH A TEMPLATE</small><h3>好きな方向性から始める</h3><p>公開中のテンプレートを起点に、色・文章・写真・構成をブランドに合わせて組み替えます。</p></article>
-    <article class="production-card"><small>02 / MOBILE FIRST</small><h3>スマホで伝わる導線にする</h3><p>問い合わせ、予約、LINE登録など、目的に合わせて「次の行動」へ進みやすいLPを考えます。</p></article>
-    <article class="production-card"><small>03 / AFTER LAUNCH</small><h3>公開後の改善も相談できる</h3><p>公開して終わりではなく、反応を見ながら文章・導線・運用を見直す進め方もご相談いただけます。</p></article>
+    <article class="production-card"><small>01 / DIRECTION</small><h3>好きな方向性から始める</h3><p>公開中のテンプレートを起点に、色・文章・写真・構成をブランドに合わせて組み替えます。</p></article>
+    <article class="production-card"><small>02 / MOBILE FIRST</small><h3>スマホで伝わる導線にする</h3><p>問い合わせ、予約、LINE登録など、目的に合わせて次の行動へ進みやすいLPを考えます。</p></article>
+    <article class="production-card"><small>03 / IMPROVEMENT</small><h3>公開後の改善も相談できる</h3><p>公開して終わりではなく、反応を見ながら文章・導線・運用を見直す進め方もご相談いただけます。</p></article>
   </div>
   <div class="production-flow"><span>無料相談</span><span>ヒアリング</span><span>制作のご提案</span></div>
-  <a class="consult-btn" href="hearing.html">オリジナルLPを無料で相談する&nbsp;→</a>
-  <p class="consult-note">相談時点で費用はかかりません。まずは作りたいことをお聞かせください。</p>
+  <a class="consult-btn" href="hearing.html">オリジナルLPを無料で相談する&nbsp; →</a><p class="consult-note">相談時点で費用はかかりません。まずは作りたいことをお聞かせください。</p>
 </section>
 
 <section class="studio-journal" aria-labelledby="vanta-title">
-  <p class="journal-kicker">STUDIO JOURNAL&nbsp;&nbsp; / &nbsp;&nbsp;BY ONE LAUNCH</p>
-  <div class="studio-feature">
-    <div class="studio-visual">
-      <img src="vanta-agency/images/hero.png" alt="黒い布と煙を使ったVANTAのビジュアル" loading="lazy">
-    </div>
-    <div class="studio-copy">
-      <p class="eyebrow">VANTA&nbsp;&nbsp;CREATIVE STUDIO</p>
-      <h2 id="vanta-title">オリジナル制作という、<br>もう一つの選択肢。</h2>
-      <p class="studio-text">テンプレートを起点に、<br>ブランドらしい一枚へ。</p>
-      <a class="studio-link" href="vanta-agency/">VANTAを見る&nbsp;&nbsp;→</a>
-    </div>
-  </div>
+  <p class="journal-kicker">STUDIO JOURNAL / BY ONE LAUNCH</p><div class="studio-visual"><img src="vanta-agency/images/hero.png" alt="黒い布と煙を使ったVANTAのビジュアル" loading="lazy"></div>
+  <div class="studio-copy"><p class="eyebrow">VANTA — CREATIVE STUDIO</p><h2 id="vanta-title">まだ形のないものに、<br>輪郭を。</h2><p class="studio-text">テンプレートでは表現しきれないブランドの個性を、映像・デザイン・言葉からつくります。</p><a class="studio-link" href="vanta-agency/">VANTAを見る&nbsp; →</a></div>
 </section>
 
-<section class="contact" id="contact">
-  <p class="label">FREE DOWNLOAD</p>
-  <h2><span>気になったテンプレート、</span><span>無料でお渡しします。</span></h2>
-  <p class="sub"><span>LINEを友だち追加すると、</span><span>トーク画面に届くカードから各テンプレートを</span><span>そのままダウンロードいただけます。</span></p>
+<section class="contact" id="contact"><p class="label">START WITH LINE</p><h2><span>診断からでも、</span><span>テンプレートからでも。</span></h2><p class="sub">LINEを友だち追加すると、無料サイト診断とテンプレートダウンロードを利用できます。オリジナル制作の相談も、同じトーク画面から始められます。</p><a class="line-btn" href="https://line.me/R/ti/p/@542fjeef" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.42 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.87c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.46 8.01-5.92C21.56 13.35 22 11.8 22 10.13 22 5.64 17.52 2 12 2z"/></svg>LINEでONE LAUNCHを利用する&nbsp; →</a><p class="line-note">友だち追加後、トーク画面のメニューから目的を選べます。</p><div class="secondary"><p class="s-lead">オリジナルLPを検討している方へ。</p><p class="s-sub">業種や目的に合わせた制作は、無料相談からご案内します。</p><p class="hearing-link">制作のご相談は → <a href="hearing.html">無料ヒアリングシートへ</a></p></div></section>
+</main>
 
-  <a class="line-btn" href="https://line.me/R/ti/p/@542fjeef" rel="noopener">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.13c0 4.03 3.58 7.4 8.42 8.04.33.07.77.22.89.5.1.26.07.66.03.92l-.14.87c-.04.26-.2 1.01.88.55 1.09-.46 5.87-3.46 8.01-5.92C21.56 13.35 22 11.8 22 10.13 22 5.64 17.52 2 12 2z"/></svg>
-    LINE登録で無料ダウンロード
-  </a>
-  <p class="line-note">友だち追加 → すぐ届くテンプレートカードからZIPを受け取れます。</p>
-
-  <div class="secondary"><p class="s-lead"><span>テンプレートを見て、</span><span>オリジナルLPが必要になった方へ。</span></p><p class="s-sub"><span>業種や目的に合わせた制作は、</span><span>無料相談からご案内します。</span></p><p class="hearing-link">制作のご相談は → <a href="hearing.html">無料ヒアリングシートへ</a></p></div>
-</section>
-
-<footer>
-  <p class="b">ONE LAUNCH<small>AIマーケティングパック</small></p>
-  <p class="vanta-link"><a href="vanta-agency/">VANTA — CREATIVE STUDIO</a></p>
-  <p class="copy">© 2026 ONE LAUNCH. ALL RIGHTS RESERVED.</p>
-</footer>
-
+<footer><p class="b">ONE LAUNCH<small>WEB DIAGNOSIS &amp; LP DESIGN</small></p><p class="vanta-link"><a href="vanta-agency/">VANTA — CREATIVE STUDIO</a></p><p>© 2026 ONE LAUNCH.</p></footer>
+<script>
+const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const media=document.querySelector('.hero-media');if(media&&!matchMedia('(prefers-reduced-motion: reduce)').matches){addEventListener('scroll',()=>{media.style.transform=`translateY(${scrollY*.12}px)`},{passive:true})}
+</script>
 </body>
 </html>
