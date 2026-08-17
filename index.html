@@ -96,7 +96,7 @@ footer{display:flex;justify-content:space-between;gap:24px;padding:36px var(--pa
         <p>集客・SEO・問い合わせ導線を無料で診断。業種別LPテンプレートと、ブランドの世界観を形にするオリジナル制作も提供しています。</p>
       </div>
       <div class="hero-actions">
-        <a class="primary" href="https://line.me/R/oaMessage/@542fjeef/?%E8%A8%BA%E6%96%AD" rel="noopener">LINEで無料診断を始める&nbsp; →</a>
+        <a class="primary js-diagnosis-line" href="https://line.me/R/ti/p/%40542fjeef" data-desktop-href="https://line.me/R/ti/p/%40542fjeef" data-mobile-href="https://line.me/R/oaMessage/%40542fjeef/?%E8%A8%BA%E6%96%AD" rel="noopener">LINEで無料診断を始める&nbsp; →</a>
         <a class="secondary-btn" href="#templates">テンプレートを見る&nbsp; →</a>
       </div>
     </div>
@@ -114,7 +114,7 @@ footer{display:flex;justify-content:space-between;gap:24px;padding:36px var(--pa
         <div class="step"><b>02</b><div><h3>診断したいURLを送る</h3><p>トップページ以外の公開ページも診断できます。</p></div></div>
         <div class="step"><b>03</b><div><h3>改善ポイントを受け取る</h3><p>優先して直したい内容を、分かりやすくまとめて返信します。</p></div></div>
       </div>
-      <a class="diagnosis-cta" href="https://line.me/R/oaMessage/@542fjeef/?%E8%A8%BA%E6%96%AD" rel="noopener">無料診断へ進む&nbsp; →</a>
+      <a class="diagnosis-cta js-diagnosis-line" href="https://line.me/R/ti/p/%40542fjeef" data-desktop-href="https://line.me/R/ti/p/%40542fjeef" data-mobile-href="https://line.me/R/oaMessage/%40542fjeef/?%E8%A8%BA%E6%96%AD" rel="noopener">無料診断へ進む&nbsp; →</a>
     </div>
   </div>
 </section>
@@ -174,6 +174,7 @@ footer{display:flex;justify-content:space-between;gap:24px;padding:36px var(--pa
 <script>
 const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const media=document.querySelector('.hero-media');if(media&&!matchMedia('(prefers-reduced-motion: reduce)').matches){addEventListener('scroll',()=>{media.style.transform=`translateY(${scrollY*.12}px)`},{passive:true})}
+const mobileLineDevice=navigator.userAgentData?.mobile||/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);document.querySelectorAll('.js-diagnosis-line').forEach(link=>{link.href=mobileLineDevice?link.dataset.mobileHref:link.dataset.desktopHref});
 </script>
 </body>
 </html>
